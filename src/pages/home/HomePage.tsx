@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AboutModal } from '../../components/HomeModal/AboutModal'
+import { AboutModal } from '../../components/AboutModal/AboutModal'
 import { useLanguage } from '../../contexts/LanguageContext'
 import { home } from '../../i18n/home'
 import styles from './HomePage.module.css'
