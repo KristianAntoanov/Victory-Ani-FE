@@ -116,3 +116,10 @@ storybook-static/
 *.bak
 *.backup
 *~
+.env.*
+*.env
+!.env.example
+credentials.json
+*.pem
+*.key
+.credentials

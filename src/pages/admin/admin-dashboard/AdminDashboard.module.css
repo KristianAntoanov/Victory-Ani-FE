@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: var(--space-5);
+}
+
+.header :global(.btn) {
+  width: fit-content;
+}
+
+.iconBordo {
+  color: var(--color-bordo);
+}
+
+.iconGreen {
+  color: var(--color-green);
+}
+
+.iconMuted {
+  color: var(--color-text-soft);
+}
+
+.panelTitle {
+  font-size: var(--fs-h4);
+}
+
+.panelSwitch {
+  padding: 0.72rem 1rem;
+  font-size: 0.72rem;
+}
+
+.panelFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.emptyText {
+  padding: var(--space-5);
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 560px) {
+  .header {
+    margin-top: -0.25rem;
+    margin-bottom: var(--space-4);
+    padding-left: calc(42px + var(--space-3));
+  }
+
+  .header :global(.btn) {
+    width: fit-content;
+    justify-content: flex-start;
+  }
+
+  .panelSwitch,
+  .panelFooter :global(.btn) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .panelFooter {
+    padding: var(--space-4);
+  }
+}

@@ -1,0 +1,87 @@
+.title {
+  font-size: var(--fs-h2);
+}
+
+.lead {
+  margin-bottom: var(--space-7);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: start;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.contactInfoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.contactIcon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border: 1.5px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-bordo);
+}
+
+.contactAction {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  transition: color var(--t-base);
+}
+
+.contactAction:hover {
+  color: var(--color-bordo);
+}
+
+.contactCard {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.successBox {
+  padding: var(--space-7) var(--space-4);
+  text-align: center;
+}
+
+.successIcon {
+  margin-bottom: var(--space-4);
+  color: var(--color-green);
+}
+
+.successTitle {
+  color: var(--color-green);
+}
+
+.topSpace {
+  margin-top: var(--space-5);
+}
+
+.hint {
+  margin-top: var(--space-3);
+}
+
+@media (max-width: 900px) {
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+}

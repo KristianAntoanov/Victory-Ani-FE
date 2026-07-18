@@ -1,0 +1,49 @@
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+}
+
+.expertisePanel {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.expertiseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.expertiseItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.expertiseIcon {
+  width: 52px;
+  height: 52px;
+}
+
+.expertiseTitle {
+  color: var(--color-bordo);
+  font-size: var(--fs-h4);
+}
+
+.expertiseText {
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 900px) {
+  .membersGrid,
+  .expertiseGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .membersGrid,
+  .expertiseGrid {
+    grid-template-columns: 1fr;
+  }
+}
