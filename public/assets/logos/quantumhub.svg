@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">QuantumHub logo</title>
+  <rect width="360" height="140" rx="28" fill="#f3fffd"/>
+  <circle cx="88" cy="70" r="12" fill="#073b4c"/>
+  <ellipse cx="88" cy="70" rx="58" ry="20" fill="none" stroke="#06a6a6" stroke-width="7"/>
+  <ellipse cx="88" cy="70" rx="58" ry="20" fill="none" stroke="#118ab2" stroke-width="7" transform="rotate(60 88 70)"/>
+  <ellipse cx="88" cy="70" rx="58" ry="20" fill="none" stroke="#ef476f" stroke-width="7" transform="rotate(-60 88 70)"/>
+  <text x="166" y="84" fill="#073b4c" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="850">QuantumHub</text>
+</svg>

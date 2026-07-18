@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">NordPeak logo</title>
+  <rect width="360" height="140" rx="28" fill="#f5f7fb"/>
+  <path d="M34 98 80 34l26 36 18-24 52 52H34Z" fill="#44546a"/>
+  <path d="m80 34 26 36-18 2-12-18-23 33H34L80 34Z" fill="#8fb3d9"/>
+  <text x="188" y="84" fill="#273244" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="850">NordPeak</text>
+</svg>

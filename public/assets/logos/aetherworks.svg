@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">AetherWorks logo</title>
+  <rect width="360" height="140" rx="28" fill="#f7fbff"/>
+  <path d="M76 35 37 104h79L76 35Z" fill="#1e88e5"/>
+  <path d="M76 58 55 94h42L76 58Z" fill="#9bd8ff"/>
+  <text x="138" y="76" fill="#153247" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="800">Aether</text>
+  <text x="138" y="101" fill="#5f7686" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Works</text>
+</svg>

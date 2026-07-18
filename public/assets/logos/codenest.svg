@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">CodeNest logo</title>
+  <rect width="360" height="140" rx="28" fill="#fff8ef"/>
+  <path d="M42 69 76 38l12 13-20 18 20 19-12 13-34-32Z" fill="#f26a3d"/>
+  <path d="m115 38 34 31-34 32-12-13 20-19-20-18 12-13Z" fill="#f2b84b"/>
+  <circle cx="95" cy="70" r="14" fill="#243342"/>
+  <text x="174" y="84" fill="#243342" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="850">CodeNest</text>
+</svg>

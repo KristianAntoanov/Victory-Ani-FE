@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">PixelCraft logo</title>
+  <rect width="360" height="140" rx="28" fill="#f8f4ff"/>
+  <rect x="42" y="35" width="30" height="30" rx="8" fill="#6c4dd8"/>
+  <rect x="80" y="35" width="30" height="30" rx="8" fill="#20b2aa"/>
+  <rect x="118" y="35" width="30" height="30" rx="8" fill="#ff6b6b"/>
+  <rect x="42" y="73" width="30" height="30" rx="8" fill="#ffd166"/>
+  <rect x="80" y="73" width="30" height="30" rx="8" fill="#2f80ed"/>
+  <rect x="118" y="73" width="30" height="30" rx="8" fill="#37b26c"/>
+  <text x="174" y="84" fill="#231f35" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="850">PixelCraft</text>
+</svg>
