@@ -14,6 +14,7 @@ interface AuthContextValue {
   isAuthenticated: boolean;
   session: AdminSession | null;
   login: (email: string, password: string) => Promise<{ ok: boolean; error?: string }>;
+  authenticate: (session: AdminSession) => void;
   logout: () => void;
 }
 
@@ -24,7 +25,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const newSession = await authService.login(email, password);
+      const response = await authService.login(email, password);
+      const newSession = authService.createSession(response, email);
       authSessionService.write(newSession);
       setSession(newSession);
       return { ok: true };
@@ -33,14 +35,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const authenticate = useCallback((newSession: AdminSession) => {
+    authSessionService.write(newSession);
+    setSession(newSession);
+  }, []);
+
   const logout = useCallback(() => {
     authSessionService.clear();
     setSession(null);
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({ isAuthenticated: session !== null, session, login, logout }),
-    [session, login, logout],
+    () => ({ isAuthenticated: session !== null, session, login, authenticate, logout }),
+    [session, login, authenticate, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

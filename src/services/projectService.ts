@@ -25,6 +25,10 @@ function toInput(project: Project): ProjectInput {
 
 export const projectService = {
   getAllProjects(): Promise<Project[]> {
+    return projectRepository.getAllActive();
+  },
+
+  getAllAdminProjects(): Promise<Project[]> {
     return projectRepository.getAll();
   },
 
@@ -33,12 +37,12 @@ export const projectService = {
   },
 
   async getProjectBySlug(slug: string): Promise<Project | undefined> {
-    const projects = await projectRepository.getAll();
+    const projects = await this.getAllProjects();
     return projects.find((project) => project.slug === slug);
   },
 
   async isSlugUnique(slug: string, ignoreId?: string): Promise<boolean> {
-    const projects = await projectRepository.getAll();
+    const projects = await this.getAllAdminProjects();
     return !projects.some((project) => project.slug === slug && project.id !== ignoreId);
   },
 
@@ -72,7 +76,7 @@ export const projectService = {
   },
 
   async toggleFeatured(id: string): Promise<Project> {
-    const all = await projectRepository.getAll();
+    const all = await this.getAllAdminProjects();
     const existing = all.find((item) => item.id === id);
     if (!existing) {
       throw new Error('Project not found.');
@@ -90,7 +94,7 @@ export const projectService = {
   },
 
   async clearOtherFeatured(ignoreId?: string): Promise<void> {
-    const all = await projectRepository.getAll();
+    const all = await this.getAllAdminProjects();
     await Promise.all(
       all
         .filter((item) => item.id !== ignoreId && item.featured)

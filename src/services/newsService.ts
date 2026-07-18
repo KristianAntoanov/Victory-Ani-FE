@@ -27,8 +27,10 @@ export const newsService = {
   },
 
   async getPublishedNews(): Promise<NewsArticle[]> {
-    const articles = await this.getAllNews();
-    return articles.filter((article) => article.published);
+    const articles = await newsRepository.getAllActive();
+    return [...articles].sort(
+      (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime(),
+    );
   },
 
   async getFeaturedNews(): Promise<NewsArticle | undefined> {
@@ -41,7 +43,7 @@ export const newsService = {
   },
 
   async getNewsBySlug(slug: string): Promise<NewsArticle | undefined> {
-    const articles = await this.getAllNews();
+    const articles = await this.getPublishedNews();
     return articles.find((article) => article.slug === slug);
   },
 
@@ -75,6 +77,9 @@ export const newsService = {
 
   async togglePublished(id: string): Promise<NewsArticle> {
     const existing = await newsRepository.getById(id);
+    if (!existing.content.trim()) {
+      throw new Error('The backend News API does not expose article content in Search. Add a get-by-id endpoint before toggling status from this screen.');
+    }
     return newsRepository.update(id, {
       ...toInput(existing),
       published: !existing.published,
@@ -82,24 +87,10 @@ export const newsService = {
   },
 
   async toggleFeatured(id: string): Promise<NewsArticle> {
-    const all = await newsRepository.getAll();
-    const existing = all.find((item) => item.id === id);
+    const existing = await newsRepository.getById(id);
     if (!existing) {
       throw new Error('Article not found.');
     }
-
-    const willFeature = !existing.featured;
-    if (willFeature) {
-      await Promise.all(
-        all
-          .filter((item) => item.id !== id && item.featured)
-          .map((item) => newsRepository.update(item.id, { ...toInput(item), featured: false })),
-      );
-    }
-
-    return newsRepository.update(id, {
-      ...toInput(existing),
-      featured: willFeature,
-    });
+    throw new Error('The backend News API does not expose a featured field yet.');
   },
 };

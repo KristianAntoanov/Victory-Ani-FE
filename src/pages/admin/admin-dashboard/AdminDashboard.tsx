@@ -26,7 +26,7 @@ export default function AdminDashboard() {
       try {
         const [loadedNews, loadedProjects] = await Promise.all([
           newsService.getAllNews(),
-          projectService.getAllProjects(),
+          projectService.getAllAdminProjects(),
         ]);
         if (!active) return;
         setNews(loadedNews);

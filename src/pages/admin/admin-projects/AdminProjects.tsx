@@ -31,7 +31,7 @@ export default function AdminProjects() {
   const [error, setError] = useState<string | null>(null);
 
   const refresh = async () => {
-    const items = await projectService.getAllProjects();
+    const items = await projectService.getAllAdminProjects();
     setProjects(items);
   };
 
