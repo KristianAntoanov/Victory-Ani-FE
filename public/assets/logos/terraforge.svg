@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="140" viewBox="0 0 360 140" role="img" aria-labelledby="title">
+  <title id="title">TerraForge logo</title>
+  <rect width="360" height="140" rx="28" fill="#fff6f0"/>
+  <path d="M89 28 142 58v58L89 86 36 116V58L89 28Z" fill="#c65d2e"/>
+  <path d="M89 28v58l53 30V58L89 28Z" fill="#e89048"/>
+  <path d="M36 58 89 86v58L36 116V58Z" fill="#7d4f2f" opacity=".85"/>
+  <text x="164" y="84" fill="#3a2a20" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="850">TerraForge</text>
+</svg>

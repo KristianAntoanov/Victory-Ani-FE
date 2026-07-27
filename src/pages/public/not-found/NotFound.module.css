@@ -1,0 +1,29 @@
+.notFound {
+  display: grid;
+  min-height: 60vh;
+  place-items: center;
+  text-align: center;
+}
+
+.code {
+  color: var(--color-bordo);
+  font-size: clamp(5rem, 14vw, 11rem);
+  line-height: 0.9;
+}
+
+.title {
+  margin-top: var(--space-4);
+}
+
+.text {
+  max-width: 420px;
+  margin: var(--space-4) auto var(--space-6);
+  color: var(--color-text-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
