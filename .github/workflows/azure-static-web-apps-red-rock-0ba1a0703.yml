@@ -26,8 +26,6 @@ jobs:
             return await core.getIDToken()
           result-encoding: string
 
-  
-
       - name: Deploy to Azure Static Web App
         uses: Azure/static-web-apps-deploy@v1
         with:
