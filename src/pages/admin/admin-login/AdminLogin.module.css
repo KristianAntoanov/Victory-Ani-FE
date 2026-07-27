@@ -43,6 +43,38 @@
   gap: var(--space-4);
 }
 
+.passwordField {
+  position: relative;
+}
+
+.passwordField input {
+  padding-right: 3rem;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-soft);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background var(--t-base), color var(--t-base);
+}
+
+.passwordToggle:hover,
+.passwordToggle:focus-visible {
+  background: var(--color-cream);
+  color: var(--color-bordo);
+  outline: none;
+}
+
 .hint {
   margin-top: var(--space-5);
   padding: var(--space-4);
