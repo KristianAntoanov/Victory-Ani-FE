@@ -21,7 +21,17 @@ export interface NewsArticle {
   updatedAt: string;
 }
 
-export type NewsArticleInput = Omit<NewsArticle, 'id' | 'createdAt' | 'updatedAt'>;
+export interface NewsArticleInput {
+  titleBg: string;
+  titleEn: string;
+  summaryBg: string;
+  summaryEn: string;
+  contentBg: string;
+  contentEn: string;
+  publishDate?: string;
+  published: boolean;
+  image?: string;
+}
 
 export type ProgrammeKey = 'horizon' | 'erasmus' | 'life' | 'cerv';
 

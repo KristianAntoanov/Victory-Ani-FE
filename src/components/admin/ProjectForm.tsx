@@ -126,10 +126,10 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   };
 
   return (
-    <form className="admin-form" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="project-form">
+    <form className="admin-form admin-form--project" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="project-form">
       <div className="admin-form__section">
-        <div className="form-grid">
-          <div className={`form-field${errors.titleBg ? ' has-error' : ''}`}>
+        <div className="form-grid form-grid--project">
+          <div className={`form-field form-field--project-title${errors.titleBg ? ' has-error' : ''}`}>
             <label htmlFor="p-title-bg">
               Title BG <span className="req">*</span>
             </label>
@@ -137,7 +137,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             {errors.titleBg ? <p className="field-error">{errors.titleBg.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.titleEn ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-title${errors.titleEn ? ' has-error' : ''}`}>
             <label htmlFor="p-title-en">
               Title EN <span className="req">*</span>
             </label>
@@ -145,7 +145,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             {errors.titleEn ? <p className="field-error">{errors.titleEn.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.programme ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-programme${errors.programme ? ' has-error' : ''}`}>
             <label htmlFor="p-programme">
               Programme <span className="req">*</span>
             </label>
@@ -158,7 +158,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             </select>
           </div>
 
-          <div className={`form-field${errors.durationBg ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-compact${errors.durationBg ? ' has-error' : ''}`}>
             <label htmlFor="p-duration-bg">
               Duration BG <span className="req">*</span>
             </label>
@@ -166,7 +166,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             {errors.durationBg ? <p className="field-error">{errors.durationBg.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.durationEn ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-compact${errors.durationEn ? ' has-error' : ''}`}>
             <label htmlFor="p-duration-en">
               Duration EN <span className="req">*</span>
             </label>
@@ -174,19 +174,19 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             {errors.durationEn ? <p className="field-error">{errors.durationEn.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.themeBg ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-text form-field--project-theme-start${errors.themeBg ? ' has-error' : ''}`}>
             <label htmlFor="p-theme-bg">
               Theme BG <span className="req">*</span>
             </label>
-            <textarea id="p-theme-bg" style={{ minHeight: 90 }} {...register('themeBg')} />
+            <textarea id="p-theme-bg" style={{ minHeight: 78 }} {...register('themeBg')} />
             {errors.themeBg ? <p className="field-error">{errors.themeBg.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.themeEn ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-text${errors.themeEn ? ' has-error' : ''}`}>
             <label htmlFor="p-theme-en">
               Theme EN <span className="req">*</span>
             </label>
-            <textarea id="p-theme-en" style={{ minHeight: 90 }} {...register('themeEn')} />
+            <textarea id="p-theme-en" style={{ minHeight: 78 }} {...register('themeEn')} />
             {errors.themeEn ? <p className="field-error">{errors.themeEn.message}</p> : null}
           </div>
         </div>
@@ -194,7 +194,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
 
       <div className="admin-form__section">
         <h3 style={{ marginBottom: 'var(--space-4)', fontSize: 'var(--fs-h4)' }}>Project Details</h3>
-        <div className="form-grid">
+        <div className="form-grid form-grid--project">
           {[
             ['countriesBg', 'Countries BG'],
             ['countriesEn', 'Countries EN'],
@@ -203,11 +203,15 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
           ].map(([name, label]) => {
             const field = name as 'countriesBg' | 'countriesEn' | 'mainActivitiesBg' | 'mainActivitiesEn';
             return (
-              <div key={name} className={`form-field form-field--full${errors[field] ? ' has-error' : ''}`}>
+              <div key={name} className={`form-field form-field--project-text${errors[field] ? ' has-error' : ''}`}>
                 <label htmlFor={`p-${name}`}>
                   {label} <span className="req">*</span>
                 </label>
-                <textarea id={`p-${name}`} {...register(field)} />
+                <textarea
+                  id={`p-${name}`}
+                  style={{ minHeight: name.startsWith('countries') ? 82 : 150 }}
+                  {...register(field)}
+                />
                 <p className="hint">Use a new line or comma to separate items when needed.</p>
                 {errors[field] ? <p className="field-error">{errors[field]?.message}</p> : null}
               </div>

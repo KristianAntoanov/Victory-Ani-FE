@@ -2030,6 +2030,62 @@ ul {
   padding: clamp(1.5rem, 3vw, 2.5rem);
   box-shadow: var(--shadow-sm);
 }
+.admin-form--news .form-grid--news {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.admin-form--news .form-field--title {
+  grid-column: span 5;
+}
+.admin-form--news .form-field--date {
+  grid-column: span 2;
+}
+.admin-form--news .form-field--summary,
+.admin-form--news .form-field--content {
+  grid-column: span 6;
+}
+.admin-form--news .form-field input,
+.admin-form--news .form-field textarea {
+  padding: 0.72rem 0.85rem;
+}
+.admin-form--news .image-upload {
+  gap: var(--space-4);
+}
+.admin-form--news .image-upload__preview {
+  width: 180px;
+  height: 118px;
+}
+.admin-form--project .form-grid--project {
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.admin-form--project .form-field--project-title {
+  grid-column: span 5;
+}
+.admin-form--project .form-field--project-programme {
+  grid-column: span 2;
+}
+.admin-form--project .form-field--project-compact {
+  grid-column: span 3;
+}
+.admin-form--project .form-field--project-text {
+  grid-column: span 6;
+}
+.admin-form--project .form-field--project-theme-start {
+  grid-column: 1 / span 6;
+}
+.admin-form--project .form-field input,
+.admin-form--project .form-field select,
+.admin-form--project .form-field textarea {
+  padding: 0.72rem 0.85rem;
+}
+.admin-form--project .image-upload {
+  gap: var(--space-4);
+}
+.admin-form--project .image-upload__preview {
+  width: 180px;
+  height: 118px;
+}
 .admin-form__section + .admin-form__section {
   margin-top: var(--space-6);
   padding-top: var(--space-6);
@@ -2186,6 +2242,12 @@ ul {
     grid-template-columns: 1fr;
   }
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-form--news .form-grid--news {
+    grid-template-columns: 1fr;
+  }
+  .admin-form--project .form-grid--project {
     grid-template-columns: 1fr;
   }
   .project-mini {
@@ -2437,6 +2499,16 @@ ul {
   .image-upload__preview {
     width: 100%;
     min-height: 130px;
+  }
+
+  .admin-form--news .image-upload__preview {
+    width: 100%;
+    height: 130px;
+  }
+
+  .admin-form--project .image-upload__preview {
+    width: 100%;
+    height: 130px;
   }
 
   .image-upload__controls,

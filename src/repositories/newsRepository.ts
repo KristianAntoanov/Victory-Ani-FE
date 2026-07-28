@@ -85,12 +85,16 @@ function toFormData(article: NewsArticleInput, id?: string): FormData {
   form.append('summaryEn', article.summaryEn);
   form.append('contentBg', article.contentBg);
   form.append('contentEn', article.contentEn);
-  form.append('publishedOn', normalizePublishedOn(article.publishDate));
+  if (article.publishDate) {
+    form.append('publishedOn', normalizePublishedOn(article.publishDate));
+  }
   form.append('isActive', String(article.published));
 
-  const image = dataUrlToFile(article.image, slugify(article.titleEn || article.titleBg) || 'news-image');
-  if (image) {
-    form.append('image', image);
+  if (article.image) {
+    const image = dataUrlToFile(article.image, slugify(article.titleEn || article.titleBg) || 'news-image');
+    if (image) {
+      form.append('image', image);
+    }
   }
 
   return form;
