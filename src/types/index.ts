@@ -1,10 +1,16 @@
 export interface NewsArticle {
   id: string;
+  titleBg: string;
+  titleEn: string;
   title: string;
   slug: string;
   category: string;
   publishDate: string;
+  summaryBg: string;
+  summaryEn: string;
   shortDescription: string;
+  contentBg: string;
+  contentEn: string;
   content: string;
   image: string;
   imageAlt: string;
@@ -15,10 +21,17 @@ export interface NewsArticle {
   updatedAt: string;
 }
 
-export type NewsArticleInput = Omit<
-  NewsArticle,
-  'id' | 'createdAt' | 'updatedAt'
->;
+export interface NewsArticleInput {
+  titleBg: string;
+  titleEn: string;
+  summaryBg: string;
+  summaryEn: string;
+  contentBg: string;
+  contentEn: string;
+  publishDate?: string;
+  published: boolean;
+  image?: string;
+}
 
 export type ProgrammeKey = 'horizon' | 'erasmus' | 'life' | 'cerv';
 
@@ -30,24 +43,35 @@ export interface ProjectStat {
 export interface Project {
   id: string;
   slug: string;
+  titleBg: string;
+  titleEn: string;
   title: string;
   programme: ProgrammeKey;
+  programmeBg: string;
+  programmeEn: string;
   programmeLabel: string;
-  intro: string;
-  shortDescription: string;
+  themeBg: string;
+  themeEn: string;
+  theme: string;
   image: string;
-  imageAlt: string;
-  featured: boolean;
-  overview: string;
-  objectives: string[];
-  activities: string[];
-  results: string[];
+  durationBg: string;
+  durationEn: string;
   duration: string;
-  countries: string[];
-  partners: string[];
+  countriesBg: string;
+  countriesEn: string;
+  countries: string;
+  mainActivitiesBg: string;
+  mainActivitiesEn: string;
+  mainActivities: string;
+  isActive: boolean;
+  createdOn?: string | null;
+  updatedOn?: string | null;
 }
 
-export type ProjectInput = Omit<Project, 'id'>;
+export type ProjectInput = Omit<
+  Project,
+  'id' | 'slug' | 'title' | 'programme' | 'programmeLabel' | 'theme' | 'duration' | 'countries' | 'mainActivities' | 'createdOn' | 'updatedOn'
+>;
 
 export interface TeamMember {
   id: string;

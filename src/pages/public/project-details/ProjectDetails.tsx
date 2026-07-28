@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CalendarDays, ChevronRight, Globe2, Handshake, Landmark } from 'lucide-react';
+import { ArrowLeft, CalendarDays, ChevronRight, Globe2, Landmark, Layers3 } from 'lucide-react';
 import Seo from '@/components/common/Seo';
 import ProgrammeBadge from '@/components/common/ProgrammeBadge';
 import ProjectCard from '@/components/common/ProjectCard';
@@ -11,12 +11,13 @@ import SecondaryButton from '@/components/common/SecondaryButton';
 import { ROUTES } from '@/constants';
 import { projectService } from '@/services/projectService';
 import { useLanguage } from '@/context/LanguageContext';
+import { getProjectContent } from '@/utils/localizedContent';
 import type { Project } from '@/types';
 import styles from './ProjectDetails.module.css';
 
 export default function ProjectDetails() {
   const { slug } = useParams<{ slug: string }>();
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const [projects, setProjects] = useState<Project[]>([]);
   const [project, setProject] = useState<Project | null | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
@@ -107,10 +108,11 @@ export default function ProjectDetails() {
 
   const related = projects.filter((p) => p.id !== project.id && p.programme === project.programme).slice(0, 3);
   const relatedFallback = related.length > 0 ? related : projects.filter((p) => p.id !== project.id).slice(0, 3);
+  const content = getProjectContent(project, lang);
 
   return (
     <>
-      <Seo title={project.title} description={project.intro} image={project.image} />
+      <Seo title={content.title} description={content.intro} image={project.image} />
 
       <section className={styles.hero}>
         <div className="container">
@@ -119,35 +121,35 @@ export default function ProjectDetails() {
             <ChevronRight size={14} className="sep" aria-hidden="true" />
             <Link to={ROUTES.projects}>{t('nav.projects')}</Link>
             <ChevronRight size={14} className="sep" aria-hidden="true" />
-            <span>{project.title}</span>
+            <span>{content.title}</span>
           </nav>
 
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
               <ProgrammeBadge
-                label={project.programmeLabel}
+                label={content.programmeLabel}
                 icon={project.programme === 'life' ? 'leaf' : undefined}
               />
-              <h1 className={styles.title}>{project.title}</h1>
-              <p className={styles.lead}>{project.intro}</p>
+              <h1 className={styles.title}>{content.title}</h1>
+              <p className={styles.lead}>{content.intro}</p>
               <div className={styles.heroMeta}>
                 <span>
                   <CalendarDays size={16} aria-hidden="true" />
-                  {project.duration}
+                  {content.duration}
                 </span>
                 <span>
                   <Globe2 size={16} aria-hidden="true" />
-                  {project.countries.length} {t('projects.countCountries')}
+                  {content.countries.length} {t('projects.countCountries')}
                 </span>
                 <span>
-                  <Handshake size={16} aria-hidden="true" />
-                  {project.partners.length} {t('projectDetail.partners').toLowerCase()}
+                  <Layers3 size={16} aria-hidden="true" />
+                  {content.theme}
                 </span>
               </div>
             </div>
 
             <figure className={styles.heroImage}>
-              <img src={project.image} alt={project.imageAlt} />
+              <img src={project.image} alt={content.imageAlt} />
             </figure>
           </div>
         </div>
@@ -170,56 +172,38 @@ export default function ProjectDetails() {
                   <Landmark size={24} aria-hidden="true" />
                 </span>
                 <span className={styles.factLabel}>{t('projectDetail.programme')}</span>
-                <strong>{project.programmeLabel}</strong>
+                <strong>{content.programmeLabel}</strong>
               </div>
 
               <dl className={styles.metaList}>
                 <div>
                   <dt>{t('projectDetail.duration')}</dt>
-                  <dd>{project.duration}</dd>
+                  <dd>{content.duration}</dd>
                 </div>
                 <div>
                   <dt>{t('projectDetail.countries')}</dt>
-                  <dd>{project.countries.join(', ')}</dd>
+                  <dd>{content.countries.join(', ')}</dd>
                 </div>
                 <div>
-                  <dt>{t('projectDetail.partners')}</dt>
-                  <dd>{project.partners.join(', ')}</dd>
+                  <dt>{t('projectDetail.theme')}</dt>
+                  <dd>{content.theme}</dd>
                 </div>
               </dl>
             </aside>
 
             <div className={styles.contentPanel} ref={contentRef}>
               <section className={styles.overviewBlock}>
-                <span className="eyebrow">{t('projectDetail.overview')}</span>
+                <span className="eyebrow">{t('projectDetail.mainActivities')}</span>
                 <h2>{t('projectDetail.impactTitle')}</h2>
-                <p>{project.overview}</p>
+                <p>{content.overview}</p>
               </section>
 
               <div className={styles.infoGrid}>
                 <section className={styles.infoCard}>
-                  <h3>{t('projectDetail.objectives')}</h3>
-                  <ul>
-                    {project.objectives.map((o) => (
-                      <li key={o}>{o}</li>
-                    ))}
-                  </ul>
-                </section>
-
-                <section className={styles.infoCard}>
                   <h3>{t('projectDetail.activities')}</h3>
                   <ul>
-                    {project.activities.map((a) => (
+                    {content.activities.map((a) => (
                       <li key={a}>{a}</li>
-                    ))}
-                  </ul>
-                </section>
-
-                <section className={`${styles.infoCard} ${styles.resultsCard}`}>
-                  <h3>{t('projectDetail.results')}</h3>
-                  <ul>
-                    {project.results.map((r) => (
-                      <li key={r}>{r}</li>
                     ))}
                   </ul>
                 </section>

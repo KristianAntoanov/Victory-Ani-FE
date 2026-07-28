@@ -174,7 +174,7 @@ export default function AdminDashboard() {
                 <th>Project</th>
                 <th>Programme</th>
                 <th>Duration</th>
-                <th>Featured</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -187,8 +187,10 @@ export default function AdminDashboard() {
                   </td>
                   <td data-label="Programme">{project.programmeLabel}</td>
                   <td data-label="Duration">{project.duration}</td>
-                  <td data-label="Featured">
-                    {project.featured ? <span className="badge badge--featured">Featured</span> : 'No'}
+                  <td data-label="Status">
+                    <span className={`badge ${project.isActive ? 'badge--published' : 'badge--draft'}`}>
+                      {project.isActive ? 'Active' : 'Inactive'}
+                    </span>
                   </td>
                 </tr>
               ))}

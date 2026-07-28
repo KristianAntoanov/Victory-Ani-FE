@@ -1,25 +1,22 @@
 import { projectRepository } from '@/repositories/projectRepository';
-import { slugify } from '@/utils';
 import type { Project, ProjectInput } from '@/types';
 
 function toInput(project: Project): ProjectInput {
   return {
-    slug: project.slug,
-    title: project.title,
-    programme: project.programme,
-    programmeLabel: project.programmeLabel,
-    intro: project.intro,
-    shortDescription: project.shortDescription,
+    titleBg: project.titleBg,
+    titleEn: project.titleEn,
+    programmeBg: project.programmeBg,
+    programmeEn: project.programmeEn,
+    themeBg: project.themeBg,
+    themeEn: project.themeEn,
     image: project.image,
-    imageAlt: project.imageAlt,
-    featured: project.featured,
-    overview: project.overview,
-    objectives: project.objectives,
-    activities: project.activities,
-    results: project.results,
-    duration: project.duration,
-    countries: project.countries,
-    partners: project.partners,
+    durationBg: project.durationBg,
+    durationEn: project.durationEn,
+    countriesBg: project.countriesBg,
+    countriesEn: project.countriesEn,
+    mainActivitiesBg: project.mainActivitiesBg,
+    mainActivitiesEn: project.mainActivitiesEn,
+    isActive: project.isActive,
   };
 }
 
@@ -41,33 +38,11 @@ export const projectService = {
     return projects.find((project) => project.slug === slug);
   },
 
-  async isSlugUnique(slug: string, ignoreId?: string): Promise<boolean> {
-    const projects = await this.getAllAdminProjects();
-    return !projects.some((project) => project.slug === slug && project.id !== ignoreId);
-  },
-
-  async generateUniqueSlug(title: string, ignoreId?: string): Promise<string> {
-    const base = slugify(title) || 'project';
-    let candidate = base;
-    let counter = 2;
-    while (!(await this.isSlugUnique(candidate, ignoreId))) {
-      candidate = `${base}-${counter}`;
-      counter += 1;
-    }
-    return candidate;
-  },
-
   async createProject(input: ProjectInput): Promise<Project> {
-    if (input.featured) {
-      await this.clearOtherFeatured();
-    }
     return projectRepository.create(input);
   },
 
   async updateProject(id: string, input: ProjectInput): Promise<Project> {
-    if (input.featured) {
-      await this.clearOtherFeatured(id);
-    }
     return projectRepository.update(id, input);
   },
 
@@ -75,30 +50,16 @@ export const projectService = {
     return projectRepository.remove(id);
   },
 
-  async toggleFeatured(id: string): Promise<Project> {
+  async toggleActive(id: string): Promise<Project> {
     const all = await this.getAllAdminProjects();
     const existing = all.find((item) => item.id === id);
     if (!existing) {
       throw new Error('Project not found.');
     }
 
-    const willFeature = !existing.featured;
-    if (willFeature) {
-      await this.clearOtherFeatured(id);
-    }
-
     return projectRepository.update(id, {
       ...toInput(existing),
-      featured: willFeature,
+      isActive: !existing.isActive,
     });
-  },
-
-  async clearOtherFeatured(ignoreId?: string): Promise<void> {
-    const all = await this.getAllAdminProjects();
-    await Promise.all(
-      all
-        .filter((item) => item.id !== ignoreId && item.featured)
-        .map((item) => projectRepository.update(item.id, { ...toInput(item), featured: false })),
-    );
   },
 };

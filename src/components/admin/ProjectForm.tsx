@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { RefreshCw, Trash2, Upload, Eye } from 'lucide-react';
+import { Eye, RefreshCw, Trash2, Upload } from 'lucide-react';
 import { ROUTES } from '@/constants';
 import { projectService } from '@/services/projectService';
-import { readImageAsBase64, slugify } from '@/utils';
+import { readImageAsBase64 } from '@/utils';
 import { useToast } from '@/context/ToastContext';
 import type { ProgrammeKey, Project, ProjectInput } from '@/types';
 
@@ -14,50 +14,36 @@ interface ProjectFormProps {
   initial?: Project;
 }
 
-const PROGRAMMES: Array<{ value: ProgrammeKey; label: string }> = [
-  { value: 'horizon', label: 'Horizon Europe' },
-  { value: 'erasmus', label: 'Erasmus+' },
-  { value: 'life', label: 'LIFE Programme' },
-  { value: 'cerv', label: 'CERV' },
+const PROGRAMMES: Array<{ value: ProgrammeKey; labelBg: string; labelEn: string }> = [
+  { value: 'horizon', labelBg: 'Horizon Europe', labelEn: 'Horizon Europe' },
+  { value: 'erasmus', labelBg: 'Erasmus+', labelEn: 'Erasmus+' },
+  { value: 'life', labelBg: 'LIFE Programme', labelEn: 'LIFE Programme' },
+  { value: 'cerv', labelBg: 'CERV', labelEn: 'CERV' },
 ];
 
-const listFromText = (value: string) =>
-  value
-    .split(/\r?\n/)
-    .map((item) => item.trim())
-    .filter(Boolean);
+const schema = z.object({
+  titleBg: z.string().min(1, 'Bulgarian title is required'),
+  titleEn: z.string().min(1, 'English title is required'),
+  programme: z.enum(['horizon', 'erasmus', 'life', 'cerv']),
+  themeBg: z.string().min(1, 'Bulgarian theme is required'),
+  themeEn: z.string().min(1, 'English theme is required'),
+  durationBg: z.string().min(1, 'Bulgarian duration is required'),
+  durationEn: z.string().min(1, 'English duration is required'),
+  countriesBg: z.string().min(1, 'Bulgarian countries are required'),
+  countriesEn: z.string().min(1, 'English countries are required'),
+  mainActivitiesBg: z.string().min(1, 'Bulgarian main activities are required'),
+  mainActivitiesEn: z.string().min(1, 'English main activities are required'),
+  image: z.string(),
+  isActive: z.boolean(),
+});
 
-const textFromList = (value: string[]) => value.join('\n');
+type FormValues = z.infer<typeof schema>;
 
 export default function ProjectForm({ initial }: ProjectFormProps) {
   const navigate = useNavigate();
   const toast = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
-  const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [imageError, setImageError] = useState<string | null>(null);
-
-  const schema = z.object({
-    title: z.string().min(1, 'Title is required'),
-    slug: z
-      .string()
-      .min(1, 'Slug is required')
-      .regex(/^[a-z0-9-]+$/, 'Use lowercase latin letters, numbers and dashes only')
-      .refine(async (value) => projectService.isSlugUnique(value, initial?.id), 'This slug is already in use'),
-    programme: z.enum(['horizon', 'erasmus', 'life', 'cerv']),
-    programmeLabel: z.string().min(1, 'Programme label is required'),
-    intro: z.string().min(1, 'Intro is required'),
-    overview: z.string().min(1, 'Overview is required'),
-    duration: z.string().min(1, 'Duration is required'),
-    countries: z.string().min(1, 'Add at least one country'),
-    partners: z.string().min(1, 'Add at least one partner'),
-    objectives: z.string().min(1, 'Add at least one objective'),
-    activities: z.string().min(1, 'Add at least one activity'),
-    results: z.string().min(1, 'Add at least one result'),
-    image: z.string().min(1, 'Main image is required'),
-    imageAlt: z.string().min(1, 'Image alternative text is required'),
-    featured: z.boolean(),
-  });
-  type FormValues = z.infer<typeof schema>;
 
   const {
     register,
@@ -68,38 +54,24 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: initial?.title ?? '',
-      slug: initial?.slug ?? '',
+      titleBg: initial?.titleBg ?? '',
+      titleEn: initial?.titleEn ?? '',
       programme: initial?.programme ?? 'horizon',
-      programmeLabel: initial?.programmeLabel ?? 'Horizon Europe',
-      intro: initial?.intro ?? '',
-      overview: initial?.overview ?? '',
-      duration: initial?.duration ?? '',
-      countries: textFromList(initial?.countries ?? []),
-      partners: textFromList(initial?.partners ?? []),
-      objectives: textFromList(initial?.objectives ?? []),
-      activities: textFromList(initial?.activities ?? []),
-      results: textFromList(initial?.results ?? []),
+      themeBg: initial?.themeBg ?? '',
+      themeEn: initial?.themeEn ?? '',
+      durationBg: initial?.durationBg ?? '',
+      durationEn: initial?.durationEn ?? '',
+      countriesBg: initial?.countriesBg ?? '',
+      countriesEn: initial?.countriesEn ?? '',
+      mainActivitiesBg: initial?.mainActivitiesBg ?? '',
+      mainActivitiesEn: initial?.mainActivitiesEn ?? '',
       image: initial?.image ?? '',
-      imageAlt: initial?.imageAlt ?? '',
-      featured: initial?.featured ?? false,
+      isActive: initial?.isActive ?? true,
     },
   });
 
-  const titleValue = watch('title');
-  const programmeValue = watch('programme');
   const imageValue = watch('image');
-
-  useEffect(() => {
-    if (!slugTouched && titleValue) {
-      setValue('slug', slugify(titleValue), { shouldValidate: true });
-    }
-  }, [titleValue, slugTouched, setValue]);
-
-  useEffect(() => {
-    const label = PROGRAMMES.find((item) => item.value === programmeValue)?.label;
-    if (label) setValue('programmeLabel', label, { shouldValidate: true });
-  }, [programmeValue, setValue]);
+  const canRemoveImage = Boolean(imageValue) && (!initial?.image || imageValue !== initial.image);
 
   const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -116,28 +88,27 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   };
 
   const removeImage = () => {
-    setValue('image', '', { shouldValidate: true });
+    setValue('image', initial?.image ?? '', { shouldValidate: true });
     setImageError(null);
   };
 
   const onSubmit = async (values: FormValues) => {
+    const selectedProgramme = PROGRAMMES.find((item) => item.value === values.programme) ?? PROGRAMMES[0];
     const payload: ProjectInput = {
-      slug: values.slug,
-      title: values.title,
-      programme: values.programme,
-      programmeLabel: values.programmeLabel,
-      intro: values.intro,
-      shortDescription: values.intro,
+      titleBg: values.titleBg,
+      titleEn: values.titleEn,
+      programmeBg: selectedProgramme.labelBg,
+      programmeEn: selectedProgramme.labelEn,
+      themeBg: values.themeBg,
+      themeEn: values.themeEn,
       image: values.image,
-      imageAlt: values.imageAlt,
-      featured: values.featured,
-      overview: values.overview,
-      objectives: listFromText(values.objectives),
-      activities: listFromText(values.activities),
-      results: listFromText(values.results),
-      duration: values.duration,
-      countries: listFromText(values.countries),
-      partners: listFromText(values.partners),
+      durationBg: values.durationBg,
+      durationEn: values.durationEn,
+      countriesBg: values.countriesBg,
+      countriesEn: values.countriesEn,
+      mainActivitiesBg: values.mainActivitiesBg,
+      mainActivitiesEn: values.mainActivitiesEn,
+      isActive: values.isActive,
     };
 
     try {
@@ -155,99 +126,93 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   };
 
   return (
-    <form className="admin-form" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="project-form">
+    <form className="admin-form admin-form--project" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="project-form">
       <div className="admin-form__section">
-        <div className="form-grid">
-          <div className={`form-field form-field--full${errors.title ? ' has-error' : ''}`}>
-            <label htmlFor="p-title">
-              Title <span className="req">*</span>
+        <div className="form-grid form-grid--project">
+          <div className={`form-field form-field--project-title${errors.titleBg ? ' has-error' : ''}`}>
+            <label htmlFor="p-title-bg">
+              Title BG <span className="req">*</span>
             </label>
-            <input id="p-title" type="text" {...register('title')} data-testid="project-title-input" />
-            {errors.title ? <p className="field-error">{errors.title.message}</p> : null}
+            <input id="p-title-bg" type="text" {...register('titleBg')} data-testid="project-title-bg-input" />
+            {errors.titleBg ? <p className="field-error">{errors.titleBg.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.slug ? ' has-error' : ''}`}>
-            <label htmlFor="p-slug">
-              Slug <span className="req">*</span>
+          <div className={`form-field form-field--project-title${errors.titleEn ? ' has-error' : ''}`}>
+            <label htmlFor="p-title-en">
+              Title EN <span className="req">*</span>
             </label>
-            <input
-              id="p-slug"
-              type="text"
-              {...register('slug')}
-              onChange={(event) => {
-                setSlugTouched(true);
-                setValue('slug', event.target.value, { shouldValidate: true });
-              }}
-              data-testid="project-slug-input"
-            />
-            {errors.slug ? <p className="field-error">{errors.slug.message}</p> : null}
+            <input id="p-title-en" type="text" {...register('titleEn')} data-testid="project-title-en-input" />
+            {errors.titleEn ? <p className="field-error">{errors.titleEn.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.programme ? ' has-error' : ''}`}>
+          <div className={`form-field form-field--project-programme${errors.programme ? ' has-error' : ''}`}>
             <label htmlFor="p-programme">
               Programme <span className="req">*</span>
             </label>
             <select id="p-programme" {...register('programme')} data-testid="project-programme-select">
               {PROGRAMMES.map((programme) => (
                 <option key={programme.value} value={programme.value}>
-                  {programme.label}
+                  {programme.labelEn}
                 </option>
               ))}
             </select>
           </div>
 
-          <div className={`form-field${errors.programmeLabel ? ' has-error' : ''}`}>
-            <label htmlFor="p-programme-label">
-              Programme Label <span className="req">*</span>
+          <div className={`form-field form-field--project-compact${errors.durationBg ? ' has-error' : ''}`}>
+            <label htmlFor="p-duration-bg">
+              Duration BG <span className="req">*</span>
             </label>
-            <input id="p-programme-label" type="text" {...register('programmeLabel')} />
-            {errors.programmeLabel ? <p className="field-error">{errors.programmeLabel.message}</p> : null}
+            <input id="p-duration-bg" type="text" placeholder="2024 - 2027" {...register('durationBg')} />
+            {errors.durationBg ? <p className="field-error">{errors.durationBg.message}</p> : null}
           </div>
 
-          <div className={`form-field${errors.duration ? ' has-error' : ''}`}>
-            <label htmlFor="p-duration">
-              Duration <span className="req">*</span>
+          <div className={`form-field form-field--project-compact${errors.durationEn ? ' has-error' : ''}`}>
+            <label htmlFor="p-duration-en">
+              Duration EN <span className="req">*</span>
             </label>
-            <input id="p-duration" type="text" placeholder="2024 - 2027" {...register('duration')} />
-            {errors.duration ? <p className="field-error">{errors.duration.message}</p> : null}
+            <input id="p-duration-en" type="text" placeholder="2024 - 2027" {...register('durationEn')} />
+            {errors.durationEn ? <p className="field-error">{errors.durationEn.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.intro ? ' has-error' : ''}`}>
-            <label htmlFor="p-intro">
-              Short Description / Intro <span className="req">*</span>
+          <div className={`form-field form-field--project-text form-field--project-theme-start${errors.themeBg ? ' has-error' : ''}`}>
+            <label htmlFor="p-theme-bg">
+              Theme BG <span className="req">*</span>
             </label>
-            <textarea id="p-intro" style={{ minHeight: 90 }} {...register('intro')} />
-            {errors.intro ? <p className="field-error">{errors.intro.message}</p> : null}
+            <textarea id="p-theme-bg" style={{ minHeight: 78 }} {...register('themeBg')} />
+            {errors.themeBg ? <p className="field-error">{errors.themeBg.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.overview ? ' has-error' : ''}`}>
-            <label htmlFor="p-overview">
-              Overview <span className="req">*</span>
+          <div className={`form-field form-field--project-text${errors.themeEn ? ' has-error' : ''}`}>
+            <label htmlFor="p-theme-en">
+              Theme EN <span className="req">*</span>
             </label>
-            <textarea id="p-overview" style={{ minHeight: 150 }} {...register('overview')} />
-            {errors.overview ? <p className="field-error">{errors.overview.message}</p> : null}
+            <textarea id="p-theme-en" style={{ minHeight: 78 }} {...register('themeEn')} />
+            {errors.themeEn ? <p className="field-error">{errors.themeEn.message}</p> : null}
           </div>
         </div>
       </div>
 
       <div className="admin-form__section">
         <h3 style={{ marginBottom: 'var(--space-4)', fontSize: 'var(--fs-h4)' }}>Project Details</h3>
-        <div className="form-grid">
+        <div className="form-grid form-grid--project">
           {[
-            ['countries', 'Countries'],
-            ['partners', 'Partners'],
-            ['objectives', 'Objectives'],
-            ['activities', 'Activities'],
-            ['results', 'Results'],
+            ['countriesBg', 'Countries BG'],
+            ['countriesEn', 'Countries EN'],
+            ['mainActivitiesBg', 'Main Activities BG'],
+            ['mainActivitiesEn', 'Main Activities EN'],
           ].map(([name, label]) => {
-            const field = name as 'countries' | 'partners' | 'objectives' | 'activities' | 'results';
+            const field = name as 'countriesBg' | 'countriesEn' | 'mainActivitiesBg' | 'mainActivitiesEn';
             return (
-              <div key={name} className={`form-field form-field--full${errors[field] ? ' has-error' : ''}`}>
+              <div key={name} className={`form-field form-field--project-text${errors[field] ? ' has-error' : ''}`}>
                 <label htmlFor={`p-${name}`}>
                   {label} <span className="req">*</span>
                 </label>
-                <textarea id={`p-${name}`} {...register(field)} />
-                <p className="hint">One item per line.</p>
+                <textarea
+                  id={`p-${name}`}
+                  style={{ minHeight: name.startsWith('countries') ? 82 : 150 }}
+                  {...register(field)}
+                />
+                <p className="hint">Use a new line or comma to separate items when needed.</p>
                 {errors[field] ? <p className="field-error">{errors[field]?.message}</p> : null}
               </div>
             );
@@ -273,31 +238,22 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
               {imageValue ? <RefreshCw size={16} /> : <Upload size={16} />}
               <span>{imageValue ? 'Change image' : 'Choose image'}</span>
             </button>
-            {imageValue ? (
+            {canRemoveImage ? (
               <button type="button" className="btn btn--ghost" onClick={removeImage}>
                 <Trash2 size={16} /> <span>Remove</span>
               </button>
             ) : null}
             <p className="hint">JPG, JPEG, PNG or WEBP. Max 1.5 MB.</p>
             {imageError ? <p className="field-error">{imageError}</p> : null}
-            {errors.image ? <p className="field-error">{errors.image.message}</p> : null}
           </div>
-        </div>
-
-        <div className={`form-field${errors.imageAlt ? ' has-error' : ''}`} style={{ marginTop: 'var(--space-5)' }}>
-          <label htmlFor="p-alt">
-            Image Alternative Text <span className="req">*</span>
-          </label>
-          <input id="p-alt" type="text" {...register('imageAlt')} />
-          {errors.imageAlt ? <p className="field-error">{errors.imageAlt.message}</p> : null}
         </div>
       </div>
 
       <div className="admin-form__section">
         <label className="checkbox-field">
-          <input type="checkbox" {...register('featured')} />
+          <input type="checkbox" {...register('isActive')} />
           <span>
-            <strong>Featured</strong> - use this project as the highlighted project on Home.
+            <strong>Active</strong> - show this project on the public pages.
           </span>
         </label>
       </div>

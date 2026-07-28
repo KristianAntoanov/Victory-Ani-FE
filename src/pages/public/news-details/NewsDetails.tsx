@@ -11,6 +11,7 @@ import { newsService } from '@/services/newsService';
 import { ROUTES } from '@/constants';
 import { formatDate } from '@/utils';
 import { useLanguage } from '@/context/LanguageContext';
+import { getNewsContent } from '@/utils/localizedContent';
 import type { NewsArticle } from '@/types';
 import styles from './NewsDetails.module.css';
 
@@ -117,8 +118,9 @@ export default function NewsDetails() {
     );
   }
 
-  const paragraphs = article.content.split(/\n\s*\n/).filter(Boolean);
-  const wordCount = article.content.trim().split(/\s+/).filter(Boolean).length;
+  const content = getNewsContent(article, lang);
+  const paragraphs = content.content.split(/\n\s*\n/).filter(Boolean);
+  const wordCount = content.content.trim().split(/\s+/).filter(Boolean).length;
   const readingMinutes = Math.max(1, Math.ceil(wordCount / 220));
   const shareArticle = async () => {
     const url = window.location.href;
@@ -133,7 +135,7 @@ export default function NewsDetails() {
 
   return (
     <>
-      <Seo title={article.title} description={article.shortDescription} image={article.image} />
+      <Seo title={content.title} description={content.summary} image={article.image} />
 
       <section className={styles.hero}>
         <div className="container">
@@ -142,14 +144,14 @@ export default function NewsDetails() {
             <ChevronRight size={14} className="sep" aria-hidden="true" />
             <Link to={ROUTES.news}>{t('news.title')}</Link>
             <ChevronRight size={14} className="sep" aria-hidden="true" />
-            <span>{article.title}</span>
+            <span>{content.title}</span>
           </nav>
 
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
               <span className="news-tag">{article.category}</span>
-              <h1 className={styles.title}>{article.title}</h1>
-              <p className={styles.lead}>{article.shortDescription}</p>
+              <h1 className={styles.title}>{content.title}</h1>
+              <p className={styles.lead}>{content.summary}</p>
               <div className={styles.heroMeta}>
                 <span>
                   <CalendarDays size={16} aria-hidden="true" />
@@ -167,7 +169,7 @@ export default function NewsDetails() {
             </div>
 
             <figure className={styles.heroImage}>
-              <img src={article.image} alt={article.imageAlt} />
+              <img src={article.image} alt={content.title} />
             </figure>
           </div>
         </div>
@@ -207,7 +209,7 @@ export default function NewsDetails() {
             </aside>
 
             <article className={styles.articleBody} ref={articleRef}>
-              <p className={styles.articleDescription}>{article.shortDescription}</p>
+              <p className={styles.articleDescription}>{content.summary}</p>
 
               {paragraphs.map((p, i) => (
                 <p className={i === 0 ? styles.firstParagraph : undefined} key={i}>

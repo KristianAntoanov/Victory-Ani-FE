@@ -5,67 +5,79 @@ import { slugify } from '@/utils';
 
 interface BackendProjectItem {
   id: number;
-  slug?: string | null;
-  title: string;
-  programme: ProgrammeKey;
-  programmeLabel: string;
-  intro: string;
-  shortDescription?: string | null;
-  overview: string;
+  titleBg: string;
+  titleEn: string;
+  programmeBg: string;
+  programmeEn: string;
+  themeBg: string;
+  themeEn: string;
   imageUrl?: string | null;
-  imageAlt?: string | null;
-  isFeatured: boolean;
-  duration: string;
-  countries: string[];
-  partners: string[];
-  objectives: string[];
-  activities: string[];
-  results: string[];
+  durationBg: string;
+  durationEn: string;
+  countriesBg: string;
+  countriesEn: string;
+  mainActivitiesBg: string;
+  mainActivitiesEn: string;
   isActive: boolean;
   createdOn?: string | null;
   updatedOn?: string | null;
 }
 
-function toStringList(value: unknown): string[] {
-  if (Array.isArray(value)) {
-    return value.map(String).filter(Boolean);
-  }
-  if (typeof value === 'string') {
-    try {
-      const parsed = JSON.parse(value) as unknown;
-      if (Array.isArray(parsed)) return parsed.map(String).filter(Boolean);
-    } catch {
-      return value
-        .split(/\r?\n|,/)
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
-  }
-  return [];
+function normalizeProgramme(value: unknown): ProgrammeKey {
+  const text = String(value ?? '').trim().toLowerCase();
+  if (text.includes('erasmus')) return 'erasmus';
+  if (text.includes('life')) return 'life';
+  if (text.includes('cerv')) return 'cerv';
+  return 'horizon';
+}
+
+function fallbackText(primary: string | null | undefined, fallback: string | null | undefined): string {
+  return primary ?? fallback ?? '';
 }
 
 function toProject(item: BackendProjectItem): Project {
   const id = String(item.id);
-  const slug = item.slug?.trim() || `${slugify(item.title) || 'project'}-${id}`;
+  const titleEn = item.titleEn;
+  const titleBg = fallbackText(item.titleBg, titleEn);
+  const title = titleEn || titleBg;
+  const programme = normalizeProgramme(item.programmeEn ?? item.programmeBg);
+  const programmeLabel = item.programmeEn || item.programmeBg || programme;
+  const themeEn = item.themeEn;
+  const themeBg = fallbackText(item.themeBg, themeEn);
+  const durationEn = item.durationEn;
+  const durationBg = fallbackText(item.durationBg, durationEn);
+  const countriesEn = item.countriesEn;
+  const countriesBg = fallbackText(item.countriesBg, countriesEn);
+  const mainActivitiesEn = item.mainActivitiesEn;
+  const mainActivitiesBg = fallbackText(item.mainActivitiesBg, mainActivitiesEn);
+  const slug = `${slugify(title) || 'project'}-${id}`;
 
   return {
     id,
     slug,
-    title: item.title,
-    programme: item.programme,
-    programmeLabel: item.programmeLabel,
-    intro: item.intro,
-    shortDescription: item.shortDescription ?? item.intro,
+    titleBg,
+    titleEn,
+    title,
+    programme,
+    programmeBg: item.programmeBg,
+    programmeEn: item.programmeEn,
+    programmeLabel,
+    themeBg,
+    themeEn,
+    theme: themeEn || themeBg,
     image: item.imageUrl ?? '',
-    imageAlt: item.imageAlt ?? item.title,
-    featured: item.isFeatured,
-    overview: item.overview,
-    objectives: toStringList(item.objectives),
-    activities: toStringList(item.activities),
-    results: toStringList(item.results),
-    duration: item.duration,
-    countries: toStringList(item.countries),
-    partners: toStringList(item.partners),
+    durationBg,
+    durationEn,
+    duration: durationEn || durationBg,
+    countriesBg,
+    countriesEn,
+    countries: countriesEn || countriesBg,
+    mainActivitiesBg,
+    mainActivitiesEn,
+    mainActivities: mainActivitiesEn || mainActivitiesBg,
+    isActive: item.isActive,
+    createdOn: item.createdOn,
+    updatedOn: item.updatedOn,
   };
 }
 
@@ -84,31 +96,24 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
   return new File([bytes], `${fallbackName}.${extension}`, { type: mime });
 }
 
-function appendList(form: FormData, name: keyof Pick<ProjectInput, 'countries' | 'partners' | 'objectives' | 'activities' | 'results'>, values: string[]) {
-  values.forEach((value) => form.append(name, value));
-}
-
 function toFormData(project: ProjectInput, id?: string): FormData {
   const form = new FormData();
   if (id) form.append('id', id);
-  form.append('slug', project.slug);
-  form.append('title', project.title);
-  form.append('programme', project.programme);
-  form.append('programmeLabel', project.programmeLabel);
-  form.append('intro', project.intro);
-  form.append('shortDescription', project.shortDescription);
-  form.append('overview', project.overview);
-  form.append('imageAlt', project.imageAlt);
-  form.append('isFeatured', String(project.featured));
-  form.append('isActive', 'true');
-  form.append('duration', project.duration);
-  appendList(form, 'countries', project.countries);
-  appendList(form, 'partners', project.partners);
-  appendList(form, 'objectives', project.objectives);
-  appendList(form, 'activities', project.activities);
-  appendList(form, 'results', project.results);
+  form.append('titleBg', project.titleBg);
+  form.append('titleEn', project.titleEn);
+  form.append('programmeBg', project.programmeBg);
+  form.append('programmeEn', project.programmeEn);
+  form.append('themeBg', project.themeBg);
+  form.append('themeEn', project.themeEn);
+  form.append('countriesBg', project.countriesBg);
+  form.append('countriesEn', project.countriesEn);
+  form.append('durationBg', project.durationBg);
+  form.append('durationEn', project.durationEn);
+  form.append('mainActivitiesBg', project.mainActivitiesBg);
+  form.append('mainActivitiesEn', project.mainActivitiesEn);
+  form.append('isActive', String(project.isActive));
 
-  const image = dataUrlToFile(project.image, slugify(project.title) || 'project-image');
+  const image = dataUrlToFile(project.image, slugify(project.titleEn || project.titleBg) || 'project-image');
   if (image) {
     form.append('image', image);
   }

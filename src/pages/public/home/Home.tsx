@@ -60,7 +60,7 @@ export default function Home() {
     };
   }, []);
 
-  const featured = projects.find((p) => p.featured) ?? projects[0];
+  const featured = projects[0];
   const minis = projects.filter((p) => p.id !== featured?.id).slice(0, 2);
 
   return (

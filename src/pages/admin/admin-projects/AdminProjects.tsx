@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, Pencil, Plus, Star, Trash2 } from 'lucide-react';
+import { ExternalLink, Eye, EyeOff, Pencil, Plus, Trash2 } from 'lucide-react';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
@@ -45,7 +45,12 @@ export default function AdminProjects() {
     let list = [...projects];
     if (search.trim()) {
       const query = search.trim().toLowerCase();
-      list = list.filter((project) => project.title.toLowerCase().includes(query));
+      list = list.filter(
+        (project) =>
+          project.title.toLowerCase().includes(query) ||
+          project.titleBg.toLowerCase().includes(query) ||
+          project.titleEn.toLowerCase().includes(query),
+      );
     }
     if (programme !== 'all') {
       list = list.filter((project) => project.programme === programme);
@@ -53,11 +58,11 @@ export default function AdminProjects() {
     return list;
   }, [projects, search, programme]);
 
-  const handleToggleFeatured = async (project: Project) => {
+  const handleToggleActive = async (project: Project) => {
     try {
-      await projectService.toggleFeatured(project.id);
+      await projectService.toggleActive(project.id);
       await refresh();
-      toast.info(project.featured ? 'Removed from featured.' : 'Marked as featured.');
+      toast.info(project.isActive ? 'Project hidden from public pages.' : 'Project made active.');
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not update project.');
     }
@@ -127,7 +132,7 @@ export default function AdminProjects() {
                 <th>Programme</th>
                 <th>Duration</th>
                 <th>Countries</th>
-                <th>Featured</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -142,20 +147,22 @@ export default function AdminProjects() {
                   </td>
                   <td data-label="Programme">{project.programmeLabel}</td>
                   <td data-label="Duration">{project.duration}</td>
-                  <td data-label="Countries">{project.countries.join(', ')}</td>
-                  <td data-label="Featured">
-                    {project.featured ? <span className="badge badge--featured">Featured</span> : 'No'}
+                  <td data-label="Countries">{project.countries}</td>
+                  <td data-label="Status">
+                    <span className={`badge ${project.isActive ? 'badge--published' : 'badge--draft'}`}>
+                      {project.isActive ? 'Active' : 'Inactive'}
+                    </span>
                   </td>
                   <td data-label="Actions">
                     <div className="row-actions">
                       <button
                         type="button"
-                        className={`icon-btn${project.featured ? ' is-on' : ''}`}
-                        title={project.featured ? 'Unfeature' : 'Mark as featured'}
-                        aria-label={project.featured ? 'Unfeature project' : 'Mark project as featured'}
-                        onClick={() => handleToggleFeatured(project)}
+                        className={`icon-btn${project.isActive ? ' is-on' : ''}`}
+                        title={project.isActive ? 'Deactivate' : 'Activate'}
+                        aria-label={project.isActive ? 'Deactivate project' : 'Activate project'}
+                        onClick={() => handleToggleActive(project)}
                       >
-                        <Star size={16} aria-hidden="true" />
+                        {project.isActive ? <Eye size={16} aria-hidden="true" /> : <EyeOff size={16} aria-hidden="true" />}
                       </button>
                       <a
                         href={ROUTES.projectDetails(project.slug)}
