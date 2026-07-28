@@ -45,7 +45,12 @@ export default function AdminProjects() {
     let list = [...projects];
     if (search.trim()) {
       const query = search.trim().toLowerCase();
-      list = list.filter((project) => project.title.toLowerCase().includes(query));
+      list = list.filter(
+        (project) =>
+          project.title.toLowerCase().includes(query) ||
+          project.titleBg.toLowerCase().includes(query) ||
+          project.titleEn.toLowerCase().includes(query),
+      );
     }
     if (programme !== 'all') {
       list = list.filter((project) => project.programme === programme);

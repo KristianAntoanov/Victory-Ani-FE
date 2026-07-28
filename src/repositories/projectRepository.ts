@@ -6,25 +6,58 @@ import { slugify } from '@/utils';
 interface BackendProjectItem {
   id: number;
   slug?: string | null;
-  title: string;
-  programme: ProgrammeKey;
-  programmeLabel: string;
-  intro: string;
+  title?: string;
+  titleBg?: string;
+  titleEn?: string;
+  programme?: string;
+  programmeBg?: string;
+  programmeEn?: string;
+  programmeLabel?: string;
+  programmeLabelBg?: string;
+  programmeLabelEn?: string;
+  intro?: string;
+  introBg?: string;
+  introEn?: string;
   shortDescription?: string | null;
-  overview: string;
+  shortDescriptionBg?: string | null;
+  shortDescriptionEn?: string | null;
+  overview?: string;
+  overviewBg?: string;
+  overviewEn?: string;
   imageUrl?: string | null;
   imageAlt?: string | null;
+  imageAltBg?: string | null;
+  imageAltEn?: string | null;
   isFeatured: boolean;
-  duration: string;
-  countries: string[];
-  partners: string[];
-  objectives: string[];
-  activities: string[];
-  results: string[];
+  duration?: string;
+  durationBg?: string | null;
+  durationEn?: string | null;
+  countries?: string[];
+  countriesBg?: string[];
+  countriesEn?: string[];
+  partners?: string[];
+  partnersBg?: string[];
+  partnersEn?: string[];
+  objectives?: string[];
+  objectivesBg?: string[];
+  objectivesEn?: string[];
+  activities?: string[];
+  activitiesBg?: string[];
+  activitiesEn?: string[];
+  results?: string[];
+  resultsBg?: string[];
+  resultsEn?: string[];
   isActive: boolean;
   createdOn?: string | null;
   updatedOn?: string | null;
 }
+
+const PROGRAMME_LABELS: Record<ProgrammeKey, { bg: string; en: string }> = {
+  horizon: { bg: 'Horizon Europe', en: 'Horizon Europe' },
+  erasmus: { bg: 'Erasmus+', en: 'Erasmus+' },
+  life: { bg: 'LIFE Programme', en: 'LIFE Programme' },
+  cerv: { bg: 'CERV', en: 'CERV' },
+};
 
 function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) {
@@ -44,28 +77,93 @@ function toStringList(value: unknown): string[] {
   return [];
 }
 
+function normalizeProgramme(value: unknown): ProgrammeKey {
+  const text = String(value ?? '').trim().toLowerCase();
+  if (text.includes('erasmus')) return 'erasmus';
+  if (text.includes('life')) return 'life';
+  if (text.includes('cerv')) return 'cerv';
+  return 'horizon';
+}
+
+function fallbackText(primary: string | null | undefined, fallback: string | null | undefined): string {
+  return primary ?? fallback ?? '';
+}
+
 function toProject(item: BackendProjectItem): Project {
   const id = String(item.id);
-  const slug = item.slug?.trim() || `${slugify(item.title) || 'project'}-${id}`;
+  const titleEn = fallbackText(item.titleEn, item.title);
+  const titleBg = fallbackText(item.titleBg, titleEn);
+  const title = titleEn || titleBg;
+  const programme = normalizeProgramme(item.programmeEn ?? item.programmeBg ?? item.programme);
+  const labels = PROGRAMME_LABELS[programme];
+  const programmeLabelEn = fallbackText(item.programmeLabelEn, item.programmeLabel) || labels.en;
+  const programmeLabelBg = fallbackText(item.programmeLabelBg, programmeLabelEn) || labels.bg;
+  const introEn = fallbackText(item.introEn, item.intro);
+  const introBg = fallbackText(item.introBg, introEn);
+  const shortDescriptionEn = fallbackText(item.shortDescriptionEn, item.shortDescription) || introEn;
+  const shortDescriptionBg = fallbackText(item.shortDescriptionBg, shortDescriptionEn) || introBg;
+  const overviewEn = fallbackText(item.overviewEn, item.overview);
+  const overviewBg = fallbackText(item.overviewBg, overviewEn);
+  const imageAltEn = fallbackText(item.imageAltEn, item.imageAlt) || title;
+  const imageAltBg = fallbackText(item.imageAltBg, imageAltEn) || titleBg;
+  const durationEn = fallbackText(item.durationEn, item.duration);
+  const durationBg = fallbackText(item.durationBg, durationEn);
+  const countriesEn = toStringList(item.countriesEn ?? item.countries);
+  const countriesBg = toStringList(item.countriesBg ?? countriesEn);
+  const partnersEn = toStringList(item.partnersEn ?? item.partners);
+  const partnersBg = toStringList(item.partnersBg ?? partnersEn);
+  const objectivesEn = toStringList(item.objectivesEn ?? item.objectives);
+  const objectivesBg = toStringList(item.objectivesBg ?? objectivesEn);
+  const activitiesEn = toStringList(item.activitiesEn ?? item.activities);
+  const activitiesBg = toStringList(item.activitiesBg ?? activitiesEn);
+  const resultsEn = toStringList(item.resultsEn ?? item.results);
+  const resultsBg = toStringList(item.resultsBg ?? resultsEn);
+  const slug = item.slug?.trim() || `${slugify(title) || 'project'}-${id}`;
 
   return {
     id,
     slug,
-    title: item.title,
-    programme: item.programme,
-    programmeLabel: item.programmeLabel,
-    intro: item.intro,
-    shortDescription: item.shortDescription ?? item.intro,
+    titleBg,
+    titleEn,
+    title,
+    programme,
+    programmeBg: item.programmeBg ?? item.programme ?? programme,
+    programmeEn: item.programmeEn ?? item.programme ?? programme,
+    programmeLabelBg,
+    programmeLabelEn,
+    programmeLabel: programmeLabelEn || programmeLabelBg,
+    introBg,
+    introEn,
+    intro: introEn || introBg,
+    shortDescriptionBg,
+    shortDescriptionEn,
+    shortDescription: shortDescriptionEn || shortDescriptionBg,
     image: item.imageUrl ?? '',
-    imageAlt: item.imageAlt ?? item.title,
+    imageAltBg,
+    imageAltEn,
+    imageAlt: imageAltEn || imageAltBg,
     featured: item.isFeatured,
-    overview: item.overview,
-    objectives: toStringList(item.objectives),
-    activities: toStringList(item.activities),
-    results: toStringList(item.results),
-    duration: item.duration,
-    countries: toStringList(item.countries),
-    partners: toStringList(item.partners),
+    overviewBg,
+    overviewEn,
+    overview: overviewEn || overviewBg,
+    objectivesBg,
+    objectivesEn,
+    objectives: objectivesEn.length ? objectivesEn : objectivesBg,
+    activitiesBg,
+    activitiesEn,
+    activities: activitiesEn.length ? activitiesEn : activitiesBg,
+    resultsBg,
+    resultsEn,
+    results: resultsEn.length ? resultsEn : resultsBg,
+    durationBg,
+    durationEn,
+    duration: durationEn || durationBg,
+    countriesBg,
+    countriesEn,
+    countries: countriesEn.length ? countriesEn : countriesBg,
+    partnersBg,
+    partnersEn,
+    partners: partnersEn.length ? partnersEn : partnersBg,
   };
 }
 
@@ -84,7 +182,7 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
   return new File([bytes], `${fallbackName}.${extension}`, { type: mime });
 }
 
-function appendList(form: FormData, name: keyof Pick<ProjectInput, 'countries' | 'partners' | 'objectives' | 'activities' | 'results'>, values: string[]) {
+function appendList(form: FormData, name: string, values: string[]) {
   values.forEach((value) => form.append(name, value));
 }
 
@@ -92,23 +190,36 @@ function toFormData(project: ProjectInput, id?: string): FormData {
   const form = new FormData();
   if (id) form.append('id', id);
   form.append('slug', project.slug);
-  form.append('title', project.title);
-  form.append('programme', project.programme);
-  form.append('programmeLabel', project.programmeLabel);
-  form.append('intro', project.intro);
-  form.append('shortDescription', project.shortDescription);
-  form.append('overview', project.overview);
-  form.append('imageAlt', project.imageAlt);
+  form.append('titleBg', project.titleBg);
+  form.append('titleEn', project.titleEn);
+  form.append('programmeBg', project.programmeBg);
+  form.append('programmeEn', project.programmeEn);
+  form.append('programmeLabelBg', project.programmeLabelBg);
+  form.append('programmeLabelEn', project.programmeLabelEn);
+  form.append('introBg', project.introBg);
+  form.append('introEn', project.introEn);
+  form.append('shortDescriptionBg', project.shortDescriptionBg);
+  form.append('shortDescriptionEn', project.shortDescriptionEn);
+  form.append('overviewBg', project.overviewBg);
+  form.append('overviewEn', project.overviewEn);
+  form.append('imageAltBg', project.imageAltBg);
+  form.append('imageAltEn', project.imageAltEn);
   form.append('isFeatured', String(project.featured));
   form.append('isActive', 'true');
-  form.append('duration', project.duration);
-  appendList(form, 'countries', project.countries);
-  appendList(form, 'partners', project.partners);
-  appendList(form, 'objectives', project.objectives);
-  appendList(form, 'activities', project.activities);
-  appendList(form, 'results', project.results);
+  form.append('durationBg', project.durationBg);
+  form.append('durationEn', project.durationEn);
+  appendList(form, 'countriesBg', project.countriesBg);
+  appendList(form, 'countriesEn', project.countriesEn);
+  appendList(form, 'partnersBg', project.partnersBg);
+  appendList(form, 'partnersEn', project.partnersEn);
+  appendList(form, 'objectivesBg', project.objectivesBg);
+  appendList(form, 'objectivesEn', project.objectivesEn);
+  appendList(form, 'activitiesBg', project.activitiesBg);
+  appendList(form, 'activitiesEn', project.activitiesEn);
+  appendList(form, 'resultsBg', project.resultsBg);
+  appendList(form, 'resultsEn', project.resultsEn);
 
-  const image = dataUrlToFile(project.image, slugify(project.title) || 'project-image');
+  const image = dataUrlToFile(project.image, slugify(project.titleEn || project.titleBg) || 'project-image');
   if (image) {
     form.append('image', image);
   }

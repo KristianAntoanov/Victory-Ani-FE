@@ -5,9 +5,15 @@ import { slugify } from '@/utils';
 
 interface BackendNewsItem {
   id: number;
-  title: string;
-  summary: string;
+  title?: string;
+  titleBg?: string;
+  titleEn?: string;
+  summary?: string;
+  summaryBg?: string;
+  summaryEn?: string;
   content?: string;
+  contentBg?: string;
+  contentEn?: string;
   imageUrl?: string | null;
   publishedOn: string;
   isActive: boolean;
@@ -17,18 +23,31 @@ interface BackendNewsItem {
 
 function toNewsArticle(item: BackendNewsItem): NewsArticle {
   const id = String(item.id);
-  const titleSlug = slugify(item.title) || 'news';
+  const titleEn = item.titleEn ?? item.title ?? '';
+  const titleBg = item.titleBg ?? titleEn;
+  const summaryEn = item.summaryEn ?? item.summary ?? '';
+  const summaryBg = item.summaryBg ?? summaryEn;
+  const contentEn = item.contentEn ?? item.content ?? '';
+  const contentBg = item.contentBg ?? contentEn;
+  const title = titleEn || titleBg;
+  const titleSlug = slugify(title) || 'news';
 
   return {
     id,
-    title: item.title,
+    titleBg,
+    titleEn,
+    title,
     slug: `${titleSlug}-${id}`,
     category: 'Announcements',
     publishDate: item.publishedOn,
-    shortDescription: item.summary,
-    content: item.content ?? '',
+    summaryBg,
+    summaryEn,
+    shortDescription: summaryEn || summaryBg,
+    contentBg,
+    contentEn,
+    content: contentEn || contentBg,
     image: item.imageUrl ?? '',
-    imageAlt: item.title,
+    imageAlt: title,
     author: 'V&A Projects',
     featured: false,
     published: item.isActive,
@@ -60,13 +79,16 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
 function toFormData(article: NewsArticleInput, id?: string): FormData {
   const form = new FormData();
   if (id) form.append('id', id);
-  form.append('title', article.title);
-  form.append('summary', article.shortDescription);
-  form.append('content', article.content);
+  form.append('titleBg', article.titleBg);
+  form.append('titleEn', article.titleEn);
+  form.append('summaryBg', article.summaryBg);
+  form.append('summaryEn', article.summaryEn);
+  form.append('contentBg', article.contentBg);
+  form.append('contentEn', article.contentEn);
   form.append('publishedOn', normalizePublishedOn(article.publishDate));
   form.append('isActive', String(article.published));
 
-  const image = dataUrlToFile(article.image, slugify(article.title) || 'news-image');
+  const image = dataUrlToFile(article.image, slugify(article.titleEn || article.titleBg) || 'news-image');
   if (image) {
     form.append('image', image);
   }

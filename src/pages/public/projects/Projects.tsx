@@ -19,6 +19,7 @@ import { ASSETS, ROUTES } from '@/constants';
 import { projectService } from '@/services/projectService';
 import { useLanguage } from '@/context/LanguageContext';
 import { loc, type Localized } from '@/i18n';
+import { getProjectContent } from '@/utils/localizedContent';
 import type { ProgrammeKey, Project } from '@/types';
 import styles from './Projects.module.css';
 
@@ -132,8 +133,9 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const getTheme = (project: Project) => {
-  const firstObjective = project.objectives[0] ?? project.programmeLabel;
+const getTheme = (project: Project, lang: 'en' | 'bg') => {
+  const content = getProjectContent(project, lang);
+  const firstObjective = content.objectives[0] ?? content.programmeLabel;
   return firstObjective.split(' ').slice(0, 5).join(' ');
 };
 
@@ -172,8 +174,9 @@ export default function Projects() {
     [activeFilter, projects],
   );
   const featuredProject = filteredProjects[0] ?? projects[0];
-  const countriesCount = new Set(projects.flatMap((project) => project.countries)).size;
+  const countriesCount = new Set(projects.flatMap((project) => getProjectContent(project, lang).countries)).size;
   const programmeCount = new Set(projects.map((project) => project.programme)).size;
+  const featuredContent = featuredProject ? getProjectContent(featuredProject, lang) : null;
 
   return (
     <>
@@ -241,29 +244,29 @@ export default function Projects() {
             ) : (
               <article className={styles.featurePanel}>
                 <figure className={styles.featureImage}>
-                  <img src={featuredProject.image} alt={featuredProject.imageAlt} />
+                  <img src={featuredProject.image} alt={featuredContent?.imageAlt ?? ''} />
                 </figure>
 
                 <div className={styles.featureContent}>
                   <ProgrammeBadge
-                    label={featuredProject.programmeLabel}
+                    label={featuredContent?.programmeLabel ?? ''}
                     icon={featuredProject.programme === 'life' ? 'leaf' : undefined}
                   />
-                  <h2>{featuredProject.title}</h2>
-                  <p>{featuredProject.overview}</p>
+                  <h2>{featuredContent?.title}</h2>
+                  <p>{featuredContent?.overview}</p>
 
                   <div className={styles.featureFacts}>
                     <span>
                       <CalendarDays size={16} aria-hidden="true" />
-                      {featuredProject.duration}
+                      {featuredContent?.duration}
                     </span>
                     <span>
                       <Globe2 size={16} aria-hidden="true" />
-                      {featuredProject.countries.join(', ')}
+                      {featuredContent?.countries.join(', ')}
                     </span>
                     <span>
                       <Layers3 size={16} aria-hidden="true" />
-                      {getTheme(featuredProject)}
+                      {getTheme(featuredProject, lang)}
                     </span>
                   </div>
 

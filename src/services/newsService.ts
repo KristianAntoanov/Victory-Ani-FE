@@ -4,11 +4,17 @@ import type { NewsArticle, NewsArticleInput } from '@/types';
 
 function toInput(article: NewsArticle): NewsArticleInput {
   return {
+    titleBg: article.titleBg,
+    titleEn: article.titleEn,
     title: article.title,
     slug: article.slug,
     category: article.category,
     publishDate: article.publishDate,
+    summaryBg: article.summaryBg,
+    summaryEn: article.summaryEn,
     shortDescription: article.shortDescription,
+    contentBg: article.contentBg,
+    contentEn: article.contentEn,
     content: article.content,
     image: article.image,
     imageAlt: article.imageAlt,

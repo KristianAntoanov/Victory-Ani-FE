@@ -22,7 +22,8 @@ export default function NewsForm({ initial }: NewsFormProps) {
   const [imageError, setImageError] = useState<string | null>(null);
 
   const schema = z.object({
-    title: z.string().min(1, 'Title is required'),
+    titleBg: z.string().min(1, 'Bulgarian title is required'),
+    titleEn: z.string().min(1, 'English title is required'),
     slug: z
       .string()
       .min(1, 'Slug is required')
@@ -30,8 +31,10 @@ export default function NewsForm({ initial }: NewsFormProps) {
       .refine(async (value) => newsService.isSlugUnique(value, initial?.id), 'This slug is already in use'),
     category: z.string().min(1, 'Category is required'),
     publishDate: z.string().min(1, 'Publish date is required'),
-    shortDescription: z.string().min(1, 'Short description is required'),
-    content: z.string().min(1, 'Full content is required'),
+    summaryBg: z.string().min(1, 'Bulgarian short description is required'),
+    summaryEn: z.string().min(1, 'English short description is required'),
+    contentBg: z.string().min(1, 'Bulgarian content is required'),
+    contentEn: z.string().min(1, 'English content is required'),
     image: z.string().min(1, 'Main image is required'),
     imageAlt: z.string().min(1, 'Image alternative text is required'),
     author: z.string().min(1, 'Author is required'),
@@ -49,12 +52,15 @@ export default function NewsForm({ initial }: NewsFormProps) {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      title: initial?.title ?? '',
+      titleBg: initial?.titleBg ?? '',
+      titleEn: initial?.titleEn ?? '',
       slug: initial?.slug ?? '',
       category: initial?.category ?? NEWS_CATEGORIES[0],
       publishDate: initial?.publishDate ?? new Date().toISOString().slice(0, 10),
-      shortDescription: initial?.shortDescription ?? '',
-      content: initial?.content ?? '',
+      summaryBg: initial?.summaryBg ?? '',
+      summaryEn: initial?.summaryEn ?? '',
+      contentBg: initial?.contentBg ?? '',
+      contentEn: initial?.contentEn ?? '',
       image: initial?.image ?? '',
       imageAlt: initial?.imageAlt ?? '',
       author: initial?.author ?? '',
@@ -63,7 +69,7 @@ export default function NewsForm({ initial }: NewsFormProps) {
     },
   });
 
-  const titleValue = watch('title');
+  const titleValue = watch('titleEn') || watch('titleBg');
   const imageValue = watch('image');
 
   useEffect(() => {
@@ -92,7 +98,12 @@ export default function NewsForm({ initial }: NewsFormProps) {
   };
 
   const onSubmit = async (values: FormValues) => {
-    const payload: NewsArticleInput = { ...values };
+    const payload: NewsArticleInput = {
+      ...values,
+      title: values.titleEn || values.titleBg,
+      shortDescription: values.summaryEn || values.summaryBg,
+      content: values.contentEn || values.contentBg,
+    };
     try {
       if (initial) {
         await newsService.updateNews(initial.id, payload);
@@ -111,12 +122,20 @@ export default function NewsForm({ initial }: NewsFormProps) {
     <form className="admin-form" onSubmit={handleSubmit(onSubmit)} noValidate data-testid="news-form">
       <div className="admin-form__section">
         <div className="form-grid">
-          <div className={`form-field form-field--full${errors.title ? ' has-error' : ''}`}>
-            <label htmlFor="f-title">
-              Title <span className="req">*</span>
+          <div className={`form-field${errors.titleBg ? ' has-error' : ''}`}>
+            <label htmlFor="f-title-bg">
+              Title BG <span className="req">*</span>
             </label>
-            <input id="f-title" type="text" {...register('title')} data-testid="news-title-input" />
-            {errors.title ? <p className="field-error">{errors.title.message}</p> : null}
+            <input id="f-title-bg" type="text" {...register('titleBg')} data-testid="news-title-bg-input" />
+            {errors.titleBg ? <p className="field-error">{errors.titleBg.message}</p> : null}
+          </div>
+
+          <div className={`form-field${errors.titleEn ? ' has-error' : ''}`}>
+            <label htmlFor="f-title-en">
+              Title EN <span className="req">*</span>
+            </label>
+            <input id="f-title-en" type="text" {...register('titleEn')} data-testid="news-title-en-input" />
+            {errors.titleEn ? <p className="field-error">{errors.titleEn.message}</p> : null}
           </div>
 
           <div className={`form-field${errors.slug ? ' has-error' : ''}`}>
@@ -166,33 +185,58 @@ export default function NewsForm({ initial }: NewsFormProps) {
             {errors.author ? <p className="field-error">{errors.author.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.shortDescription ? ' has-error' : ''}`}>
-            <label htmlFor="f-short">
-              Short Description <span className="req">*</span>
+          <div className={`form-field form-field--full${errors.summaryBg ? ' has-error' : ''}`}>
+            <label htmlFor="f-summary-bg">
+              Short Description BG <span className="req">*</span>
             </label>
             <textarea
-              id="f-short"
-              {...register('shortDescription')}
+              id="f-summary-bg"
+              {...register('summaryBg')}
               style={{ minHeight: 90 }}
-              data-testid="news-short-input"
+              data-testid="news-summary-bg-input"
             />
-            {errors.shortDescription ? (
-              <p className="field-error">{errors.shortDescription.message}</p>
-            ) : null}
+            {errors.summaryBg ? <p className="field-error">{errors.summaryBg.message}</p> : null}
           </div>
 
-          <div className={`form-field form-field--full${errors.content ? ' has-error' : ''}`}>
-            <label htmlFor="f-content">
-              Full Content <span className="req">*</span>
+          <div className={`form-field form-field--full${errors.summaryEn ? ' has-error' : ''}`}>
+            <label htmlFor="f-summary-en">
+              Short Description EN <span className="req">*</span>
             </label>
             <textarea
-              id="f-content"
-              {...register('content')}
+              id="f-summary-en"
+              {...register('summaryEn')}
+              style={{ minHeight: 90 }}
+              data-testid="news-summary-en-input"
+            />
+            {errors.summaryEn ? <p className="field-error">{errors.summaryEn.message}</p> : null}
+          </div>
+
+          <div className={`form-field form-field--full${errors.contentBg ? ' has-error' : ''}`}>
+            <label htmlFor="f-content-bg">
+              Full Content BG <span className="req">*</span>
+            </label>
+            <textarea
+              id="f-content-bg"
+              {...register('contentBg')}
               style={{ minHeight: 220 }}
-              data-testid="news-content-input"
+              data-testid="news-content-bg-input"
             />
             <p className="hint">Separate paragraphs with a blank line.</p>
-            {errors.content ? <p className="field-error">{errors.content.message}</p> : null}
+            {errors.contentBg ? <p className="field-error">{errors.contentBg.message}</p> : null}
+          </div>
+
+          <div className={`form-field form-field--full${errors.contentEn ? ' has-error' : ''}`}>
+            <label htmlFor="f-content-en">
+              Full Content EN <span className="req">*</span>
+            </label>
+            <textarea
+              id="f-content-en"
+              {...register('contentEn')}
+              style={{ minHeight: 220 }}
+              data-testid="news-content-en-input"
+            />
+            <p className="hint">Separate paragraphs with a blank line.</p>
+            {errors.contentEn ? <p className="field-error">{errors.contentEn.message}</p> : null}
           </div>
         </div>
       </div>

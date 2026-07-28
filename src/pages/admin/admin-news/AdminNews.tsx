@@ -41,7 +41,12 @@ export default function AdminNews() {
     let list = [...news];
     if (search.trim()) {
       const q = search.trim().toLowerCase();
-      list = list.filter((n) => n.title.toLowerCase().includes(q));
+      list = list.filter(
+        (n) =>
+          n.title.toLowerCase().includes(q) ||
+          n.titleBg.toLowerCase().includes(q) ||
+          n.titleEn.toLowerCase().includes(q),
+      );
     }
     if (status !== 'all') {
       list = list.filter((n) => (status === 'published' ? n.published : !n.published));

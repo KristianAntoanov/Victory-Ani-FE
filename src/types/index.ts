@@ -1,10 +1,16 @@
 export interface NewsArticle {
   id: string;
+  titleBg: string;
+  titleEn: string;
   title: string;
   slug: string;
   category: string;
   publishDate: string;
+  summaryBg: string;
+  summaryEn: string;
   shortDescription: string;
+  contentBg: string;
+  contentEn: string;
   content: string;
   image: string;
   imageAlt: string;
@@ -15,10 +21,7 @@ export interface NewsArticle {
   updatedAt: string;
 }
 
-export type NewsArticleInput = Omit<
-  NewsArticle,
-  'id' | 'createdAt' | 'updatedAt'
->;
+export type NewsArticleInput = Omit<NewsArticle, 'id' | 'createdAt' | 'updatedAt'>;
 
 export type ProgrammeKey = 'horizon' | 'erasmus' | 'life' | 'cerv';
 
@@ -30,20 +33,46 @@ export interface ProjectStat {
 export interface Project {
   id: string;
   slug: string;
+  titleBg: string;
+  titleEn: string;
   title: string;
   programme: ProgrammeKey;
+  programmeBg: string;
+  programmeEn: string;
+  programmeLabelBg: string;
+  programmeLabelEn: string;
   programmeLabel: string;
+  introBg: string;
+  introEn: string;
   intro: string;
+  shortDescriptionBg: string;
+  shortDescriptionEn: string;
   shortDescription: string;
   image: string;
+  imageAltBg: string;
+  imageAltEn: string;
   imageAlt: string;
   featured: boolean;
+  overviewBg: string;
+  overviewEn: string;
   overview: string;
+  objectivesBg: string[];
+  objectivesEn: string[];
   objectives: string[];
+  activitiesBg: string[];
+  activitiesEn: string[];
   activities: string[];
+  resultsBg: string[];
+  resultsEn: string[];
   results: string[];
+  durationBg: string;
+  durationEn: string;
   duration: string;
+  countriesBg: string[];
+  countriesEn: string[];
   countries: string[];
+  partnersBg: string[];
+  partnersEn: string[];
   partners: string[];
 }
 
