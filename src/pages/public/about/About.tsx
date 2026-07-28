@@ -18,131 +18,205 @@ import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
 import { ASSETS, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
+import { loc, type Localized } from '@/i18n';
 import { openConsultationModal } from '@/utils/consultationModal';
 import styles from './About.module.css';
 
 interface ProcessStep {
-  title: string;
-  text: string;
+  title: Localized;
+  text: Localized;
 }
 
 interface ValueItem {
-  title: string;
-  text: string;
+  title: Localized;
+  text: Localized;
   icon: LucideIcon;
 }
 
 interface Founder {
-  name: string;
-  role: string;
-  text: string;
-  quote: string;
+  name: Localized;
+  role: Localized;
+  text: Localized;
+  quote: Localized;
   icon: LucideIcon;
 }
 
-const expertise = [
-  'Humanities and social sciences',
-  'Sustainability and environmental studies',
-  'Economics and business',
-  'Maritime education and maritime affairs',
-  'Artificial intelligence and computer science',
-  'Medicine, biology and natural sciences',
-  'Education, training and social inclusion',
+const expertise: Localized[] = [
+  {
+    en: 'Humanities and social sciences',
+    bg: 'Хуманитарни и социални науки',
+  },
+  {
+    en: 'Sustainability and environmental studies',
+    bg: 'Устойчивост и екологични изследвания',
+  },
+  {
+    en: 'Economics and business',
+    bg: 'Икономика и бизнес',
+  },
+  {
+    en: 'Maritime education and maritime affairs',
+    bg: 'Морско образование и морско дело',
+  },
+  {
+    en: 'Artificial intelligence and computer science',
+    bg: 'Изкуствен интелект и компютърни науки',
+  },
+  {
+    en: 'Medicine, biology and natural sciences',
+    bg: 'Медицина, биология и природни науки',
+  },
+  {
+    en: 'Education, training and social inclusion',
+    bg: 'Образование, обучение и социално включване',
+  },
 ];
 
 const aboutNav = [
-  { label: 'Story & Team', href: '#story-team' },
-  { label: 'How we work', href: '#how-we-work' },
-  { label: 'Values', href: '#values' },
-  { label: 'Founders', href: '#founders' },
+  { label: { en: 'Story & Team', bg: 'История и екип' }, href: '#story-team' },
+  { label: { en: 'How we work', bg: 'Как работим' }, href: '#how-we-work' },
+  { label: { en: 'Values', bg: 'Ценности' }, href: '#values' },
+  { label: { en: 'Founders', bg: 'Основатели' }, href: '#founders' },
 ];
 
 const processSteps: ProcessStep[] = [
   {
-    title: 'Listen',
-    text: 'We begin with your idea, your organisation and the needs of the people you want to support.',
+    title: { en: 'Listen', bg: 'Изслушваме' },
+    text: {
+      en: 'We begin with your idea, your organisation and the needs of the people you want to support.',
+      bg: 'Започваме с вашата идея, вашата организация и нуждите на хората, които искате да подкрепите.',
+    },
   },
   {
-    title: 'Find',
-    text: 'We identify the EU programme and funding call that offer the strongest match for your ambitions.',
+    title: { en: 'Find', bg: 'Намираме' },
+    text: {
+      en: 'We identify the EU programme and funding call that offer the strongest match for your ambitions.',
+      bg: 'Идентифицираме европейската програма и покана за финансиране, които най-добре съответстват на вашите амбиции.',
+    },
   },
   {
-    title: 'Shape',
-    text: 'We develop the project concept, objectives, activities, results and project logic.',
+    title: { en: 'Shape', bg: 'Оформяме' },
+    text: {
+      en: 'We develop the project concept, objectives, activities, results and project logic.',
+      bg: 'Разработваме проектната концепция, целите, дейностите, резултатите и логиката на проекта.',
+    },
   },
   {
-    title: 'Connect',
-    text: 'We build a balanced partnership with the right expertise, roles and geographical coverage.',
+    title: { en: 'Connect', bg: 'Свързваме' },
+    text: {
+      en: 'We build a balanced partnership with the right expertise, roles and geographical coverage.',
+      bg: 'Изграждаме балансирано партньорство с правилната експертиза, роли и географско покритие.',
+    },
   },
   {
-    title: 'Build',
-    text: 'We prepare the proposal, work plan, budget and supporting documents with care and precision.',
+    title: { en: 'Build', bg: 'Изграждаме' },
+    text: {
+      en: 'We prepare the proposal, work plan, budget and supporting documents with care and precision.',
+      bg: 'Подготвяме предложението, работния план, бюджета и придружаващите документи с внимание и прецизност.',
+    },
   },
   {
-    title: 'Deliver',
-    text: 'We support implementation, coordination, communication, quality assurance and reporting after approval.',
+    title: { en: 'Deliver', bg: 'Реализираме' },
+    text: {
+      en: 'We support implementation, coordination, communication, quality assurance and reporting after approval.',
+      bg: 'Подкрепяме изпълнението, координацията, комуникацията, осигуряването на качество и отчитането след одобрение.',
+    },
   },
 ];
 
 const values: ValueItem[] = [
   {
-    title: 'Equal access to education and opportunity',
-    text: 'Every person should have access to quality education, learning opportunities and the possibility to participate fully in society.',
+    title: {
+      en: 'Equal access to education and opportunity',
+      bg: 'Равен достъп до образование и възможности',
+    },
+    text: {
+      en: 'Every person should have access to quality education, learning opportunities and the possibility to participate fully in society.',
+      bg: 'Всеки човек трябва да има достъп до качествено образование, възможности за учене и участие в обществото.',
+    },
     icon: GraduationCap,
   },
   {
-    title: 'Ideas deserve to be heard',
-    text: 'Innovative ideas often begin with one person, one organisation or one local need. We help give them structure, credibility and a strong European voice.',
+    title: { en: 'Ideas deserve to be heard', bg: 'Идеите заслужават да бъдат чути' },
+    text: {
+      en: 'Innovative ideas often begin with one person, one organisation or one local need. We help give them structure, credibility and a strong European voice.',
+      bg: 'Иновативните идеи често започват от един човек, една организация или една местна нужда. Помагаме им да получат структура, надеждност и силен европейски глас.',
+    },
     icon: Lightbulb,
   },
   {
-    title: 'Integrity and responsibility',
-    text: 'We provide realistic advice, respect funding rules and remain transparent about opportunities, risks and responsibilities.',
+    title: { en: 'Integrity and responsibility', bg: 'Почтеност и отговорност' },
+    text: {
+      en: 'We provide realistic advice, respect funding rules and remain transparent about opportunities, risks and responsibilities.',
+      bg: 'Даваме реалистични съвети, спазваме правилата за финансиране и сме прозрачни относно възможностите, рисковете и отговорностите.',
+    },
     icon: ShieldCheck,
   },
   {
-    title: 'Quality in every detail',
-    text: 'Strong projects depend on clear objectives, realistic activities, reliable partnerships and precise documentation.',
+    title: { en: 'Quality in every detail', bg: 'Качество във всеки детайл' },
+    text: {
+      en: 'Strong projects depend on clear objectives, realistic activities, reliable partnerships and precise documentation.',
+      bg: 'Силните проекти зависят от ясни цели, реалистични дейности, надеждни партньорства и прецизна документация.',
+    },
     icon: Target,
   },
   {
-    title: 'Cooperation built on trust',
-    text: 'European projects are created through people. We value respectful communication, shared responsibility and long-term partnerships.',
+    title: { en: 'Cooperation built on trust', bg: 'Сътрудничество, изградено върху доверие' },
+    text: {
+      en: 'European projects are created through people. We value respectful communication, shared responsibility and long-term partnerships.',
+      bg: 'Европейските проекти се създават от хора. Ценим уважителната комуникация, споделената отговорност и дългосрочните партньорства.',
+    },
     icon: Handshake,
   },
   {
-    title: 'Innovation with meaning',
-    text: 'Innovation should respond to real needs and create practical value for education, safety, the environment, research and society.',
+    title: { en: 'Innovation with meaning', bg: 'Иновации със смисъл' },
+    text: {
+      en: 'Innovation should respond to real needs and create practical value for education, safety, the environment, research and society.',
+      bg: 'Иновациите трябва да отговарят на реални нужди и да създават практическа стойност за образованието, безопасността, околната среда, науката и обществото.',
+    },
     icon: Brain,
   },
   {
-    title: 'Lasting value',
-    text: 'A successful project should continue to create value after the funding period ends through solutions that can be sustained and transferred.',
+    title: { en: 'Lasting value', bg: 'Трайна стойност' },
+    text: {
+      en: 'A successful project should continue to create value after the funding period ends through solutions that can be sustained and transferred.',
+      bg: 'Успешният проект трябва да продължи да създава стойност и след края на финансирането чрез решения, които могат да се поддържат и пренасят.',
+    },
     icon: Sprout,
   },
 ];
 
 const founders: Founder[] = [
   {
-    name: 'Viktor Georgiev',
-    role: 'Founder',
+    name: { en: 'Viktor Georgiev', bg: 'Виктор Георгиев' },
+    role: { en: 'Founder', bg: 'Основател' },
     icon: Anchor,
-    text: 'A former naval captain, Viktor brings practical leadership experience, operational discipline and a strong understanding of safety, responsibility and international cooperation. During the past five years, he has worked with EU-funded projects and has developed a particular interest in Horizon Europe opportunities related to maritime affairs, marine innovation and safer and more sustainable maritime systems.',
-    quote:
-      'Through EU-funded projects, we can turn the best innovative ideas into real solutions, advance sustainability and help restore the planet for the generations to come.',
+    text: {
+      en: 'A former naval captain, Viktor brings practical leadership experience, operational discipline and a strong understanding of safety, responsibility and international cooperation. During the past five years, he has worked with EU-funded projects and has developed a particular interest in Horizon Europe opportunities related to maritime affairs, marine innovation and safer and more sustainable maritime systems.',
+      bg: 'Като бивш морски капитан, Виктор носи практически лидерски опит, оперативна дисциплина и силно разбиране за безопасност, отговорност и международно сътрудничество. През последните пет години работи по проекти, финансирани от ЕС, и развива особен интерес към възможностите по Horizon Europe, свързани с морското дело, морските иновации и по-безопасни и устойчиви морски системи.',
+    },
+    quote: {
+      en: 'Through EU-funded projects, we can turn the best innovative ideas into real solutions, advance sustainability and help restore the planet for the generations to come.',
+      bg: 'Чрез проекти, финансирани от ЕС, можем да превърнем най-добрите иновативни идеи в реални решения, да развиваме устойчивостта и да помагаме за възстановяването на планетата за бъдещите поколения.',
+    },
   },
   {
-    name: 'Dr. Ana Antonova-Georgieva',
-    role: 'Founder',
+    name: { en: 'Dr. Ana Antonova-Georgieva', bg: 'д-р Ана Антонова-Георгиева' },
+    role: { en: 'Founder', bg: 'Основател' },
     icon: BookOpen,
-    text: 'Dr. Ana Antonova-Georgieva holds a PhD in Political Science focused on women\'s rights, gender equality, violence against women and human rights protection. With more than ten years of experience in EU-funded projects, she is devoted to the strategic design, development and writing of European projects, guiding ideas from their earliest stage to strong, competitive and implementation-ready proposals.',
-    quote:
-      'I believe we have the power to design projects that can genuinely change the realities of children, opening doors to education, equality, protection and opportunity.',
+    text: {
+      en: 'Dr. Ana Antonova-Georgieva holds a PhD in Political Science focused on women\'s rights, gender equality, violence against women and human rights protection. With more than ten years of experience in EU-funded projects, she is devoted to the strategic design, development and writing of European projects, guiding ideas from their earliest stage to strong, competitive and implementation-ready proposals.',
+      bg: 'Д-р Ана Антонова-Георгиева има докторска степен по политически науки с фокус върху правата на жените, равенството между половете, насилието над жени и защитата на човешките права. С повече от десет години опит в проекти, финансирани от ЕС, тя е посветена на стратегическото проектиране, развитие и писане на европейски проекти, като превежда идеите от най-ранния им етап до силни, конкурентни и готови за изпълнение предложения.',
+    },
+    quote: {
+      en: 'I believe we have the power to design projects that can genuinely change the realities of children, opening doors to education, equality, protection and opportunity.',
+      bg: 'Вярвам, че имаме силата да създаваме проекти, които наистина могат да променят реалността за децата, отваряйки врати към образование, равенство, защита и възможности.',
+    },
   },
 ];
 
 export default function About() {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const [activeProcess, setActiveProcess] = useState(0);
   const [activeValue, setActiveValue] = useState(0);
   const [activeSection, setActiveSection] = useState(aboutNav[0].href);
@@ -229,14 +303,14 @@ export default function About() {
 
       <div className={styles.navWrap}>
         <div className="container">
-          <nav className={styles.aboutNav} aria-label="About page sections">
+          <nav className={styles.aboutNav} aria-label={t('about.pageSectionsLabel')}>
             {aboutNav.map((item) => (
               <a
                 href={item.href}
                 className={activeSection === item.href ? styles.activeNavLink : undefined}
                 key={item.href}
               >
-                {item.label}
+                {loc(item.label, lang)}
               </a>
             ))}
           </nav>
@@ -256,17 +330,15 @@ export default function About() {
             <article className={styles.storyPanel}>
               <div className={styles.statPill}>
                 <Users size={20} aria-hidden="true" />
-                <strong>20+ years</strong>
+                <strong>{t('about.experienceYears')}</strong>
                 <span>{t('about.combinedExperience')}</span>
               </div>
               <p>
-                Our expertise covers the full project journey, from the first idea and the search
-                for suitable funding to proposal writing, consortium development, implementation,
-                communication and reporting.
+                {t('about.expertiseText')}
               </p>
               <div className={styles.expertiseGrid}>
                 {expertise.map((item) => (
-                  <span key={item}>{item}</span>
+                  <span key={item.en}>{loc(item, lang)}</span>
                 ))}
               </div>
             </article>
@@ -286,7 +358,7 @@ export default function About() {
             </div>
 
             <div className={styles.processBoard}>
-              <div className={styles.processRail} role="tablist" aria-label="Project process steps">
+              <div className={styles.processRail} role="tablist" aria-label={t('about.processStepsLabel')}>
                 {processSteps.map((step, index) => (
                   <button
                     type="button"
@@ -294,11 +366,11 @@ export default function About() {
                     aria-selected={activeProcess === index}
                     aria-controls="process-detail"
                     className={activeProcess === index ? styles.activeStepButton : undefined}
-                    key={step.title}
+                    key={step.title.en}
                     onClick={() => setActiveProcess(index)}
                   >
                     <span>{String(index + 1).padStart(2, '0')}</span>
-                    {step.title}
+                    {loc(step.title, lang)}
                   </button>
                 ))}
               </div>
@@ -307,17 +379,17 @@ export default function About() {
                 <span className={styles.stepNumber}>
                   {String(activeProcess + 1).padStart(2, '0')}
                 </span>
-                <h3>{selectedProcess.title}</h3>
-                <p>{selectedProcess.text}</p>
+                <h3>{loc(selectedProcess.title, lang)}</h3>
+                <p>{loc(selectedProcess.text, lang)}</p>
               </article>
             </div>
 
-            <div className={styles.processSteps} aria-label="Complete process overview">
+            <div className={styles.processSteps} aria-label={t('about.completeProcessLabel')}>
               {processSteps.map((step, index) => (
-                <article className={styles.processStep} key={step.title}>
+                <article className={styles.processStep} key={step.title.en}>
                   <span className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
+                  <h3>{loc(step.title, lang)}</h3>
+                  <p>{loc(step.text, lang)}</p>
                 </article>
               ))}
             </div>
@@ -334,7 +406,7 @@ export default function About() {
             <span className="dash" />
           </div>
           <div className={styles.valuesShell}>
-            <div className={styles.valueNav} role="tablist" aria-label="V&A Projects values">
+            <div className={styles.valueNav} role="tablist" aria-label={t('about.valuesLabel')}>
               {values.map((value, index) => {
                 const ValueIcon = value.icon;
                 return (
@@ -344,11 +416,11 @@ export default function About() {
                     aria-selected={activeValue === index}
                     aria-controls="value-detail"
                     className={activeValue === index ? styles.activeValueButton : undefined}
-                    key={value.title}
+                    key={value.title.en}
                     onClick={() => setActiveValue(index)}
                   >
                     <ValueIcon size={18} strokeWidth={1.7} aria-hidden="true" />
-                    <span>{value.title}</span>
+                    <span>{loc(value.title, lang)}</span>
                   </button>
                 );
               })}
@@ -358,8 +430,8 @@ export default function About() {
               <span className="icon-circle">
                 <SelectedValueIcon size={28} strokeWidth={1.5} aria-hidden="true" />
               </span>
-              <h3>{selectedValue.title}</h3>
-              <p>{selectedValue.text}</p>
+              <h3>{loc(selectedValue.title, lang)}</h3>
+              <p>{loc(selectedValue.text, lang)}</p>
             </article>
           </div>
 
@@ -379,18 +451,18 @@ export default function About() {
               {founders.map((founder) => {
                 const FounderIcon = founder.icon;
                 return (
-                  <article className={styles.founderCard} key={founder.name}>
+                  <article className={styles.founderCard} key={founder.name.en}>
                     <div className={styles.founderHeader}>
                       <span className={styles.founderPhoto}>
                         <FounderIcon size={34} strokeWidth={1.4} aria-hidden="true" />
                       </span>
                       <div>
-                        <h3>{founder.name}</h3>
-                        <p>{founder.role}</p>
+                        <h3>{loc(founder.name, lang)}</h3>
+                        <p>{loc(founder.role, lang)}</p>
                       </div>
                     </div>
-                    <p>{founder.text}</p>
-                    <blockquote>{founder.quote}</blockquote>
+                    <p>{loc(founder.text, lang)}</p>
+                    <blockquote>{loc(founder.quote, lang)}</blockquote>
                   </article>
                 );
               })}
