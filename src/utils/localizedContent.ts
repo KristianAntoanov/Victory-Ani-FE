@@ -5,8 +5,11 @@ function text(bg: string | undefined, en: string | undefined, lang: Lang): strin
   return lang === 'bg' ? bg || en || '' : en || bg || '';
 }
 
-function list(bg: string[] | undefined, en: string[] | undefined, lang: Lang): string[] {
-  return lang === 'bg' ? (bg?.length ? bg : en ?? []) : en?.length ? en : bg ?? [];
+function stringList(bg: string | undefined, en: string | undefined, lang: Lang): string[] {
+  return text(bg, en, lang)
+    .split(/\r?\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 export function getNewsContent(article: NewsArticle, lang: Lang) {
@@ -20,16 +23,14 @@ export function getNewsContent(article: NewsArticle, lang: Lang) {
 export function getProjectContent(project: Project, lang: Lang) {
   return {
     title: text(project.titleBg, project.titleEn, lang),
-    programmeLabel: text(project.programmeLabelBg, project.programmeLabelEn, lang),
-    intro: text(project.introBg, project.introEn, lang),
-    shortDescription: text(project.shortDescriptionBg, project.shortDescriptionEn, lang),
-    overview: text(project.overviewBg, project.overviewEn, lang),
-    imageAlt: text(project.imageAltBg, project.imageAltEn, lang),
+    programmeLabel: text(project.programmeBg, project.programmeEn, lang),
+    theme: text(project.themeBg, project.themeEn, lang),
+    intro: text(project.themeBg, project.themeEn, lang),
+    shortDescription: text(project.themeBg, project.themeEn, lang),
+    overview: text(project.mainActivitiesBg, project.mainActivitiesEn, lang),
+    imageAlt: text(project.titleBg, project.titleEn, lang),
     duration: text(project.durationBg, project.durationEn, lang),
-    countries: list(project.countriesBg, project.countriesEn, lang),
-    partners: list(project.partnersBg, project.partnersEn, lang),
-    objectives: list(project.objectivesBg, project.objectivesEn, lang),
-    activities: list(project.activitiesBg, project.activitiesEn, lang),
-    results: list(project.resultsBg, project.resultsEn, lang),
+    countries: stringList(project.countriesBg, project.countriesEn, lang),
+    activities: stringList(project.mainActivitiesBg, project.mainActivitiesEn, lang),
   };
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowLeft, CalendarDays, ChevronRight, Globe2, Handshake, Landmark } from 'lucide-react';
+import { ArrowLeft, CalendarDays, ChevronRight, Globe2, Landmark, Layers3 } from 'lucide-react';
 import Seo from '@/components/common/Seo';
 import ProgrammeBadge from '@/components/common/ProgrammeBadge';
 import ProjectCard from '@/components/common/ProjectCard';
@@ -142,8 +142,8 @@ export default function ProjectDetails() {
                   {content.countries.length} {t('projects.countCountries')}
                 </span>
                 <span>
-                  <Handshake size={16} aria-hidden="true" />
-                  {content.partners.length} {t('projectDetail.partners').toLowerCase()}
+                  <Layers3 size={16} aria-hidden="true" />
+                  {content.theme}
                 </span>
               </div>
             </div>
@@ -185,43 +185,25 @@ export default function ProjectDetails() {
                   <dd>{content.countries.join(', ')}</dd>
                 </div>
                 <div>
-                  <dt>{t('projectDetail.partners')}</dt>
-                  <dd>{content.partners.join(', ')}</dd>
+                  <dt>{t('projectDetail.theme')}</dt>
+                  <dd>{content.theme}</dd>
                 </div>
               </dl>
             </aside>
 
             <div className={styles.contentPanel} ref={contentRef}>
               <section className={styles.overviewBlock}>
-                <span className="eyebrow">{t('projectDetail.overview')}</span>
+                <span className="eyebrow">{t('projectDetail.mainActivities')}</span>
                 <h2>{t('projectDetail.impactTitle')}</h2>
                 <p>{content.overview}</p>
               </section>
 
               <div className={styles.infoGrid}>
                 <section className={styles.infoCard}>
-                  <h3>{t('projectDetail.objectives')}</h3>
-                  <ul>
-                    {content.objectives.map((o) => (
-                      <li key={o}>{o}</li>
-                    ))}
-                  </ul>
-                </section>
-
-                <section className={styles.infoCard}>
                   <h3>{t('projectDetail.activities')}</h3>
                   <ul>
                     {content.activities.map((a) => (
                       <li key={a}>{a}</li>
-                    ))}
-                  </ul>
-                </section>
-
-                <section className={`${styles.infoCard} ${styles.resultsCard}`}>
-                  <h3>{t('projectDetail.results')}</h3>
-                  <ul>
-                    {content.results.map((r) => (
-                      <li key={r}>{r}</li>
                     ))}
                   </ul>
                 </section>

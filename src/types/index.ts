@@ -39,44 +39,29 @@ export interface Project {
   programme: ProgrammeKey;
   programmeBg: string;
   programmeEn: string;
-  programmeLabelBg: string;
-  programmeLabelEn: string;
   programmeLabel: string;
-  introBg: string;
-  introEn: string;
-  intro: string;
-  shortDescriptionBg: string;
-  shortDescriptionEn: string;
-  shortDescription: string;
+  themeBg: string;
+  themeEn: string;
+  theme: string;
   image: string;
-  imageAltBg: string;
-  imageAltEn: string;
-  imageAlt: string;
-  featured: boolean;
-  overviewBg: string;
-  overviewEn: string;
-  overview: string;
-  objectivesBg: string[];
-  objectivesEn: string[];
-  objectives: string[];
-  activitiesBg: string[];
-  activitiesEn: string[];
-  activities: string[];
-  resultsBg: string[];
-  resultsEn: string[];
-  results: string[];
   durationBg: string;
   durationEn: string;
   duration: string;
-  countriesBg: string[];
-  countriesEn: string[];
-  countries: string[];
-  partnersBg: string[];
-  partnersEn: string[];
-  partners: string[];
+  countriesBg: string;
+  countriesEn: string;
+  countries: string;
+  mainActivitiesBg: string;
+  mainActivitiesEn: string;
+  mainActivities: string;
+  isActive: boolean;
+  createdOn?: string | null;
+  updatedOn?: string | null;
 }
 
-export type ProjectInput = Omit<Project, 'id'>;
+export type ProjectInput = Omit<
+  Project,
+  'id' | 'slug' | 'title' | 'programme' | 'programmeLabel' | 'theme' | 'duration' | 'countries' | 'mainActivities' | 'createdOn' | 'updatedOn'
+>;
 
 export interface TeamMember {
   id: string;

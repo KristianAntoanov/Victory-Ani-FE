@@ -135,8 +135,7 @@ const testimonials: Testimonial[] = [
 
 const getTheme = (project: Project, lang: 'en' | 'bg') => {
   const content = getProjectContent(project, lang);
-  const firstObjective = content.objectives[0] ?? content.programmeLabel;
-  return firstObjective.split(' ').slice(0, 5).join(' ');
+  return content.theme || content.programmeLabel;
 };
 
 export default function Projects() {

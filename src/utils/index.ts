@@ -30,7 +30,7 @@ export function formatDate(iso: string, lang: 'en' | 'bg' = 'en'): string {
 }
 
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-export const MAX_IMAGE_BYTES = 1.5 * 1024 * 1024;
+export const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 
 export interface ImageReadResult {
   base64: string;
@@ -43,7 +43,7 @@ export function readImageAsBase64(file: File): Promise<ImageReadResult> {
       return;
     }
     if (file.size > MAX_IMAGE_BYTES) {
-      reject(new Error('File is too large. Maximum allowed size is 1.5 MB.'));
+      reject(new Error('File is too large. Maximum allowed size is 10 MB.'));
       return;
     }
     const reader = new FileReader();
