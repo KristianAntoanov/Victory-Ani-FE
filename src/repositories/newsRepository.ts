@@ -38,7 +38,6 @@ function toNewsArticle(item: BackendNewsItem): NewsArticle {
     titleEn,
     title,
     slug: `${titleSlug}-${id}`,
-    category: 'Announcements',
     publishDate: item.publishedOn,
     summaryBg,
     summaryEn,

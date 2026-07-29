@@ -21,7 +21,6 @@ export default function NewsCard({ article }: NewsCardProps) {
       </Link>
       <div className="news-card__body">
         <div className="featured-news__meta">
-          <span className="news-tag">{article.category}</span>
           <span className="news-date">{formatDate(article.publishDate, lang)}</span>
         </div>
         <h3 className="news-card__title">

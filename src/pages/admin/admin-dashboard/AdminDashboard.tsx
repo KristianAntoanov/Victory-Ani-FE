@@ -47,8 +47,8 @@ export default function AdminDashboard() {
   const stats = useMemo(
     () => ({
       total: news.length,
-      published: news.filter((n) => n.published).length,
-      drafts: news.filter((n) => !n.published).length,
+      active: news.filter((n) => n.published).length,
+      inactive: news.filter((n) => !n.published).length,
       projects: projects.length,
     }),
     [news, projects],
@@ -93,13 +93,13 @@ export default function AdminDashboard() {
         </div>
         <div className="admin-stat" data-testid="stat-published">
           <FileCheck2 className={styles.iconGreen} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.published}</div>
-          <div className="admin-stat__label">Published</div>
+          <div className="admin-stat__value">{stats.active}</div>
+          <div className="admin-stat__label">Active</div>
         </div>
         <div className="admin-stat" data-testid="stat-drafts">
           <FileClock className={styles.iconMuted} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.drafts}</div>
-          <div className="admin-stat__label">Drafts</div>
+          <div className="admin-stat__value">{stats.inactive}</div>
+          <div className="admin-stat__label">Inactive</div>
         </div>
         <div className="admin-stat" data-testid="stat-projects">
           <FolderKanban className={styles.iconGreen} size={22} aria-hidden="true" />
@@ -135,7 +135,7 @@ export default function AdminDashboard() {
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Category</th>
+                <th>Short Description</th>
                 <th>Date</th>
                 <th>Status</th>
               </tr>
@@ -148,11 +148,11 @@ export default function AdminDashboard() {
                       {a.title}
                     </Link>
                   </td>
-                  <td data-label="Category">{a.category}</td>
+                  <td data-label="Short Description">{a.shortDescription}</td>
                   <td data-label="Date">{formatDate(a.publishDate)}</td>
                   <td data-label="Status">
                     <span className={`badge ${a.published ? 'badge--published' : 'badge--draft'}`}>
-                      {a.published ? 'Published' : 'Draft'}
+                      {a.published ? 'Active' : 'Inactive'}
                     </span>
                   </td>
                 </tr>

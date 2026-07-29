@@ -4,7 +4,6 @@ export interface NewsArticle {
   titleEn: string;
   title: string;
   slug: string;
-  category: string;
   publishDate: string;
   summaryBg: string;
   summaryEn: string;

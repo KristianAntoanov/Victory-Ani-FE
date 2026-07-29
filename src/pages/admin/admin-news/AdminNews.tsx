@@ -6,13 +6,13 @@ import ConfirmDialog from '@/components/common/ConfirmDialog';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
 import LoadingState from '@/components/common/LoadingState';
-import { ROUTES, NEWS_CATEGORIES } from '@/constants';
+import { ROUTES } from '@/constants';
 import { formatDate } from '@/utils';
 import { useToast } from '@/context/ToastContext';
 import type { NewsArticle } from '@/types';
 import styles from './AdminNews.module.css';
 
-type StatusFilter = 'all' | 'published' | 'draft';
+type StatusFilter = 'all' | 'active' | 'inactive';
 type SortOrder = 'newest' | 'oldest';
 
 export default function AdminNews() {
@@ -20,7 +20,6 @@ export default function AdminNews() {
   const [news, setNews] = useState<NewsArticle[]>([]);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<StatusFilter>('all');
-  const [category, setCategory] = useState<string>('all');
   const [sort, setSort] = useState<SortOrder>('newest');
   const [toDelete, setToDelete] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,10 +48,7 @@ export default function AdminNews() {
       );
     }
     if (status !== 'all') {
-      list = list.filter((n) => (status === 'published' ? n.published : !n.published));
-    }
-    if (category !== 'all') {
-      list = list.filter((n) => n.category === category);
+      list = list.filter((n) => (status === 'active' ? n.published : !n.published));
     }
     list.sort((a, b) => {
       const da = new Date(a.publishDate).getTime();
@@ -60,13 +56,13 @@ export default function AdminNews() {
       return sort === 'newest' ? db - da : da - db;
     });
     return list;
-  }, [news, search, status, category, sort]);
+  }, [news, search, status, sort]);
 
   const handleTogglePublished = async (article: NewsArticle) => {
     try {
       await newsService.togglePublished(article.id);
       await refresh();
-      toast.info(article.published ? 'Article hidden (set to draft).' : 'Article published.');
+      toast.info(article.published ? 'Article hidden from public pages.' : 'Article made active.');
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Could not update article.');
     }
@@ -117,16 +113,8 @@ export default function AdminNews() {
           />
           <select value={status} onChange={(e) => setStatus(e.target.value as StatusFilter)} aria-label="Filter by status" data-testid="news-filter-status">
             <option value="all">All statuses</option>
-            <option value="published">Published</option>
-            <option value="draft">Drafts</option>
-          </select>
-          <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Filter by category" data-testid="news-filter-category">
-            <option value="all">All categories</option>
-            {NEWS_CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </select>
           <select value={sort} onChange={(e) => setSort(e.target.value as SortOrder)} aria-label="Sort by date" data-testid="news-sort">
             <option value="newest">Newest first</option>
@@ -144,7 +132,7 @@ export default function AdminNews() {
             <thead>
               <tr>
                 <th>Article</th>
-                <th>Category</th>
+                <th>Short Description</th>
                 <th>Publish Date</th>
                 <th>Last Updated</th>
                 <th>Status</th>
@@ -160,25 +148,25 @@ export default function AdminNews() {
                       <span className="admin-table__title">{a.title}</span>
                     </div>
                   </td>
-                  <td data-label="Category">{a.category}</td>
+                  <td data-label="Short Description">{a.shortDescription}</td>
                   <td data-label="Publish Date">{formatDate(a.publishDate)}</td>
                   <td data-label="Last Updated">{formatDate(a.updatedAt)}</td>
                   <td data-label="Status">
                     <span className={`badge ${a.published ? 'badge--published' : 'badge--draft'}`}>
-                      {a.published ? 'Published' : 'Draft'}
+                      {a.published ? 'Active' : 'Inactive'}
                     </span>
                   </td>
                   <td data-label="Actions">
                     <div className="row-actions">
                       <button
                         type="button"
-                        className="icon-btn"
-                        title={a.published ? 'Unpublish' : 'Publish'}
-                        aria-label={a.published ? 'Unpublish article' : 'Publish article'}
+                        className={`icon-btn${a.published ? ' is-on' : ''}`}
+                        title={a.published ? 'Deactivate' : 'Activate'}
+                        aria-label={a.published ? 'Deactivate article' : 'Activate article'}
                         onClick={() => handleTogglePublished(a)}
                         data-testid={`publish-toggle-${a.slug}`}
                       >
-                        {a.published ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
+                        {a.published ? <Eye size={16} aria-hidden="true" /> : <EyeOff size={16} aria-hidden="true" />}
                       </button>
                       <a
                         href={ROUTES.newsDetails(a.slug)}

@@ -54,15 +54,6 @@ export const STORAGE_KEYS = {
   adminSession: 'va_admin_session',
 } as const;
 
-export const NEWS_CATEGORIES = [
-  'Horizon Europe',
-  'Erasmus+',
-  'LIFE',
-  'CERV',
-  'Insights',
-  'Announcements',
-] as const;
-
 export const ASSETS = {
   logoOriginal: '/assets/logo-original.png',
   heroArchitecture: '/assets/hero-architecture.png',
