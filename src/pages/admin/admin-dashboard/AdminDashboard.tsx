@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Star, FileText, FileCheck2, FileClock, FolderKanban } from 'lucide-react';
+import { Plus, FileText, FileCheck2, FileClock, FolderKanban } from 'lucide-react';
 import { newsService } from '@/services/newsService';
 import { projectService } from '@/services/projectService';
 import { ROUTES } from '@/constants';
@@ -49,7 +49,6 @@ export default function AdminDashboard() {
       total: news.length,
       published: news.filter((n) => n.published).length,
       drafts: news.filter((n) => !n.published).length,
-      featured: news.filter((n) => n.featured).length,
       projects: projects.length,
     }),
     [news, projects],
@@ -101,11 +100,6 @@ export default function AdminDashboard() {
           <FileClock className={styles.iconMuted} size={22} aria-hidden="true" />
           <div className="admin-stat__value">{stats.drafts}</div>
           <div className="admin-stat__label">Drafts</div>
-        </div>
-        <div className="admin-stat" data-testid="stat-featured">
-          <Star className={styles.iconBordo} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.featured}</div>
-          <div className="admin-stat__label">Featured</div>
         </div>
         <div className="admin-stat" data-testid="stat-projects">
           <FolderKanban className={styles.iconGreen} size={22} aria-hidden="true" />

@@ -49,7 +49,6 @@ function toNewsArticle(item: BackendNewsItem): NewsArticle {
     image: item.imageUrl ?? '',
     imageAlt: title,
     author: 'V&A Projects',
-    featured: false,
     published: item.isActive,
     createdAt: item.createdOn ?? item.publishedOn,
     updatedAt: item.updatedOn ?? item.createdOn ?? item.publishedOn,

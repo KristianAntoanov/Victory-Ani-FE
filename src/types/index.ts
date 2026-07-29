@@ -15,7 +15,6 @@ export interface NewsArticle {
   image: string;
   imageAlt: string;
   author: string;
-  featured: boolean;
   published: boolean;
   createdAt: string;
   updatedAt: string;

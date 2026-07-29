@@ -33,7 +33,7 @@ export const newsService = {
 
   async getFeaturedNews(): Promise<NewsArticle | undefined> {
     const articles = await this.getPublishedNews();
-    return articles.find((article) => article.featured);
+    return articles[0];
   },
 
   getNewsById(id: string): Promise<NewsArticle> {
@@ -74,21 +74,15 @@ export const newsService = {
   },
 
   async togglePublished(id: string): Promise<NewsArticle> {
-    const existing = await newsRepository.getById(id);
-    if (!existing.content.trim()) {
-      throw new Error('The backend News API does not expose article content in Search. Add a get-by-id endpoint before toggling status from this screen.');
+    const articles = await this.getAllNews();
+    const existing = articles.find((article) => article.id === id);
+    if (!existing) {
+      throw new Error('Article not found.');
     }
+
     return newsRepository.update(id, {
       ...toInput(existing),
       published: !existing.published,
     });
-  },
-
-  async toggleFeatured(id: string): Promise<NewsArticle> {
-    const existing = await newsRepository.getById(id);
-    if (!existing) {
-      throw new Error('Article not found.');
-    }
-    throw new Error('The backend News API does not expose a featured field yet.');
   },
 };

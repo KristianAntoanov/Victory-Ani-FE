@@ -162,7 +162,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             <label htmlFor="p-duration-bg">
               Duration BG <span className="req">*</span>
             </label>
-            <input id="p-duration-bg" type="text" placeholder="2024 - 2027" {...register('durationBg')} />
+            <input id="p-duration-bg" type="text" placeholder="от 2024 - до 2027" {...register('durationBg')} />
             {errors.durationBg ? <p className="field-error">{errors.durationBg.message}</p> : null}
           </div>
 
@@ -170,7 +170,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
             <label htmlFor="p-duration-en">
               Duration EN <span className="req">*</span>
             </label>
-            <input id="p-duration-en" type="text" placeholder="2024 - 2027" {...register('durationEn')} />
+            <input id="p-duration-en" type="text" placeholder="from 2024 - to 2027" {...register('durationEn')} />
             {errors.durationEn ? <p className="field-error">{errors.durationEn.message}</p> : null}
           </div>
 

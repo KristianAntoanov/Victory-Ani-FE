@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Pencil, Trash2, Eye, EyeOff, Star, ExternalLink } from 'lucide-react';
+import { Plus, Pencil, Trash2, Eye, EyeOff, ExternalLink } from 'lucide-react';
 import { newsService } from '@/services/newsService';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import EmptyState from '@/components/common/EmptyState';
@@ -72,16 +72,6 @@ export default function AdminNews() {
     }
   };
 
-  const handleToggleFeatured = async (article: NewsArticle) => {
-    try {
-      await newsService.toggleFeatured(article.id);
-      await refresh();
-      toast.info(article.featured ? 'Removed from featured.' : 'Marked as featured.');
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : 'Could not update article.');
-    }
-  };
-
   const confirmDelete = async () => {
     if (!toDelete) return;
     try {
@@ -106,7 +96,7 @@ export default function AdminNews() {
     <div data-testid="admin-news">
       <div className={styles.header}>
         <p className={styles.description}>
-          Create, edit, publish and feature journal articles. Changes are saved through the backend API and appear on the
+          Create, edit and publish journal articles. Changes are saved through the backend API and appear on the
           public Our Journal page.
         </p>
         <Link to={ROUTES.admin.newsCreate} className="btn btn--primary" data-testid="news-add-button">
@@ -168,7 +158,6 @@ export default function AdminNews() {
                     <div className={styles.articleCell}>
                       <img className="admin-table__thumb" src={a.image} alt="" />
                       <span className="admin-table__title">{a.title}</span>
-                      {a.featured ? <span className="badge badge--featured"><Star size={12} /> Featured</span> : null}
                     </div>
                   </td>
                   <td data-label="Category">{a.category}</td>
@@ -181,16 +170,6 @@ export default function AdminNews() {
                   </td>
                   <td data-label="Actions">
                     <div className="row-actions">
-                      <button
-                        type="button"
-                        className={`icon-btn${a.featured ? ' is-on' : ''}`}
-                        title={a.featured ? 'Unfeature' : 'Mark as featured'}
-                        aria-label={a.featured ? 'Unfeature article' : 'Mark article as featured'}
-                        onClick={() => handleToggleFeatured(a)}
-                        data-testid={`feature-toggle-${a.slug}`}
-                      >
-                        <Star size={16} aria-hidden="true" />
-                      </button>
                       <button
                         type="button"
                         className="icon-btn"
