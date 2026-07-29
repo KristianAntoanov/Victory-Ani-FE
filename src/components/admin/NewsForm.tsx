@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { readImageAsBase64 } from '@/utils';
 import { ROUTES } from '@/constants';
 import { useToast } from '@/context/ToastContext';
 import type { NewsArticle, NewsArticleInput } from '@/types';
+import DatePicker from '@/components/common/DatePicker';
 
 interface NewsFormProps {
   initial?: NewsArticle;
@@ -34,6 +35,7 @@ export default function NewsForm({ initial }: NewsFormProps) {
   type FormValues = z.infer<typeof schema>;
 
   const {
+    control,
     register,
     handleSubmit,
     setValue,
@@ -125,7 +127,22 @@ export default function NewsForm({ initial }: NewsFormProps) {
             <label htmlFor="f-date">
               Publish Date
             </label>
-            <input id="f-date" type="date" {...register('publishDate')} data-testid="news-date-input" />
+            <Controller
+              control={control}
+              name="publishDate"
+              render={({ field }) => (
+                <DatePicker
+                  id="f-date"
+                  name={field.name}
+                  value={field.value ?? ''}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  inputRef={field.ref}
+                  allowClear
+                  testId="news-date-input"
+                />
+              )}
+            />
             {errors.publishDate ? <p className="field-error">{errors.publishDate.message}</p> : null}
           </div>
 
