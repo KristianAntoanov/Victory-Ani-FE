@@ -40,11 +40,7 @@ export default function NewsDetails() {
 
         if (found && found.published) {
           setArticle(found);
-          const categoryMatches = allPublished.filter(
-            (a) => a.id !== found.id && a.category === found.category,
-          );
-          const fallback = allPublished.filter((a) => a.id !== found.id);
-          setRelated((categoryMatches.length > 0 ? categoryMatches : fallback).slice(0, 2));
+          setRelated(allPublished.filter((a) => a.id !== found.id).slice(0, 2));
         } else {
           setArticle(null);
         }
@@ -149,7 +145,6 @@ export default function NewsDetails() {
 
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className="news-tag">{article.category}</span>
               <h1 className={styles.title}>{content.title}</h1>
               <p className={styles.lead}>{content.summary}</p>
               <div className={styles.heroMeta}>
@@ -188,10 +183,6 @@ export default function NewsDetails() {
               </div>
 
               <dl className={styles.metaList}>
-                <div>
-                  <dt>{t('news.category')}</dt>
-                  <dd>{article.category}</dd>
-                </div>
                 <div>
                   <dt>{t('news.published')}</dt>
                   <dd>{formatDate(article.publishDate, lang)}</dd>

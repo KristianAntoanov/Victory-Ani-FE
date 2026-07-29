@@ -7,6 +7,8 @@ interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: RequestBody;
 }
 
+const inFlightGetRequests = new Map<string, Promise<unknown>>();
+
 export class ApiError extends Error {
   status: number;
   details: unknown;
@@ -49,6 +51,7 @@ async function parseResponse(response: Response): Promise<unknown> {
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const token = authSessionService.getToken();
   const headers = new Headers(options.headers);
+  const method = (options.method ?? 'GET').toUpperCase();
 
   if (options.body !== undefined && !(options.body instanceof FormData) && !headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json');
@@ -57,22 +60,47 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     headers.set('Authorization', `Bearer ${token}`);
   }
 
-  const response = await fetch(buildUrl(path), {
-    ...options,
-    headers,
-    body: buildBody(options.body),
-  });
-  const payload = await parseResponse(response);
+  const url = buildUrl(path);
+  const dedupeKey = `${method} ${url} ${headers.get('Authorization') ?? ''}`;
 
-  if (!response.ok) {
-    const message =
-      typeof payload === 'object' && payload !== null && 'message' in payload
-        ? String((payload as { message: unknown }).message)
-        : `API request failed with status ${response.status}`;
-    throw new ApiError(message, response.status, payload);
+  if (method === 'GET' && !options.signal) {
+    const existing = inFlightGetRequests.get(dedupeKey);
+    if (existing) return existing as Promise<T>;
+  } else if (method !== 'GET') {
+    inFlightGetRequests.clear();
   }
 
-  return payload as T;
+  const requestPromise = (async () => {
+    const response = await fetch(url, {
+      ...options,
+      method,
+      headers,
+      body: buildBody(options.body),
+    });
+    const payload = await parseResponse(response);
+
+    if (!response.ok) {
+      const message =
+        typeof payload === 'object' && payload !== null && 'message' in payload
+          ? String((payload as { message: unknown }).message)
+          : `API request failed with status ${response.status}`;
+      throw new ApiError(message, response.status, payload);
+    }
+
+    return payload;
+  })();
+
+  if (method === 'GET' && !options.signal) {
+    inFlightGetRequests.set(dedupeKey, requestPromise);
+    const clearRequest = () => {
+      if (inFlightGetRequests.get(dedupeKey) === requestPromise) {
+        inFlightGetRequests.delete(dedupeKey);
+      }
+    };
+    requestPromise.then(clearRequest, clearRequest);
+  }
+
+  return requestPromise as Promise<T>;
 }
 
 export const apiClient = {

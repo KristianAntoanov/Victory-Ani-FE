@@ -4,7 +4,6 @@ export interface NewsArticle {
   titleEn: string;
   title: string;
   slug: string;
-  category: string;
   publishDate: string;
   summaryBg: string;
   summaryEn: string;
@@ -15,7 +14,6 @@ export interface NewsArticle {
   image: string;
   imageAlt: string;
   author: string;
-  featured: boolean;
   published: boolean;
   createdAt: string;
   updatedAt: string;

@@ -1561,6 +1561,15 @@ ul {
   width: 100%;
   transition: border-color var(--t-base), box-shadow var(--t-base);
 }
+.form-field select,
+.admin-toolbar select {
+  appearance: none;
+  padding-right: 2.45rem;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%237A0046' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 16px 16px;
+}
 .form-field input:focus,
 .form-field select:focus,
 .form-field textarea:focus {
@@ -1932,6 +1941,13 @@ ul {
   font-size: var(--fs-small);
   background: #fff;
 }
+.admin-toolbar select {
+  padding-right: 2.45rem;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9L12 15L18 9' stroke='%237A0046' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 16px 16px;
+}
 .admin-toolbar .search {
   flex: 1;
   min-width: 200px;
@@ -2078,6 +2094,9 @@ ul {
 .admin-form--project .form-field select,
 .admin-form--project .form-field textarea {
   padding: 0.72rem 0.85rem;
+}
+.admin-form--project .form-field select {
+  padding-right: 2.45rem;
 }
 .admin-form--project .image-upload {
   gap: var(--space-4);

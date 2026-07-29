@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Plus, Star, FileText, FileCheck2, FileClock, FolderKanban } from 'lucide-react';
+import { Plus, FileText, FileCheck2, FileClock, FolderKanban } from 'lucide-react';
 import { newsService } from '@/services/newsService';
 import { projectService } from '@/services/projectService';
 import { ROUTES } from '@/constants';
@@ -47,9 +47,8 @@ export default function AdminDashboard() {
   const stats = useMemo(
     () => ({
       total: news.length,
-      published: news.filter((n) => n.published).length,
-      drafts: news.filter((n) => !n.published).length,
-      featured: news.filter((n) => n.featured).length,
+      active: news.filter((n) => n.published).length,
+      inactive: news.filter((n) => !n.published).length,
       projects: projects.length,
     }),
     [news, projects],
@@ -94,18 +93,13 @@ export default function AdminDashboard() {
         </div>
         <div className="admin-stat" data-testid="stat-published">
           <FileCheck2 className={styles.iconGreen} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.published}</div>
-          <div className="admin-stat__label">Published</div>
+          <div className="admin-stat__value">{stats.active}</div>
+          <div className="admin-stat__label">Active</div>
         </div>
         <div className="admin-stat" data-testid="stat-drafts">
           <FileClock className={styles.iconMuted} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.drafts}</div>
-          <div className="admin-stat__label">Drafts</div>
-        </div>
-        <div className="admin-stat" data-testid="stat-featured">
-          <Star className={styles.iconBordo} size={22} aria-hidden="true" />
-          <div className="admin-stat__value">{stats.featured}</div>
-          <div className="admin-stat__label">Featured</div>
+          <div className="admin-stat__value">{stats.inactive}</div>
+          <div className="admin-stat__label">Inactive</div>
         </div>
         <div className="admin-stat" data-testid="stat-projects">
           <FolderKanban className={styles.iconGreen} size={22} aria-hidden="true" />
@@ -141,7 +135,7 @@ export default function AdminDashboard() {
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Category</th>
+                <th>Short Description</th>
                 <th>Date</th>
                 <th>Status</th>
               </tr>
@@ -154,11 +148,11 @@ export default function AdminDashboard() {
                       {a.title}
                     </Link>
                   </td>
-                  <td data-label="Category">{a.category}</td>
+                  <td data-label="Short Description">{a.shortDescription}</td>
                   <td data-label="Date">{formatDate(a.publishDate)}</td>
                   <td data-label="Status">
                     <span className={`badge ${a.published ? 'badge--published' : 'badge--draft'}`}>
-                      {a.published ? 'Published' : 'Draft'}
+                      {a.published ? 'Active' : 'Inactive'}
                     </span>
                   </td>
                 </tr>
