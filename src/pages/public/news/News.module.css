@@ -56,7 +56,7 @@
   max-width: 30rem;
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.2rem);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -104,7 +104,7 @@
 
 .newsIntro :global(.section-title .eyebrow) {
   margin-bottom: var(--space-3);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   letter-spacing: 0.08em;
 }
 
@@ -113,10 +113,10 @@
 }
 
 .newsIntro p {
-  max-width: 16rem;
+  max-width: 18rem;
   color: var(--color-text-soft);
-  font-size: 0.86rem;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .articlesBlock {
@@ -149,19 +149,19 @@
 .articlesGrid :global(.featured-news__meta) {
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.7rem;
+  font-size: 0.86rem;
   line-height: 1.25;
 }
 
 .articlesGrid :global(.news-tag) {
   color: var(--color-bordo);
-  font-size: 0.62rem;
+  font-size: 0.82rem;
   letter-spacing: 0.08em;
 }
 
 .articlesGrid :global(.news-date) {
   color: var(--color-text-soft);
-  font-size: 0.7rem;
+  font-size: 0.86rem;
   font-weight: 600;
 }
 
@@ -173,9 +173,9 @@
 
 .articlesGrid :global(.service-card__desc) {
   color: var(--color-text);
-  font-size: 0.7rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  line-height: 1.36;
+  line-height: 1.48;
 }
 
 .articlesGrid :global(.news-card__footer) {
@@ -201,7 +201,7 @@
 
 .articlesActions :global(.btn) {
   padding: 0.9rem 1.65rem;
-  font-size: 0.76rem;
+  font-size: 0.86rem;
 }
 
 .newsletterSection {
@@ -307,7 +307,7 @@
 
   .heroLead {
     max-width: 21rem;
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.5;
     overflow-wrap: anywhere;
   }

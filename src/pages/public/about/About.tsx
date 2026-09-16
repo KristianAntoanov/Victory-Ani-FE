@@ -17,6 +17,7 @@ import Seo from '@/components/common/Seo';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
 import { ASSETS, ROUTES } from '@/constants';
+import { VIKTOR_GEORGIEV_BIOGRAPHY, VIKTOR_GEORGIEV_QUOTE } from '@/data/team';
 import { useLanguage } from '@/context/LanguageContext';
 import { loc, type Localized } from '@/i18n';
 import { openConsultationModal } from '@/utils/consultationModal';
@@ -25,6 +26,12 @@ import styles from './About.module.css';
 interface ProcessStep {
   title: Localized;
   text: Localized;
+}
+
+interface ProcessHighlight {
+  title: Localized;
+  text: Localized;
+  icon: LucideIcon;
 }
 
 interface ValueItem {
@@ -124,6 +131,33 @@ const processSteps: ProcessStep[] = [
   },
 ];
 
+const processHighlights: ProcessHighlight[] = [
+  {
+    title: { en: 'Clear project logic', bg: 'Ясна проектна логика' },
+    text: {
+      en: 'Needs, objectives, activities, results and impact are aligned before the proposal is written.',
+      bg: 'Нуждите, целите, дейностите, резултатите и въздействието се съгласуват преди писането на предложението.',
+    },
+    icon: Target,
+  },
+  {
+    title: { en: 'The right partners', bg: 'Правилните партньори' },
+    text: {
+      en: 'Each organisation has a defined role, relevant expertise and a reason to be part of the project.',
+      bg: 'Всяка организация има ясна роля, подходяща експертиза и конкретна причина да бъде част от проекта.',
+    },
+    icon: Users,
+  },
+  {
+    title: { en: 'Confident delivery', bg: 'Уверено изпълнение' },
+    text: {
+      en: 'The project is prepared with practical management, reporting, communication and quality needs in mind.',
+      bg: 'Проектът се подготвя с мисъл за управлението, отчитането, комуникацията и качеството.',
+    },
+    icon: ShieldCheck,
+  },
+];
+
 const values: ValueItem[] = [
   {
     title: {
@@ -191,14 +225,8 @@ const founders: Founder[] = [
     name: { en: 'Viktor Georgiev', bg: 'Виктор Георгиев' },
     role: { en: 'Founder', bg: 'Основател' },
     icon: Anchor,
-    text: {
-      en: 'A former naval captain, Viktor brings practical leadership experience, operational discipline and a strong understanding of safety, responsibility and international cooperation. During the past five years, he has worked with EU-funded projects and has developed a particular interest in Horizon Europe opportunities related to maritime affairs, marine innovation and safer and more sustainable maritime systems.',
-      bg: 'Като бивш морски капитан, Виктор носи практически лидерски опит, оперативна дисциплина и силно разбиране за безопасност, отговорност и международно сътрудничество. През последните пет години работи по проекти, финансирани от ЕС, и развива особен интерес към възможностите по Horizon Europe, свързани с морското дело, морските иновации и по-безопасни и устойчиви морски системи.',
-    },
-    quote: {
-      en: 'Through EU-funded projects, we can turn the best innovative ideas into real solutions, advance sustainability and help restore the planet for the generations to come.',
-      bg: 'Чрез проекти, финансирани от ЕС, можем да превърнем най-добрите иновативни идеи в реални решения, да развиваме устойчивостта и да помагаме за възстановяването на планетата за бъдещите поколения.',
-    },
+    text: VIKTOR_GEORGIEV_BIOGRAPHY,
+    quote: VIKTOR_GEORGIEV_QUOTE,
   },
   {
     name: { en: 'Dr. Ana Antonova-Georgieva', bg: 'д-р Ана Антонова-Георгиева' },
@@ -384,14 +412,19 @@ export default function About() {
               </article>
             </div>
 
-            <div className={styles.processSteps} aria-label={t('about.completeProcessLabel')}>
-              {processSteps.map((step, index) => (
-                <article className={styles.processStep} key={step.title.en}>
-                  <span className={styles.stepNumber}>{String(index + 1).padStart(2, '0')}</span>
-                  <h3>{loc(step.title, lang)}</h3>
-                  <p>{loc(step.text, lang)}</p>
-                </article>
-              ))}
+            <div className={styles.processHighlights} aria-label={t('about.completeProcessLabel')}>
+              {processHighlights.map((item) => {
+                const HighlightIcon = item.icon;
+                return (
+                  <article className={styles.processHighlight} key={item.title.en}>
+                    <span className="icon-circle icon-circle--soft">
+                      <HighlightIcon size={24} strokeWidth={1.6} aria-hidden="true" />
+                    </span>
+                    <h3>{loc(item.title, lang)}</h3>
+                    <p>{loc(item.text, lang)}</p>
+                  </article>
+                );
+              })}
             </div>
           </div>
           <p className={styles.processTagline}>{t('about.processTagline')}</p>
