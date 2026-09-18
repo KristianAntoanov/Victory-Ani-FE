@@ -8,7 +8,7 @@ import { ArrowLeft, Eye, EyeOff, LogIn, ShieldAlert } from 'lucide-react';
 import Logo from '@/components/common/Logo';
 import { useAuth } from '@/context/AuthContext';
 import { ROUTES } from '@/constants';
-import { authService, type IdentityAuthResponse, type TwoFactorSetupResponse } from '@/services/authService';
+import { authService, type IdentityAuthResponse } from '@/services/authService';
 import styles from './AdminLogin.module.css';
 
 const schema = z.object({
@@ -32,16 +32,10 @@ export default function AdminLogin() {
   const { isAuthenticated, authenticate } = useAuth();
   const navigate = useNavigate();
   const [authError, setAuthError] = useState<string | null>(null);
-  const [step, setStep] = useState<'credentials' | 'password-change' | 'two-factor-setup' | 'two-factor-code'>(
-    'credentials',
-  );
+  const [step, setStep] = useState<'credentials' | 'password-change'>('credentials');
   const [pendingEmail, setPendingEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [passwordChangeToken, setPasswordChangeToken] = useState('');
-  const [twoFactorSetupToken, setTwoFactorSetupToken] = useState('');
-  const [twoFactorLoginToken, setTwoFactorLoginToken] = useState('');
-  const [setupDetails, setSetupDetails] = useState<TwoFactorSetupResponse | null>(null);
-  const [twoFactorCode, setTwoFactorCode] = useState('');
   const [loadingStep, setLoadingStep] = useState(false);
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -71,10 +65,6 @@ export default function AdminLogin() {
     setPendingEmail('');
     setCurrentPassword('');
     setPasswordChangeToken('');
-    setTwoFactorSetupToken('');
-    setTwoFactorLoginToken('');
-    setSetupDetails(null);
-    setTwoFactorCode('');
     setShowLoginPassword(false);
     setShowNewPassword(false);
     setShowConfirmNewPassword(false);
@@ -94,24 +84,6 @@ export default function AdminLogin() {
       setPasswordChangeToken(response.passwordChangeToken);
       resetPasswordChangeForm();
       setStep('password-change');
-      return;
-    }
-
-    if (response.requiresTwoFactorSetup && response.twoFactorSetupToken) {
-      setPendingEmail(response.userName ?? fallbackEmail);
-      setTwoFactorSetupToken(response.twoFactorSetupToken);
-      setTwoFactorCode('');
-      const details = await authService.getTwoFactorSetup(response.twoFactorSetupToken);
-      setSetupDetails(details);
-      setStep('two-factor-setup');
-      return;
-    }
-
-    if (response.requiresTwoFactorCode && response.twoFactorLoginToken) {
-      setPendingEmail(response.userName ?? fallbackEmail);
-      setTwoFactorLoginToken(response.twoFactorLoginToken);
-      setTwoFactorCode('');
-      setStep('two-factor-code');
       return;
     }
 
@@ -161,36 +133,6 @@ export default function AdminLogin() {
     setAuthError(null);
     resetPendingAuth();
     setStep('credentials');
-  };
-
-  const submitTwoFactorSetup = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setAuthError(null);
-    setLoadingStep(true);
-    try {
-      const response = await authService.enableTwoFactor(twoFactorSetupToken, twoFactorCode);
-      setTwoFactorCode('');
-      await completeAuthStep(response, pendingEmail);
-    } catch (err) {
-      setAuthError(err instanceof Error ? err.message : 'Could not enable two-factor authentication.');
-    } finally {
-      setLoadingStep(false);
-    }
-  };
-
-  const submitTwoFactorCode = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setAuthError(null);
-    setLoadingStep(true);
-    try {
-      const response = await authService.loginWithTwoFactor(twoFactorLoginToken, twoFactorCode);
-      setTwoFactorCode('');
-      await completeAuthStep(response, pendingEmail);
-    } catch (err) {
-      setAuthError(err instanceof Error ? err.message : 'Invalid two-factor code.');
-    } finally {
-      setLoadingStep(false);
-    }
   };
 
   return (
@@ -319,54 +261,6 @@ export default function AdminLogin() {
             </button>
             <button type="button" className="btn btn--ghost btn--block" onClick={returnToCredentials} disabled={loadingStep}>
               <ArrowLeft size={18} aria-hidden="true" /> <span>Back to Sign In</span>
-            </button>
-          </form>
-        ) : null}
-
-        {step === 'two-factor-setup' ? (
-          <form className={styles.form} onSubmit={submitTwoFactorSetup} noValidate data-testid="two-factor-setup-form">
-            <div className={styles.hint}>
-              <p className={styles.hintTitle}>
-                <ShieldAlert size={16} /> <strong>Set up authenticator</strong>
-              </p>
-              <p>Shared key: <code>{setupDetails?.sharedKey}</code></p>
-              <p className={styles.hintNote}>Authenticator URI: <code>{setupDetails?.authenticatorUri}</code></p>
-            </div>
-            <div className="form-field">
-              <label htmlFor="setup-code">6-digit code</label>
-              <input
-                id="setup-code"
-                type="text"
-                inputMode="numeric"
-                value={twoFactorCode}
-                onChange={(event) => setTwoFactorCode(event.target.value)}
-                required
-              />
-            </div>
-            {authError ? <p className="field-error" role="alert">{authError}</p> : null}
-            <button type="submit" className="btn btn--primary btn--block" disabled={loadingStep}>
-              Enable and Sign In
-            </button>
-          </form>
-        ) : null}
-
-        {step === 'two-factor-code' ? (
-          <form className={styles.form} onSubmit={submitTwoFactorCode} noValidate data-testid="two-factor-code-form">
-            <div className="form-field">
-              <label htmlFor="login-code">6-digit code</label>
-              <input
-                id="login-code"
-                type="text"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                value={twoFactorCode}
-                onChange={(event) => setTwoFactorCode(event.target.value)}
-                required
-              />
-            </div>
-            {authError ? <p className="field-error" role="alert">{authError}</p> : null}
-            <button type="submit" className="btn btn--primary btn--block" disabled={loadingStep}>
-              Verify and Sign In
             </button>
           </form>
         ) : null}

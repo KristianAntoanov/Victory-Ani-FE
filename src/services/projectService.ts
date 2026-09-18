@@ -17,6 +17,7 @@ function toInput(project: Project): ProjectInput {
     mainActivitiesBg: project.mainActivitiesBg,
     mainActivitiesEn: project.mainActivitiesEn,
     isActive: project.isActive,
+    isFeatured: project.isFeatured,
   };
 }
 
