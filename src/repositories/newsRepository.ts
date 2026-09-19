@@ -76,22 +76,17 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
 
 function toFormData(article: NewsArticleInput, id?: string): FormData {
   const form = new FormData();
-  if (id) form.append('id', id);
-  form.append('titleBg', article.titleBg);
-  form.append('titleEn', article.titleEn);
-  form.append('summaryBg', article.summaryBg);
-  form.append('summaryEn', article.summaryEn);
-  form.append('contentBg', article.contentBg);
-  form.append('contentEn', article.contentEn);
-  if (article.publishDate) {
-    form.append('publishedOn', normalizePublishedOn(article.publishDate));
-  }
-  form.append('isActive', String(article.published));
+  if (id) form.append('Id', id);
+  form.append('Title', article.titleEn || article.titleBg);
+  form.append('Summary', article.summaryEn || article.summaryBg);
+  form.append('Content', article.contentEn || article.contentBg);
+  form.append('PublishedOn', normalizePublishedOn(article.publishDate ?? new Date().toISOString()));
+  form.append('IsActive', String(article.published));
 
   if (article.image) {
     const image = dataUrlToFile(article.image, slugify(article.titleEn || article.titleBg) || 'news-image');
     if (image) {
-      form.append('image', image);
+      form.append('Image', image);
     }
   }
 

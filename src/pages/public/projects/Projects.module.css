@@ -58,7 +58,7 @@
   max-width: 38rem;
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: clamp(0.98rem, 1.08vw, 1.12rem);
+  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.2rem);
   font-weight: 650;
   line-height: 1.58;
 }
@@ -100,7 +100,7 @@
 
 .heroSummary span {
   color: var(--color-text);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   font-weight: 850;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -141,7 +141,7 @@
   background: rgba(255, 253, 252, 0.82);
   color: var(--color-text);
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   font-weight: 850;
   letter-spacing: 0.02em;
   transition:
@@ -207,7 +207,7 @@
 .featureContent p {
   max-width: 58rem;
   color: var(--color-text);
-  font-size: clamp(0.95rem, 1vw, 1.08rem);
+  font-size: clamp(1.04rem, 1rem + 0.16vw, 1.16rem);
   font-weight: 620;
   line-height: 1.6;
 }
@@ -228,7 +228,7 @@
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.76);
   color: var(--color-text);
-  font-size: 0.75rem;
+  font-size: 0.92rem;
   font-weight: 750;
   line-height: 1.3;
 }
@@ -245,8 +245,8 @@
 }
 
 .featureActions :global(.btn) {
-  padding: 0.72rem 1rem;
-  font-size: 0.7rem;
+  padding: 0.78rem 1.08rem;
+  font-size: 0.86rem;
 }
 
 .projectsHeader {
@@ -268,7 +268,7 @@
 .projectsHeader p {
   max-width: 52rem;
   color: var(--color-text);
-  font-size: clamp(0.92rem, 0.98vw, 1.02rem);
+  font-size: clamp(1.02rem, 0.98rem + 0.14vw, 1.12rem);
   font-weight: 650;
   line-height: 1.54;
 }
@@ -314,9 +314,9 @@
 
 .projectsGrid :global(.service-card__desc) {
   color: var(--color-text);
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 620;
-  line-height: 1.48;
+  line-height: 1.54;
 }
 
 .projectsGrid :global(.project-mini__row) {
@@ -381,7 +381,7 @@
   display: flex;
   width: max-content;
   gap: clamp(0.75rem, 1vw, 1rem);
-  animation: testimonialScroll 58s linear infinite;
+  animation: testimonialScroll 78s linear infinite;
 }
 
 .testimonialViewport:hover .testimonialTrack {
@@ -390,11 +390,11 @@
 
 .testimonialCard {
   display: grid;
-  flex: 0 0 min(430px, 82vw);
-  min-height: 292px;
+  flex: 0 0 min(560px, 86vw);
+  min-height: 0;
   align-content: start;
   gap: var(--space-4);
-  padding: clamp(1rem, 1.35vw, 1.3rem);
+  padding: clamp(1.15rem, 1.5vw, 1.55rem);
   border: 1px solid rgba(122, 0, 70, 0.22);
   border-radius: var(--radius-sm);
   background: var(--color-bordo);
@@ -407,9 +407,9 @@
 
 .testimonialCard p {
   color: #fff;
-  font-size: 0.86rem;
+  font-size: clamp(0.98rem, 0.95rem + 0.14vw, 1.08rem);
   font-weight: 620;
-  line-height: 1.55;
+  line-height: 1.62;
 }
 
 .testimonialCard div {
@@ -420,16 +420,16 @@
 
 .testimonialCard strong {
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   line-height: 1.2;
 }
 
 .testimonialCard span,
 .testimonialCard small {
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.74rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .addSection {
@@ -466,7 +466,7 @@
   max-width: 56rem;
   margin-top: var(--space-2);
   color: var(--color-text);
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 620;
   line-height: 1.5;
 }
@@ -587,6 +587,7 @@
 
   .heroContent {
     min-width: 0;
+    max-width: 100%;
   }
 
   .heroTitle {
@@ -597,15 +598,16 @@
   }
 
   .heroLead {
+    width: 100%;
     max-width: 21rem;
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.5;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
   }
 
   .heroSummary {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     width: 100%;
     max-width: 100%;
     gap: 0.5rem;
@@ -614,8 +616,8 @@
 
   .heroSummary div {
     min-width: 0;
-    min-height: 76px;
-    padding: 0.65rem 0.45rem;
+    min-height: 68px;
+    padding: 0.75rem;
   }
 
   .heroSummary strong {
@@ -623,9 +625,9 @@
   }
 
   .heroSummary span {
-    font-size: 0.56rem;
-    letter-spacing: 0.05em;
-    overflow-wrap: anywhere;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    overflow-wrap: break-word;
   }
 
   .projectsSection {
@@ -745,6 +747,10 @@
     gap: var(--space-3);
   }
 
+  .projectsHeader p {
+    overflow-wrap: break-word;
+  }
+
   .projectsHeader h2,
   .testimonialsHeader h2 {
     font-size: 1.62rem;
@@ -803,6 +809,7 @@
   .testimonialCard {
     flex-basis: calc(100vw - 2rem);
     min-height: 0;
+    padding: var(--space-4);
   }
 
   .testimonialCard p,

@@ -5,19 +5,34 @@ import { slugify } from '@/utils';
 
 interface BackendProjectItem {
   id: number;
-  titleBg: string;
-  titleEn: string;
-  programmeBg: string;
-  programmeEn: string;
-  themeBg: string;
-  themeEn: string;
+  slug?: string | null;
+  title?: string | null;
+  titleBg?: string | null;
+  titleEn?: string | null;
+  programme?: string | null;
+  programmeLabel?: string | null;
+  programmeBg?: string | null;
+  programmeEn?: string | null;
+  intro?: string | null;
+  shortDescription?: string | null;
+  overview?: string | null;
+  themeBg?: string | null;
+  themeEn?: string | null;
   imageUrl?: string | null;
-  durationBg: string;
-  durationEn: string;
-  countriesBg: string;
-  countriesEn: string;
-  mainActivitiesBg: string;
-  mainActivitiesEn: string;
+  imageAlt?: string | null;
+  duration?: string | null;
+  durationBg?: string | null;
+  durationEn?: string | null;
+  countries?: string[] | null;
+  countriesBg?: string | null;
+  countriesEn?: string | null;
+  partners?: string[] | null;
+  objectives?: string[] | null;
+  activities?: string[] | null;
+  results?: string[] | null;
+  mainActivitiesBg?: string | null;
+  mainActivitiesEn?: string | null;
+  isFeatured?: boolean;
   isActive: boolean;
   createdOn?: string | null;
   updatedOn?: string | null;
@@ -35,22 +50,39 @@ function fallbackText(primary: string | null | undefined, fallback: string | nul
   return primary ?? fallback ?? '';
 }
 
+function firstNonEmpty(...values: Array<string | null | undefined>): string {
+  return values.map((value) => String(value ?? '').trim()).find(Boolean) ?? '';
+}
+
+function splitItems(value: string | null | undefined): string[] {
+  return String(value ?? '')
+    .split(/\r?\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function appendItems(form: FormData, key: string, items: string[]): void {
+  items.forEach((item) => form.append(key, item));
+}
+
 function toProject(item: BackendProjectItem): Project {
   const id = String(item.id);
-  const titleEn = item.titleEn;
+  const titleEn = firstNonEmpty(item.titleEn, item.title);
   const titleBg = fallbackText(item.titleBg, titleEn);
   const title = titleEn || titleBg;
-  const programme = normalizeProgramme(item.programmeEn ?? item.programmeBg);
-  const programmeLabel = item.programmeEn || item.programmeBg || programme;
-  const themeEn = item.themeEn;
+  const programmeLabel = firstNonEmpty(item.programmeEn, item.programmeLabel, item.programme, item.programmeBg);
+  const programme = normalizeProgramme(programmeLabel);
+  const programmeBg = fallbackText(item.programmeBg, programmeLabel);
+  const programmeEn = fallbackText(item.programmeEn, programmeLabel);
+  const themeEn = firstNonEmpty(item.themeEn, item.intro, item.shortDescription);
   const themeBg = fallbackText(item.themeBg, themeEn);
-  const durationEn = item.durationEn;
+  const durationEn = firstNonEmpty(item.durationEn, item.duration);
   const durationBg = fallbackText(item.durationBg, durationEn);
-  const countriesEn = item.countriesEn;
+  const countriesEn = firstNonEmpty(item.countriesEn, item.countries?.join(', '));
   const countriesBg = fallbackText(item.countriesBg, countriesEn);
-  const mainActivitiesEn = item.mainActivitiesEn;
+  const mainActivitiesEn = firstNonEmpty(item.mainActivitiesEn, item.activities?.join('\n'), item.overview);
   const mainActivitiesBg = fallbackText(item.mainActivitiesBg, mainActivitiesEn);
-  const slug = `${slugify(title) || 'project'}-${id}`;
+  const slug = item.slug || `${slugify(title) || 'project'}-${id}`;
 
   return {
     id,
@@ -59,8 +91,8 @@ function toProject(item: BackendProjectItem): Project {
     titleEn,
     title,
     programme,
-    programmeBg: item.programmeBg,
-    programmeEn: item.programmeEn,
+    programmeBg,
+    programmeEn,
     programmeLabel,
     themeBg,
     themeEn,
@@ -75,6 +107,7 @@ function toProject(item: BackendProjectItem): Project {
     mainActivitiesBg,
     mainActivitiesEn,
     mainActivities: mainActivitiesEn || mainActivitiesBg,
+    isFeatured: item.isFeatured ?? false,
     isActive: item.isActive,
     createdOn: item.createdOn,
     updatedOn: item.updatedOn,
@@ -98,24 +131,34 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
 
 function toFormData(project: ProjectInput, id?: string): FormData {
   const form = new FormData();
-  if (id) form.append('id', id);
-  form.append('titleBg', project.titleBg);
-  form.append('titleEn', project.titleEn);
-  form.append('programmeBg', project.programmeBg);
-  form.append('programmeEn', project.programmeEn);
-  form.append('themeBg', project.themeBg);
-  form.append('themeEn', project.themeEn);
-  form.append('countriesBg', project.countriesBg);
-  form.append('countriesEn', project.countriesEn);
-  form.append('durationBg', project.durationBg);
-  form.append('durationEn', project.durationEn);
-  form.append('mainActivitiesBg', project.mainActivitiesBg);
-  form.append('mainActivitiesEn', project.mainActivitiesEn);
-  form.append('isActive', String(project.isActive));
+  const title = firstNonEmpty(project.titleEn, project.titleBg);
+  const programmeLabel = firstNonEmpty(project.programmeEn, project.programmeBg);
+  const intro = firstNonEmpty(project.themeEn, project.themeBg);
+  const overview = firstNonEmpty(project.mainActivitiesEn, project.mainActivitiesBg, intro);
+  const duration = firstNonEmpty(project.durationEn, project.durationBg);
+  const countries = splitItems(project.countriesEn || project.countriesBg);
+  const activities = splitItems(project.mainActivitiesEn || project.mainActivitiesBg);
+  const slugBase = slugify(title) || 'project';
+
+  if (id) form.append('Id', id);
+  form.append('Slug', id ? `${slugBase}-${id}` : slugBase);
+  form.append('Title', title);
+  form.append('Programme', normalizeProgramme(programmeLabel));
+  form.append('ProgrammeLabel', programmeLabel);
+  form.append('Intro', intro);
+  form.append('ShortDescription', intro);
+  form.append('Overview', overview);
+  form.append('ImageAlt', title);
+  form.append('IsFeatured', String(project.isFeatured ?? false));
+  form.append('IsActive', String(project.isActive));
+  form.append('Duration', duration);
+  appendItems(form, 'Countries', countries);
+  appendItems(form, 'Objectives', intro ? [intro] : []);
+  appendItems(form, 'Activities', activities);
 
   const image = dataUrlToFile(project.image, slugify(project.titleEn || project.titleBg) || 'project-image');
   if (image) {
-    form.append('image', image);
+    form.append('Image', image);
   }
 
   return form;
