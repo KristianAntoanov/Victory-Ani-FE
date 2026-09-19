@@ -16,9 +16,9 @@ import LoadingState from '@/components/common/LoadingState';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
 import { ASSETS, ROUTES } from '@/constants';
+import { getTestimonials } from '@/data/testimonials';
 import { projectService } from '@/services/projectService';
 import { useLanguage } from '@/context/LanguageContext';
-import { loc, type Localized } from '@/i18n';
 import { getProjectContent } from '@/utils/localizedContent';
 import type { ProgrammeKey, Project } from '@/types';
 import styles from './Projects.module.css';
@@ -26,13 +26,6 @@ import styles from './Projects.module.css';
 interface ProgrammeFilter {
   id: ProgrammeKey | 'all';
   label: string;
-}
-
-interface Testimonial {
-  name: string;
-  role: Localized;
-  project: Localized;
-  quote: Localized;
 }
 
 const getFilters = (allLabel: string): ProgrammeFilter[] => [
@@ -43,96 +36,6 @@ const getFilters = (allLabel: string): ProgrammeFilter[] => [
   { id: 'cerv', label: 'CERV' },
 ];
 
-const testimonials: Testimonial[] = [
-  {
-    name: 'Assoc. Prof. Dr Iliyana Ankova-Stoyanova',
-    role: {
-      en: 'Sofia University “St. Kliment Ohridski”',
-      bg: 'Софийски университет „Св. Климент Охридски“',
-    },
-    project: {
-      en: 'Erasmus+ Capacity Building in Higher Education proposal',
-      bg: 'Erasmus+ предложение за изграждане на капацитет във висшето образование',
-    },
-    quote: {
-      en: 'V&A Projects brought structure, precision and strategic direction to the development of a complex proposal. Their support was particularly valuable in shaping the project logic, organising the work packages and coordinating consortium contributions.',
-      bg: 'V&A Projects внесоха структура, прецизност и стратегическа посока в разработването на сложно проектно предложение. Тяхната подкрепа беше особено ценна при оформянето на проектната логика, организирането на работните пакети и координирането на приноса на консорциума.',
-    },
-  },
-  {
-    name: 'Daniela Atanasova',
-    role: {
-      en: 'Teacher, Primary School “Hristo Botev”, Ekzarh Antimovo',
-      bg: 'Учител, ОУ „Христо Ботев“, с. Екзарх Антимово',
-    },
-    project: {
-      en: 'Erasmus+ KA1 mobility project',
-      bg: 'Erasmus+ KA1 проект за мобилност',
-    },
-    quote: {
-      en: 'Working with V&A Projects made the entire Erasmus+ process feel clear and manageable. We received reliable support at every stage, from planning and preparation to the organisation of our mobility.',
-      bg: 'Работата с V&A Projects направи целия Erasmus+ процес ясен и управляем. Получихме надеждна подкрепа на всеки етап - от планирането и подготовката до организацията на нашата мобилност.',
-    },
-  },
-  {
-    name: 'Alexandra Vassileva',
-    role: {
-      en: 'Institute of Ornamental and Medicinal Plants, Sofia, Bulgaria',
-      bg: 'Институт по декоративни и лечебни растения, София, България',
-    },
-    project: { en: 'Horizon Europe proposal', bg: 'Horizon Europe предложение' },
-    quote: {
-      en: 'They helped transform a technically ambitious idea into a clear and well-organised project concept that responded directly to the call requirements and clarified partner roles.',
-      bg: 'Те помогнаха технически амбициозна идея да се превърне в ясна и добре организирана проектна концепция, която отговаря директно на изискванията на поканата и изяснява ролите на партньорите.',
-    },
-  },
-  {
-    name: 'Dr. Admira Boshnyaku',
-    role: { en: 'ACTA Foundation, Sofia, Bulgaria', bg: 'Фондация ACTA, София, България' },
-    project: { en: 'Horizon Europe proposal', bg: 'Horizon Europe предложение' },
-    quote: {
-      en: 'V&A Projects is our trusted and highly committed partner. Their organisation, attention to detail and ability to bring together a diverse international consortium are essential to the quality of any final application.',
-      bg: 'V&A Projects е наш доверен и силно ангажиран партньор. Тяхната организация, внимание към детайла и способност да обединяват разнообразен международен консорциум са съществени за качеството на всяка финална кандидатура.',
-    },
-  },
-  {
-    name: 'Tsvetelina Tomova',
-    role: {
-      en: 'Teacher, 148 Secondary School “Prof. Dr Lyubomir Miletich”, Sofia, Bulgaria',
-      bg: 'Учител, 148 СУ „Проф. д-р Любомир Милетич“, София, България',
-    },
-    project: {
-      en: 'Erasmus+ KA1 mobility project',
-      bg: 'Erasmus+ KA1 проект за мобилност',
-    },
-    quote: {
-      en: 'The preparation was clear, the documentation was carefully organised and we always knew what was expected from us. The mobility was an inspiring professional experience.',
-      bg: 'Подготовката беше ясна, документацията беше внимателно организирана и винаги знаехме какво се очаква от нас. Мобилността беше вдъхновяващо професионално преживяване.',
-    },
-  },
-  {
-    name: 'Tatyana Lepoeva',
-    role: {
-      en: 'Principal, 135 Secondary School “Jan Amos Komensky”, Sofia, Bulgaria',
-      bg: 'Директор, 135 СУ „Ян Амос Коменски“, София, България',
-    },
-    project: { en: 'Erasmus+ KA1 project', bg: 'Erasmus+ KA1 проект' },
-    quote: {
-      en: 'They understood our institutional needs and helped us translate them into clear objectives and a realistic project plan, reducing the administrative burden on our team.',
-      bg: 'Те разбраха нашите институционални нужди и ни помогнаха да ги превърнем в ясни цели и реалистичен проектен план, като намалиха административната тежест за екипа ни.',
-    },
-  },
-  {
-    name: 'Dr. Kristina Stefanova',
-    role: { en: 'ERI-BAS, Sofia, Bulgaria', bg: 'ЕРИ-БАН, София, България' },
-    project: { en: 'Horizon Europe proposal', bg: 'Horizon Europe предложение' },
-    quote: {
-      en: 'Thank you for your excellent coordination and hard work in preparing our Horizon Europe proposal. It was a pleasure collaborating with you.',
-      bg: 'Благодарим за отличната координация и усилената работа при подготовката на нашето Horizon Europe предложение. Беше удоволствие да работим с вас.',
-    },
-  },
-];
-
 const getTheme = (project: Project, lang: 'en' | 'bg') => {
   const content = getProjectContent(project, lang);
   return content.theme || content.programmeLabel;
@@ -140,6 +43,7 @@ const getTheme = (project: Project, lang: 'en' | 'bg') => {
 
 export default function Projects() {
   const { lang, t } = useLanguage();
+  const testimonials = getTestimonials(lang);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -310,11 +214,11 @@ export default function Projects() {
               {[...testimonials, ...testimonials].map((testimonial, index) => (
                 <article className={styles.testimonialCard} key={`${testimonial.name}-${index}`}>
                   <MessageSquareQuote size={24} strokeWidth={1.5} aria-hidden="true" />
-                  <p>{loc(testimonial.quote, lang)}</p>
+                  <p>{testimonial.quote}</p>
                   <div>
                     <strong>{testimonial.name}</strong>
-                    <span>{loc(testimonial.role, lang)}</span>
-                    <small>{loc(testimonial.project, lang)}</small>
+                    <span>{testimonial.organisation}</span>
+                    <small>{testimonial.project}</small>
                   </div>
                 </article>
               ))}

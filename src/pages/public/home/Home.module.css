@@ -32,7 +32,7 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.1rem, 4.35vw, 3.85rem);
+  font-size: clamp(2.45rem, 4.45vw, 4.35rem);
   margin-top: var(--space-3);
 }
 
@@ -43,10 +43,11 @@
 }
 
 .heroLead {
-  max-width: 23rem;
+  max-width: 34rem;
   margin-top: var(--space-3);
   color: var(--color-text-soft);
-  font-size: 0.92rem;
+  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.18rem);
+  line-height: 1.58;
 }
 
 .heroActions {
@@ -58,8 +59,8 @@
 
 .heroButton {
   gap: 0.38rem;
-  padding: 0.6rem 1rem;
-  font-size: 0.66rem;
+  padding: 0.72rem 1.08rem;
+  font-size: 0.86rem;
 }
 
 .heroButton svg {
@@ -115,15 +116,15 @@
 
 .programmeTitle {
   font-family: var(--font-sans);
-  font-size: 0.84rem;
+  font-size: 0.95rem;
   font-weight: 700;
 }
 
 .programmeSub {
   display: block;
   color: var(--color-text-soft);
-  font-size: 0.68rem;
-  line-height: 1.2;
+  font-size: 0.84rem;
+  line-height: 1.3;
 }
 
 .arrowMini {
@@ -192,9 +193,9 @@
   grid-area: desc;
   max-width: 20rem;
   color: var(--color-text);
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.52;
 }
 
 .homeServicesGrid :global(.service-card__footer) {
@@ -206,9 +207,9 @@
   align-self: end;
   padding-top: 0.45rem;
   color: var(--color-text);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .homeServicesGrid :global(.arrow-circle) {
@@ -246,11 +247,11 @@
 }
 
 .featuredDescription {
-  max-width: 15rem;
+  max-width: 18rem;
   margin-bottom: var(--space-4);
   color: var(--color-text-soft);
-  font-size: 0.86rem;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.55;
 }
 
 .featuredCardsGrid {
@@ -277,7 +278,7 @@
 
 .featuredProjectsSection :global(.section-title .eyebrow) {
   margin-bottom: var(--space-3);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   letter-spacing: 0.08em;
 }
 
@@ -286,8 +287,8 @@
 }
 
 .featuredProjectsSection :global(.btn) {
-  padding: 0.72rem 1rem;
-  font-size: 0.68rem;
+  padding: 0.78rem 1.08rem;
+  font-size: 0.86rem;
 }
 
 .featuredCardsGrid :global(.featured-project) {
@@ -314,7 +315,7 @@
   border: 0;
   background: transparent;
   color: var(--color-bordo);
-  font-size: 0.64rem;
+  font-size: 0.84rem;
   letter-spacing: 0.08em;
 }
 
@@ -331,9 +332,9 @@
 .featuredCardsGrid :global(.featured-project .service-card__desc),
 .featuredCardsGrid :global(.project-mini .service-card__desc) {
   color: var(--color-text);
-  font-size: 0.76rem;
+  font-size: 0.94rem;
   font-weight: 600;
-  line-height: 1.42;
+  line-height: 1.5;
 }
 
 .featuredCardsGrid :global(.featured-project .text-link),
@@ -407,7 +408,7 @@
 
 .featuredCardsGrid :global(.project-mini__title) {
   color: var(--color-bordo);
-  font-size: clamp(1.05rem, 1.1vw, 1.25rem);
+  font-size: clamp(1.15rem, 1.12vw, 1.32rem);
   line-height: 1.08;
 }
 
@@ -575,6 +576,65 @@
 }
 
 @media (max-width: 640px) {
+  .hero :global(.container) {
+    max-width: 100vw;
+    overflow-x: hidden;
+    padding-inline: 1rem;
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .heroContent,
+  .heroVisual,
+  .homeServices,
+  .homeServicesGrid {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .heroTitle {
+    max-width: 100%;
+    font-size: clamp(2.05rem, 9vw, 2.45rem);
+    line-height: 1;
+    overflow-wrap: break-word;
+  }
+
+  .heroLead {
+    width: 100%;
+    max-width: 100%;
+    font-size: 1rem;
+    overflow-wrap: break-word;
+  }
+
+  .heroActions {
+    align-items: stretch;
+    flex-direction: column;
+    margin-top: var(--space-4);
+  }
+
+  .heroButton {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .heroCards {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin-top: var(--space-4);
+  }
+
+  .programmePill {
+    min-width: 0;
+  }
+
   .featuredCardsGrid {
     grid-template-columns: 1fr;
   }
@@ -606,6 +666,14 @@
     padding: var(--space-4);
   }
 
+  .homeServicesGrid :global(.service-card__title),
+  .homeServicesGrid :global(.service-card__desc),
+  .homeServicesGrid :global(.tag-row) {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
   .homeServicesGrid :global(.icon-circle) {
     width: 52px;
     height: 52px;
@@ -616,7 +684,7 @@
   }
 
   .homeServicesGrid :global(.tag-row) {
-    font-size: 0.72rem;
+    font-size: 0.88rem;
   }
 
   .logoMarqueeSection {
