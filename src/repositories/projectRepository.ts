@@ -54,17 +54,6 @@ function firstNonEmpty(...values: Array<string | null | undefined>): string {
   return values.map((value) => String(value ?? '').trim()).find(Boolean) ?? '';
 }
 
-function splitItems(value: string | null | undefined): string[] {
-  return String(value ?? '')
-    .split(/\r?\n|,/)
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function appendItems(form: FormData, key: string, items: string[]): void {
-  items.forEach((item) => form.append(key, item));
-}
-
 function toProject(item: BackendProjectItem): Project {
   const id = String(item.id);
   const titleEn = firstNonEmpty(item.titleEn, item.title);
@@ -131,30 +120,20 @@ function dataUrlToFile(dataUrl: string, fallbackName: string): File | null {
 
 function toFormData(project: ProjectInput, id?: string): FormData {
   const form = new FormData();
-  const title = firstNonEmpty(project.titleEn, project.titleBg);
-  const programmeLabel = firstNonEmpty(project.programmeEn, project.programmeBg);
-  const intro = firstNonEmpty(project.themeEn, project.themeBg);
-  const overview = firstNonEmpty(project.mainActivitiesEn, project.mainActivitiesBg, intro);
-  const duration = firstNonEmpty(project.durationEn, project.durationBg);
-  const countries = splitItems(project.countriesEn || project.countriesBg);
-  const activities = splitItems(project.mainActivitiesEn || project.mainActivitiesBg);
-  const slugBase = slugify(title) || 'project';
-
   if (id) form.append('Id', id);
-  form.append('Slug', id ? `${slugBase}-${id}` : slugBase);
-  form.append('Title', title);
-  form.append('Programme', normalizeProgramme(programmeLabel));
-  form.append('ProgrammeLabel', programmeLabel);
-  form.append('Intro', intro);
-  form.append('ShortDescription', intro);
-  form.append('Overview', overview);
-  form.append('ImageAlt', title);
-  form.append('IsFeatured', String(project.isFeatured ?? false));
+  form.append('TitleBg', project.titleBg);
+  form.append('TitleEn', project.titleEn);
+  form.append('ProgrammeBg', project.programmeBg);
+  form.append('ProgrammeEn', project.programmeEn);
+  form.append('ThemeBg', project.themeBg);
+  form.append('ThemeEn', project.themeEn);
+  form.append('CountriesBg', project.countriesBg);
+  form.append('CountriesEn', project.countriesEn);
+  form.append('DurationBg', project.durationBg);
+  form.append('DurationEn', project.durationEn);
+  form.append('MainActivitiesBg', project.mainActivitiesBg);
+  form.append('MainActivitiesEn', project.mainActivitiesEn);
   form.append('IsActive', String(project.isActive));
-  form.append('Duration', duration);
-  appendItems(form, 'Countries', countries);
-  appendItems(form, 'Objectives', intro ? [intro] : []);
-  appendItems(form, 'Activities', activities);
 
   const image = dataUrlToFile(project.image, slugify(project.titleEn || project.titleBg) || 'project-image');
   if (image) {
