@@ -456,38 +456,27 @@
 .logoTrack {
   display: flex;
   width: max-content;
-  gap: clamp(1rem, 1.8vw, 1.75rem);
-  animation: logoMarquee 34s linear infinite;
+  gap: clamp(2rem, 4vw, 4.5rem);
+  animation: logoMarquee 78s linear infinite;
   will-change: transform;
 }
 
 .logoItem {
-  display: grid;
-  width: clamp(170px, 17vw, 260px);
-  height: clamp(74px, 7vw, 100px);
+  display: flex;
+  width: clamp(170px, 17vw, 250px);
+  height: clamp(72px, 7vw, 100px);
   flex: 0 0 auto;
-  place-items: center;
-  overflow: hidden;
-  border: 1px solid rgba(122, 0, 70, 0.14);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.9);
-  box-shadow: 0 12px 30px rgba(55, 31, 44, 0.08);
+  align-items: center;
+  justify-content: center;
 }
 
 .logoItem img {
   display: block;
-  width: 82%;
-  height: 64%;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
   object-fit: contain;
-}
-
-.logoItem:first-child img,
-.logoItem:nth-child(11) img {
-  width: 82%;
-  height: 72%;
-  border-radius: calc(var(--radius-md) - 4px);
-  object-fit: contain;
-  object-position: center;
 }
 
 @keyframes logoMarquee {
@@ -571,7 +560,7 @@
   }
 
   .logoTrack {
-    animation-duration: 28s;
+    animation-duration: 68s;
   }
 }
 
@@ -692,13 +681,12 @@
   }
 
   .logoItem {
-    width: 160px;
-    height: 70px;
-    border-radius: var(--radius-sm);
+    width: 150px;
+    height: 68px;
   }
 
   .logoTrack {
-    gap: 0.75rem;
-    animation-duration: 24s;
+    gap: 1.75rem;
+    animation-duration: 58s;
   }
 }
