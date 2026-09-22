@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { X, CalendarDays } from 'lucide-react';
 import Logo from '@/components/common/Logo';
@@ -12,11 +12,24 @@ interface MobileMenuProps {
   onClose: () => void;
 }
 
+const MENU_ANIMATION_MS = 260;
+
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const { t } = useLanguage();
+  const [visible, setVisible] = useState(open);
 
   useEffect(() => {
-    if (!open) return;
+    if (open) {
+      setVisible(true);
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => setVisible(false), MENU_ANIMATION_MS);
+    return () => window.clearTimeout(timeout);
+  }, [open]);
+
+  useEffect(() => {
+    if (!visible) return;
     const scrollY = window.scrollY;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -34,15 +47,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       window.scrollTo(0, scrollY);
       window.removeEventListener('keydown', onKey);
     };
-  }, [open, onClose]);
+  }, [visible, onClose]);
 
-  if (!open) return null;
+  if (!visible) return null;
+
+  const closingClass = open ? '' : ' is-closing';
 
   return (
     <>
-      <div className="mobile-overlay" onClick={onClose} role="presentation" />
+      <div className={`mobile-overlay${closingClass}`} onClick={onClose} role="presentation" />
       <nav
-        className="mobile-menu"
+        className={`mobile-menu${closingClass}`}
         aria-label="Mobile"
         id="mobile-menu"
         data-testid="mobile-menu"
