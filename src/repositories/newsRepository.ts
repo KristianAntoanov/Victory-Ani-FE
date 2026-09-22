@@ -128,6 +128,10 @@ export const newsRepository = {
       .then(toNewsArticle);
   },
 
+  changeStatus(id: string, isActive: boolean): Promise<void> {
+    return apiClient.patch<boolean>(API_ENDPOINTS.newsChangeStatus(id, isActive)).then(() => undefined);
+  },
+
   remove(id: string): Promise<void> {
     return apiClient.delete<boolean>(API_ENDPOINTS.newsDelete(id)).then(() => undefined);
   },

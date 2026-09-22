@@ -151,6 +151,10 @@ export const projectRepository = {
       .then(toProject);
   },
 
+  changeStatus(id: string, isActive: boolean): Promise<void> {
+    return apiClient.patch<boolean>(API_ENDPOINTS.projectsChangeStatus(id, isActive)).then(() => undefined);
+  },
+
   remove(id: string): Promise<void> {
     return apiClient.delete<boolean>(API_ENDPOINTS.projectsDelete(id)).then(() => undefined);
   },

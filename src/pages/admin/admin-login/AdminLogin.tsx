@@ -371,12 +371,6 @@ export default function AdminLogin() {
           </form>
         ) : null}
 
-        <div className={styles.hint}>
-          <p className={styles.hintTitle}>
-            <ShieldAlert size={16} /> <strong>Backend authentication</strong>
-          </p>
-          Sign-in is sent to <code>/api/Identity/Login</code>.
-        </div>
       </div>
     </div>
   );

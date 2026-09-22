@@ -1,25 +1,6 @@
 import { projectRepository } from '@/repositories/projectRepository';
 import type { Project, ProjectInput } from '@/types';
 
-function toInput(project: Project): ProjectInput {
-  return {
-    titleBg: project.titleBg,
-    titleEn: project.titleEn,
-    programmeBg: project.programmeBg,
-    programmeEn: project.programmeEn,
-    themeBg: project.themeBg,
-    themeEn: project.themeEn,
-    image: project.image,
-    durationBg: project.durationBg,
-    durationEn: project.durationEn,
-    countriesBg: project.countriesBg,
-    countriesEn: project.countriesEn,
-    mainActivitiesBg: project.mainActivitiesBg,
-    mainActivitiesEn: project.mainActivitiesEn,
-    isActive: project.isActive,
-  };
-}
-
 export const projectService = {
   getAllProjects(): Promise<Project[]> {
     return projectRepository.getAllActive();
@@ -50,16 +31,7 @@ export const projectService = {
     return projectRepository.remove(id);
   },
 
-  async toggleActive(id: string): Promise<Project> {
-    const all = await this.getAllAdminProjects();
-    const existing = all.find((item) => item.id === id);
-    if (!existing) {
-      throw new Error('Project not found.');
-    }
-
-    return projectRepository.update(id, {
-      ...toInput(existing),
-      isActive: !existing.isActive,
-    });
+  toggleActive(id: string, isActive: boolean): Promise<void> {
+    return projectRepository.changeStatus(id, isActive);
   },
 };
