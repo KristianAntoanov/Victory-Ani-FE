@@ -60,7 +60,7 @@ export default function AdminProjects() {
 
   const handleToggleActive = async (project: Project) => {
     try {
-      await projectService.toggleActive(project.id);
+      await projectService.toggleActive(project.id, !project.isActive);
       await refresh();
       toast.info(project.isActive ? 'Project hidden from public pages.' : 'Project made active.');
     } catch (err) {

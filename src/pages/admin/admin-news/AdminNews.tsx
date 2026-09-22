@@ -60,7 +60,7 @@ export default function AdminNews() {
 
   const handleTogglePublished = async (article: NewsArticle) => {
     try {
-      await newsService.togglePublished(article.id);
+      await newsService.togglePublished(article.id, !article.published);
       await refresh();
       toast.info(article.published ? 'Article hidden from public pages.' : 'Article made active.');
     } catch (err) {

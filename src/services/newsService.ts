@@ -2,20 +2,6 @@ import { newsRepository } from '@/repositories/newsRepository';
 import { slugify } from '@/utils';
 import type { NewsArticle, NewsArticleInput } from '@/types';
 
-function toInput(article: NewsArticle): NewsArticleInput {
-  return {
-    titleBg: article.titleBg,
-    titleEn: article.titleEn,
-    publishDate: article.publishDate,
-    summaryBg: article.summaryBg,
-    summaryEn: article.summaryEn,
-    contentBg: article.contentBg,
-    contentEn: article.contentEn,
-    image: article.image,
-    published: article.published,
-  };
-}
-
 export const newsService = {
   async getAllNews(): Promise<NewsArticle[]> {
     const articles = await newsRepository.getAll();
@@ -73,16 +59,7 @@ export const newsService = {
     return newsRepository.remove(id);
   },
 
-  async togglePublished(id: string): Promise<NewsArticle> {
-    const articles = await this.getAllNews();
-    const existing = articles.find((article) => article.id === id);
-    if (!existing) {
-      throw new Error('Article not found.');
-    }
-
-    return newsRepository.update(id, {
-      ...toInput(existing),
-      published: !existing.published,
-    });
+  togglePublished(id: string, published: boolean): Promise<void> {
+    return newsRepository.changeStatus(id, published);
   },
 };

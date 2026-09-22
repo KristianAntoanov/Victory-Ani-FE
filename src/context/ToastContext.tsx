@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -32,11 +33,32 @@ const ICONS = {
   info: Info,
 };
 
+const TOAST_EXIT_MS = 220;
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
+  const [dismissingToastIds, setDismissingToastIds] = useState<Set<string>>(() => new Set());
+  const dismissingToastIdsRef = useRef<Set<string>>(new Set());
 
   const dismiss = useCallback((id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
+    if (dismissingToastIdsRef.current.has(id)) return;
+
+    dismissingToastIdsRef.current.add(id);
+    setDismissingToastIds((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+
+    window.setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+      dismissingToastIdsRef.current.delete(id);
+      setDismissingToastIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+    }, TOAST_EXIT_MS);
   }, []);
 
   const notify = useCallback(
@@ -64,8 +86,13 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div className="toast-stack" role="region" aria-live="polite" aria-label="Notifications">
         {toasts.map((toast) => {
           const Icon = ICONS[toast.type];
+          const isDismissing = dismissingToastIds.has(toast.id);
           return (
-            <div key={toast.id} className={`toast toast--${toast.type}`} role="status">
+            <div
+              key={toast.id}
+              className={`toast toast--${toast.type}${isDismissing ? ' is-dismissing' : ''}`}
+              role="status"
+            >
               <Icon size={18} aria-hidden="true" />
               <span className="toast__message">{toast.message}</span>
               <button
