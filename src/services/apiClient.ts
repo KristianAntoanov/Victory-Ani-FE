@@ -48,6 +48,29 @@ async function parseResponse(response: Response): Promise<unknown> {
   return text;
 }
 
+function getErrorMessage(payload: unknown, status: number): string {
+  if (typeof payload !== 'object' || payload === null) {
+    return `API request failed with status ${status}`;
+  }
+
+  if ('errors' in payload && typeof payload.errors === 'object' && payload.errors !== null) {
+    const validationMessages = Object.values(payload.errors)
+      .flatMap((messages) => (Array.isArray(messages) ? messages : [messages]))
+      .filter((message): message is string => typeof message === 'string' && Boolean(message.trim()));
+    if (validationMessages.length) return validationMessages.join(' ');
+  }
+
+  if ('message' in payload && typeof payload.message === 'string' && payload.message.trim()) {
+    return payload.message;
+  }
+
+  if ('title' in payload && typeof payload.title === 'string' && payload.title.trim()) {
+    return payload.title;
+  }
+
+  return `API request failed with status ${status}`;
+}
+
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const token = authSessionService.getToken();
   const headers = new Headers(options.headers);
@@ -80,11 +103,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     const payload = await parseResponse(response);
 
     if (!response.ok) {
-      const message =
-        typeof payload === 'object' && payload !== null && 'message' in payload
-          ? String((payload as { message: unknown }).message)
-          : `API request failed with status ${response.status}`;
-      throw new ApiError(message, response.status, payload);
+      throw new ApiError(getErrorMessage(payload, response.status), response.status, payload);
     }
 
     return payload;

@@ -21,13 +21,13 @@
   --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
   --font-sans: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
 
-  --fs-eyebrow: 0.78rem;
-  --fs-body: 1.05rem;
-  --fs-small: 0.92rem;
-  --fs-h1: clamp(2.8rem, 6vw, 5.2rem);
-  --fs-h2: clamp(2rem, 4vw, 3.2rem);
-  --fs-h3: clamp(1.5rem, 2.4vw, 2rem);
-  --fs-h4: clamp(1.25rem, 2vw, 1.6rem);
+  --fs-eyebrow: clamp(0.86rem, 0.82rem + 0.12vw, 0.95rem);
+  --fs-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-small: clamp(0.94rem, 0.9rem + 0.15vw, 1rem);
+  --fs-h1: clamp(3rem, 6vw, 5.4rem);
+  --fs-h2: clamp(2.15rem, 4vw, 3.35rem);
+  --fs-h3: clamp(1.6rem, 2.4vw, 2.15rem);
+  --fs-h4: clamp(1.32rem, 2vw, 1.7rem);
 
   /* Spacing */
   --space-1: 0.25rem;
@@ -77,6 +77,7 @@
 }
 
 html {
+  font-size: 105%;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -228,7 +229,7 @@ ul {
   align-items: center;
   gap: 0.6rem;
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: clamp(0.86rem, 0.82rem + 0.12vw, 0.95rem);
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -498,7 +499,7 @@ ul {
   border-radius: 999px;
   background: transparent;
   color: var(--color-muted);
-  font-size: 0.72rem;
+  font-size: 0.84rem;
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
@@ -527,7 +528,7 @@ ul {
 .mobile-menu .btn {
   margin-top: var(--space-2);
   padding: 0.75rem 0.9rem;
-  font-size: 0.68rem;
+  font-size: 0.86rem;
 }
 .mobile-language {
   align-self: flex-start;
@@ -603,7 +604,7 @@ ul {
 }
 .page-hero__lead {
   color: var(--color-text-soft);
-  font-size: 1.15rem;
+  font-size: clamp(1.08rem, 1rem + 0.3vw, 1.25rem);
   max-width: 30rem;
   margin-top: var(--space-5);
 }
@@ -698,7 +699,7 @@ ul {
   margin-top: auto;
 }
 .chip {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0.3rem 0.7rem;
   border-radius: var(--radius-pill);
   background: rgba(122, 0, 70, 0.06);
@@ -711,7 +712,7 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.4rem 0.85rem;
@@ -908,7 +909,7 @@ ul {
   object-fit: cover;
 }
 .team-card__name {
-  font-size: 1.5rem;
+  font-size: clamp(1.55rem, 1.4rem + 0.35vw, 1.75rem);
   color: var(--color-bordo);
 }
 .team-card__role {
@@ -924,6 +925,8 @@ ul {
   margin-top: var(--space-3);
   padding-top: var(--space-3);
   border-top: 1px solid var(--color-border);
+  font-size: var(--fs-small);
+  line-height: 1.6;
 }
 .team-card__linkedin {
   position: absolute;
@@ -969,7 +972,7 @@ ul {
   line-height: 1;
 }
 .stat__label {
-  font-size: 0.74rem;
+  font-size: 0.86rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-soft);
@@ -1030,7 +1033,7 @@ ul {
 .stats--about .stat__label {
   margin-top: 0.35rem;
   color: var(--color-text);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   letter-spacing: 0.08em;
 }
 
@@ -1076,7 +1079,7 @@ ul {
 .trusted__logo {
   font-family: var(--font-sans);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--color-text-soft);
   letter-spacing: 0.04em;
   display: flex;
@@ -2059,7 +2062,7 @@ ul {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-size: 0.72rem;
+  font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   padding: 0.25rem 0.6rem;
@@ -2296,6 +2299,15 @@ ul {
 }
 
 @media (max-width: 640px) {
+  #main-content,
+  #main-content :where(section, .container, article, div, ul, li, p, h1, h2, h3, h4) {
+    min-width: 0;
+  }
+
+  #main-content :where(h1, h2, h3, h4, p, li, span, strong, small, a, button) {
+    overflow-wrap: break-word;
+  }
+
   :root {
     --header-h: 72px;
   }
@@ -2464,7 +2476,7 @@ ul {
     min-width: 0;
     align-self: center;
     justify-content: flex-end;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     line-height: 1.2;
   }
 

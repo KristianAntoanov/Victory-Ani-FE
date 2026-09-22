@@ -109,6 +109,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
       mainActivitiesBg: values.mainActivitiesBg,
       mainActivitiesEn: values.mainActivitiesEn,
       isActive: values.isActive,
+      isFeatured: initial?.isFeatured ?? false,
     };
 
     try {

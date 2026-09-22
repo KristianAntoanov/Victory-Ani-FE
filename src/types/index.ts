@@ -61,15 +61,29 @@ export interface Project {
   mainActivitiesBg: string;
   mainActivitiesEn: string;
   mainActivities: string;
+  isFeatured: boolean;
   isActive: boolean;
   createdOn?: string | null;
   updatedOn?: string | null;
 }
 
-export type ProjectInput = Omit<
-  Project,
-  'id' | 'slug' | 'title' | 'programme' | 'programmeLabel' | 'theme' | 'duration' | 'countries' | 'mainActivities' | 'createdOn' | 'updatedOn'
->;
+export interface ProjectInput {
+  titleBg: string;
+  titleEn: string;
+  programmeBg: string;
+  programmeEn: string;
+  themeBg: string;
+  themeEn: string;
+  image: string;
+  durationBg: string;
+  durationEn: string;
+  countriesBg: string;
+  countriesEn: string;
+  mainActivitiesBg: string;
+  mainActivitiesEn: string;
+  isActive: boolean;
+  isFeatured?: boolean;
+}
 
 export interface TeamMember {
   id: string;
