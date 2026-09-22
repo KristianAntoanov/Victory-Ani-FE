@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { Mail, Phone, Linkedin, Facebook, Instagram } from 'lucide-react';
 import Logo from '@/components/common/Logo';
 import { CONTACT, ROUTES, SOCIAL } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
@@ -7,7 +7,6 @@ import { openConsultationModal } from '@/utils/consultationModal';
 
 const QUICK_LINKS = [
   { labelKey: 'nav.about', to: ROUTES.about },
-  { labelKey: 'nav.team', to: ROUTES.team },
   { labelKey: 'nav.projects', to: ROUTES.projects },
   { labelKey: 'nav.news', to: ROUTES.news },
   { labelKey: 'nav.services', to: ROUTES.services },
@@ -20,12 +19,6 @@ const OUR_SERVICES = [
   'footer.svcManagement',
   'footer.svcTraining',
   'footer.svcPartner',
-];
-
-const RESOURCES = [
-  { labelKey: 'footer.resNews', to: ROUTES.news },
-  { labelKey: 'footer.resEvents', to: ROUTES.news },
-  { labelKey: 'footer.resStories', to: ROUTES.projects },
 ];
 
 export default function Footer() {
@@ -71,28 +64,17 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="footer-col">
-            <h4>{t('footer.resources')}</h4>
-            <ul>
-              {RESOURCES.map((r) => (
-                <li key={r.labelKey}>
-                  <Link to={r.to}>{t(r.labelKey)}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="footer-newsletter footer-col">
             <h4>{t('newsletter.followUs')}</h4>
             <div className="footer-social">
               <a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                 <Linkedin size={18} aria-hidden="true" />
               </a>
-              <a href={SOCIAL.twitter} target="_blank" rel="noreferrer" aria-label="X (Twitter)">
-                <Twitter size={18} aria-hidden="true" />
+              <a href={SOCIAL.facebook} target="_blank" rel="noreferrer" aria-label="Facebook">
+                <Facebook size={18} aria-hidden="true" />
               </a>
-              <a href={SOCIAL.youtube} target="_blank" rel="noreferrer" aria-label="YouTube">
-                <Youtube size={18} aria-hidden="true" />
+              <a href={SOCIAL.instagram} target="_blank" rel="noreferrer" aria-label="Instagram">
+                <Instagram size={18} aria-hidden="true" />
               </a>
             </div>
           </div>

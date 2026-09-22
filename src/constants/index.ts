@@ -46,8 +46,8 @@ export const CONTACT = {
 
 export const SOCIAL = {
   linkedin: 'https://www.linkedin.com/company/v-a-projects/?viewAsMember=true',
-  twitter: 'https://twitter.com/',
-  youtube: 'https://www.youtube.com/',
+  facebook: 'https://www.facebook.com/people/VA-projects/61580956823568/',
+  instagram: 'https://www.instagram.com/va_projects.eu',
 } as const;
 
 export const STORAGE_KEYS = {
