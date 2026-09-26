@@ -265,54 +265,6 @@ export default function AdminLogin() {
           </form>
         ) : null}
 
-        {step === 'two-factor-setup' ? (
-          <form className={styles.form} onSubmit={submitTwoFactorSetup} noValidate data-testid="two-factor-setup-form">
-            <div className={styles.hint}>
-              <p className={styles.hintTitle}>
-                <ShieldAlert size={16} /> <strong>Set up authenticator</strong>
-              </p>
-              <p>Shared key: <code>{setupDetails?.sharedKey}</code></p>
-              <p className={styles.hintNote}>Authenticator URI: <code>{setupDetails?.authenticatorUri}</code></p>
-            </div>
-            <div className="form-field">
-              <label htmlFor="setup-code">6-digit code</label>
-              <input
-                id="setup-code"
-                type="text"
-                inputMode="numeric"
-                value={twoFactorCode}
-                onChange={(event) => setTwoFactorCode(event.target.value)}
-                required
-              />
-            </div>
-            {authError ? <p className="field-error" role="alert">{authError}</p> : null}
-            <button type="submit" className="btn btn--primary btn--block" disabled={loadingStep}>
-              Enable and Sign In
-            </button>
-          </form>
-        ) : null}
-
-        {step === 'two-factor-code' ? (
-          <form className={styles.form} onSubmit={submitTwoFactorCode} noValidate data-testid="two-factor-code-form">
-            <div className="form-field">
-              <label htmlFor="login-code">6-digit code</label>
-              <input
-                id="login-code"
-                type="text"
-                inputMode="numeric"
-                autoComplete="one-time-code"
-                value={twoFactorCode}
-                onChange={(event) => setTwoFactorCode(event.target.value)}
-                required
-              />
-            </div>
-            {authError ? <p className="field-error" role="alert">{authError}</p> : null}
-            <button type="submit" className="btn btn--primary btn--block" disabled={loadingStep}>
-              Verify and Sign In
-            </button>
-          </form>
-        ) : null}
-
       </div>
     </div>
   );
