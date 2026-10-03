@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ConsultationModal from '@/components/common/ConsultationModal';
+import ScrollRevealManager from '@/components/common/ScrollRevealManager';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function PublicLayout() {
@@ -14,6 +15,7 @@ export default function PublicLayout() {
       </a>
       <Header />
       <main id="main-content">
+        <ScrollRevealManager />
         <Outlet />
       </main>
       <Footer />

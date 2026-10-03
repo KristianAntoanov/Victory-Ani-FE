@@ -1,26 +1,19 @@
-import { useEffect, useState } from 'react';
-import {
-  Anchor,
-  BookOpen,
-  Brain,
-  GraduationCap,
-  Handshake,
-  Lightbulb,
-  ShieldCheck,
-  Sprout,
-  Target,
-  Users,
-  Waves,
-  type LucideIcon,
-} from 'lucide-react';
-import Seo from '@/components/common/Seo';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ChevronDown, Phone, ShieldCheck, Target, Users, type LucideIcon } from 'lucide-react';
+import ExpertiseAreas from '@/components/common/ExpertiseAreas';
+import Icon from '@/components/common/Icon';
+import PartnersMarquee from '@/components/common/PartnersMarquee';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
-import { ASSETS, ROUTES } from '@/constants';
-import { VIKTOR_GEORGIEV_BIOGRAPHY, VIKTOR_GEORGIEV_QUOTE } from '@/data/team';
+import Seo from '@/components/common/Seo';
+import ServiceCard from '@/components/common/ServiceCard';
+import { ASSETS, CONTACT, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
+import { getProgrammes } from '@/data/programmes';
+import { getHomeServiceCards } from '@/data/services';
+import { getTeamMembers } from '@/data/team';
 import { loc, type Localized } from '@/i18n';
-import { openConsultationModal } from '@/utils/consultationModal';
 import styles from './About.module.css';
 
 interface ProcessStep {
@@ -33,58 +26,6 @@ interface ProcessHighlight {
   text: Localized;
   icon: LucideIcon;
 }
-
-interface ValueItem {
-  title: Localized;
-  text: Localized;
-  icon: LucideIcon;
-}
-
-interface Founder {
-  name: Localized;
-  role: Localized;
-  text: Localized;
-  quote: Localized;
-  icon: LucideIcon;
-}
-
-const expertise: Localized[] = [
-  {
-    en: 'Humanities and social sciences',
-    bg: 'Хуманитарни и социални науки',
-  },
-  {
-    en: 'Sustainability and environmental studies',
-    bg: 'Устойчивост и екологични изследвания',
-  },
-  {
-    en: 'Economics and business',
-    bg: 'Икономика и бизнес',
-  },
-  {
-    en: 'Maritime education and maritime affairs',
-    bg: 'Морско образование и морско дело',
-  },
-  {
-    en: 'Artificial intelligence and computer science',
-    bg: 'Изкуствен интелект и компютърни науки',
-  },
-  {
-    en: 'Medicine, biology and natural sciences',
-    bg: 'Медицина, биология и природни науки',
-  },
-  {
-    en: 'Education, training and social inclusion',
-    bg: 'Образование, обучение и социално включване',
-  },
-];
-
-const aboutNav = [
-  { label: { en: 'Story & Team', bg: 'История и екип' }, href: '#story-team' },
-  { label: { en: 'How we work', bg: 'Как работим' }, href: '#how-we-work' },
-  { label: { en: 'Values', bg: 'Ценности' }, href: '#values' },
-  { label: { en: 'Founders', bg: 'Основатели' }, href: '#founders' },
-];
 
 const processSteps: ProcessStep[] = [
   {
@@ -158,221 +99,199 @@ const processHighlights: ProcessHighlight[] = [
   },
 ];
 
-const values: ValueItem[] = [
-  {
-    title: {
-      en: 'Equal access to education and opportunity',
-      bg: 'Равен достъп до образование и възможности',
-    },
-    text: {
-      en: 'Every person should have access to quality education, learning opportunities and the possibility to participate fully in society.',
-      bg: 'Всеки човек трябва да има достъп до качествено образование, възможности за учене и участие в обществото.',
-    },
-    icon: GraduationCap,
-  },
-  {
-    title: { en: 'Ideas deserve to be heard', bg: 'Идеите заслужават да бъдат чути' },
-    text: {
-      en: 'Innovative ideas often begin with one person, one organisation or one local need. We help give them structure, credibility and a strong European voice.',
-      bg: 'Иновативните идеи често започват от един човек, една организация или една местна нужда. Помагаме им да получат структура, надеждност и силен европейски глас.',
-    },
-    icon: Lightbulb,
-  },
-  {
-    title: { en: 'Integrity and responsibility', bg: 'Почтеност и отговорност' },
-    text: {
-      en: 'We provide realistic advice, respect funding rules and remain transparent about opportunities, risks and responsibilities.',
-      bg: 'Даваме реалистични съвети, спазваме правилата за финансиране и сме прозрачни относно възможностите, рисковете и отговорностите.',
-    },
-    icon: ShieldCheck,
-  },
-  {
-    title: { en: 'Quality in every detail', bg: 'Качество във всеки детайл' },
-    text: {
-      en: 'Strong projects depend on clear objectives, realistic activities, reliable partnerships and precise documentation.',
-      bg: 'Силните проекти зависят от ясни цели, реалистични дейности, надеждни партньорства и прецизна документация.',
-    },
-    icon: Target,
-  },
-  {
-    title: { en: 'Cooperation built on trust', bg: 'Сътрудничество, изградено върху доверие' },
-    text: {
-      en: 'European projects are created through people. We value respectful communication, shared responsibility and long-term partnerships.',
-      bg: 'Европейските проекти се създават от хора. Ценим уважителната комуникация, споделената отговорност и дългосрочните партньорства.',
-    },
-    icon: Handshake,
-  },
-  {
-    title: { en: 'Innovation with meaning', bg: 'Иновации със смисъл' },
-    text: {
-      en: 'Innovation should respond to real needs and create practical value for education, safety, the environment, research and society.',
-      bg: 'Иновациите трябва да отговарят на реални нужди и да създават практическа стойност за образованието, безопасността, околната среда, науката и обществото.',
-    },
-    icon: Brain,
-  },
-  {
-    title: { en: 'Lasting value', bg: 'Трайна стойност' },
-    text: {
-      en: 'A successful project should continue to create value after the funding period ends through solutions that can be sustained and transferred.',
-      bg: 'Успешният проект трябва да продължи да създава стойност и след края на финансирането чрез решения, които могат да се поддържат и пренасят.',
-    },
-    icon: Sprout,
-  },
-];
-
-const founders: Founder[] = [
-  {
-    name: { en: 'Viktor Georgiev', bg: 'Виктор Георгиев' },
-    role: { en: 'Founder', bg: 'Основател' },
-    icon: Anchor,
-    text: VIKTOR_GEORGIEV_BIOGRAPHY,
-    quote: VIKTOR_GEORGIEV_QUOTE,
-  },
-  {
-    name: { en: 'Dr. Ana Antonova-Georgieva', bg: 'д-р Ана Антонова-Георгиева' },
-    role: { en: 'Founder', bg: 'Основател' },
-    icon: BookOpen,
-    text: {
-      en: 'Dr. Ana Antonova-Georgieva holds a PhD in Political Science focused on women\'s rights, gender equality, violence against women and human rights protection. With more than ten years of experience in EU-funded projects, she is devoted to the strategic design, development and writing of European projects, guiding ideas from their earliest stage to strong, competitive and implementation-ready proposals.',
-      bg: 'Д-р Ана Антонова-Георгиева има докторска степен по политически науки с фокус върху правата на жените, равенството между половете, насилието над жени и защитата на човешките права. С повече от десет години опит в проекти, финансирани от ЕС, тя е посветена на стратегическото проектиране, развитие и писане на европейски проекти, като превежда идеите от най-ранния им етап до силни, конкурентни и готови за изпълнение предложения.',
-    },
-    quote: {
-      en: 'I believe we have the power to design projects that can genuinely change the realities of children, opening doors to education, equality, protection and opportunity.',
-      bg: 'Вярвам, че имаме силата да създаваме проекти, които наистина могат да променят реалността за децата, отваряйки врати към образование, равенство, защита и възможности.',
-    },
-  },
-];
-
 export default function About() {
   const { lang, t } = useLanguage();
   const [activeProcess, setActiveProcess] = useState(0);
-  const [activeValue, setActiveValue] = useState(0);
-  const [activeSection, setActiveSection] = useState(aboutNav[0].href);
+  const [expandedFounders, setExpandedFounders] = useState<string[]>([]);
+  const [expandedAboutCopy, setExpandedAboutCopy] = useState<string[]>([]);
+  const programmes = getProgrammes(lang);
+  const services = getHomeServiceCards(lang);
+  const founders = getTeamMembers(lang).filter((member) =>
+    ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
+  );
   const selectedProcess = processSteps[activeProcess];
-  const selectedValue = values[activeValue];
-  const SelectedValueIcon = selectedValue.icon;
 
-  useEffect(() => {
-    const sections = aboutNav
-      .map((item) => document.getElementById(item.href.slice(1)))
-      .filter((section): section is HTMLElement => Boolean(section));
+  const toggleFounder = (founderId: string) => {
+    setExpandedFounders((current) => (
+      current.includes(founderId)
+        ? current.filter((id) => id !== founderId)
+        : [...current, founderId]
+    ));
+  };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visible) {
-          setActiveSection(`#${visible.target.id}`);
-        }
-      },
-      {
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: [0.18, 0.35, 0.55],
-      },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+  const toggleAboutCopy = (sectionId: string) => {
+    setExpandedAboutCopy((current) => (
+      current.includes(sectionId)
+        ? current.filter((id) => id !== sectionId)
+        : [...current, sectionId]
+    ));
+  };
 
   return (
     <>
       <Seo
         title={t('about.title')}
-        description={t('about.lead')}
-        image={ASSETS.aboutHero}
+        description={t('home.lead')}
+        image={ASSETS.heroArchitecture}
+        canonicalPath={ROUTES.about}
       />
 
       <section className={styles.hero} data-testid="about-hero">
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className={`eyebrow ${styles.heroEyebrow}`}>{t('nav.about')}</span>
+              <span className="eyebrow">{t('common.eyebrow')}</span>
               <h1 className={styles.heroTitle}>
-                {t('about.heroLine1')}
-                <em>{t('about.heroLine2')}</em>
+                {t('home.titleLine1')}
+                {' '}
+                <em>{t('home.titleLine2')}</em>
               </h1>
-              <span className="dash" />
-              <p className={styles.heroLead}>{t('about.heroLead')}</p>
+              <p className={styles.heroLead}>{t('home.lead')}</p>
               <div className={styles.heroActions}>
-                <PrimaryButton
-                  type="button"
-                  onClick={openConsultationModal}
-                  className={styles.heroButton}
-                >
-                  {t('about.startProject')}
-                </PrimaryButton>
-                <SecondaryButton to={ROUTES.services} className={styles.heroButton}>
+                <PrimaryButton to={ROUTES.services} className={styles.heroButton}>
                   {t('cta.exploreServices')}
+                </PrimaryButton>
+                <SecondaryButton href={CONTACT.phoneHref} icon={Phone} className={styles.heroButton}>
+                  {CONTACT.phone}
                 </SecondaryButton>
               </div>
             </div>
-            <div className={styles.heroVisual} aria-hidden="true" />
-          </div>
 
-          <div className={styles.introPanel}>
-            <div className={styles.introStatement}>
-              <span className="eyebrow">{t('about.whyEyebrow')}</span>
-              <p>{t('about.whyText')}</p>
-            </div>
-            <div className={styles.introActions}>
-              <span>{t('about.helpTeams')}</span>
-              <ul>
-                <li>{t('about.helpOne')}</li>
-                <li>{t('about.helpTwo')}</li>
-                <li>{t('about.helpThree')}</li>
-              </ul>
+            <div className={styles.heroVisual}>
+              <div className={styles.heroCards}>
+                {programmes.map((programme) => (
+                  <Link
+                    key={programme.id}
+                    to={`${ROUTES.programmes}?programme=${programme.id}`}
+                    className={styles.programmePill}
+                  >
+                    <span className={styles.programmeIcon}>
+                      <Icon name={programme.icon} size={18} />
+                    </span>
+                    <span>
+                      <span className={styles.programmeTitle}>{programme.title}</span>
+                      <span className={styles.programmeSub}>{programme.tagline}</span>
+                    </span>
+                    <ArrowRight className={styles.arrowMini} size={14} aria-hidden="true" />
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div className={styles.navWrap}>
+      <section className={styles.servicesSection} data-testid="about-services">
         <div className="container">
-          <nav className={styles.aboutNav} aria-label={t('about.pageSectionsLabel')}>
-            {aboutNav.map((item) => (
-              <a
-                href={item.href}
-                className={activeSection === item.href ? styles.activeNavLink : undefined}
-                key={item.href}
-              >
-                {loc(item.label, lang)}
-              </a>
+          <div className={styles.sectionHeading}>
+            <h2>{t('about.whatWeDo')}</h2>
+            <span className="dash" />
+          </div>
+          <div className={styles.servicesGrid}>
+            {services.map((service) => (
+              <ServiceCard
+                key={service.id}
+                title={service.title}
+                description={service.description}
+                icon={service.icon}
+                to={ROUTES.services}
+                linkLabel={`${t('common.learnMoreAbout')} ${service.title}`}
+              />
             ))}
-          </nav>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <section className={styles.teamSection} id="story-team">
+      <section className={styles.introSection}>
         <div className="container">
-          <div className={styles.storyGrid}>
-            <div className={styles.sectionIntro}>
-              <span className="eyebrow">{t('about.storyTeam')}</span>
-              <h2>{t('about.journeyTitle')}</h2>
+          <div className={styles.introGrid}>
+            <article className={styles.introCopy}>
+              <h2>{t('about.introTitle')}</h2>
               <span className="dash" />
-              <p>{t('about.journeyText')}</p>
-            </div>
-
-            <article className={styles.storyPanel}>
-              <div className={styles.statPill}>
-                <Users size={20} aria-hidden="true" />
-                <strong>{t('about.experienceYears')}</strong>
-                <span>{t('about.combinedExperience')}</span>
+              <div className={`${styles.mobileCopy} ${expandedAboutCopy.includes('intro') ? styles.mobileCopyExpanded : ''}`.trim()} id="about-intro-copy">
+                <p>{t('about.introText')}</p>
               </div>
-              <p>
-                {t('about.expertiseText')}
-              </p>
-              <div className={styles.expertiseGrid}>
-                {expertise.map((item) => (
-                  <span key={item.en}>{loc(item, lang)}</span>
-                ))}
+              <button
+                type="button"
+                className={styles.copyToggle}
+                aria-expanded={expandedAboutCopy.includes('intro')}
+                aria-controls="about-intro-copy"
+                onClick={() => toggleAboutCopy('intro')}
+              >
+                {expandedAboutCopy.includes('intro') ? t('common.showLess') : t('common.readMore')}
+                <ChevronDown size={18} aria-hidden="true" />
+              </button>
+            </article>
+            <article className={styles.storyCopy}>
+              <span className="eyebrow">{t('about.storyTitle')}</span>
+              <h2>{t('about.storyTitle')}</h2>
+              <div className={`${styles.mobileCopy} ${expandedAboutCopy.includes('story') ? styles.mobileCopyExpanded : ''}`.trim()} id="about-story-copy">
+                <p>{t('about.storyText')}</p>
               </div>
+              <button
+                type="button"
+                className={`${styles.copyToggle} ${styles.storyCopyToggle}`}
+                aria-expanded={expandedAboutCopy.includes('story')}
+                aria-controls="about-story-copy"
+                onClick={() => toggleAboutCopy('story')}
+              >
+                {expandedAboutCopy.includes('story') ? t('common.showLess') : t('common.readMore')}
+                <ChevronDown size={18} aria-hidden="true" />
+              </button>
             </article>
           </div>
         </div>
       </section>
+
+      <section className={styles.foundersSection} aria-labelledby="founders-heading">
+        <div className="container">
+          <h2 id="founders-heading" className="visually-hidden">{t('about.founders')}</h2>
+          <div className={styles.foundersGrid}>
+            {founders.map((founder) => (
+              <article className={styles.founderCard} key={founder.id}>
+                <figure className={styles.founderImage}>
+                  <img
+                    src={founder.image}
+                    alt={founder.imageAlt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+                <div className={styles.founderContent}>
+                  <header>
+                    <h3>{founder.name}</h3>
+                    <p>{founder.position}</p>
+                  </header>
+                  <div
+                    className={`${styles.founderDetails} ${expandedFounders.includes(founder.id) ? styles.founderDetailsExpanded : ''}`.trim()}
+                    id={`founder-details-${founder.id}`}
+                  >
+                    <p>{founder.description}</p>
+                    {founder.quote ? <blockquote>{founder.quote}</blockquote> : null}
+                  </div>
+                  <button
+                    type="button"
+                    className={styles.founderToggle}
+                    aria-expanded={expandedFounders.includes(founder.id)}
+                    aria-controls={`founder-details-${founder.id}`}
+                    onClick={() => toggleFounder(founder.id)}
+                  >
+                    {expandedFounders.includes(founder.id) ? t('common.showLess') : t('common.readMore')}
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ExpertiseAreas
+        id="areas-of-expertise"
+        title={t('programmes.expertiseEyebrow')}
+        description={t('programmes.expertiseText')}
+        compactOnMobile
+      />
 
       <section className={styles.processSection} id="how-we-work">
         <div className="container">
@@ -391,6 +310,7 @@ export default function About() {
                   <button
                     type="button"
                     role="tab"
+                    id={`process-tab-${index}`}
                     aria-selected={activeProcess === index}
                     aria-controls="process-detail"
                     className={activeProcess === index ? styles.activeStepButton : undefined}
@@ -403,14 +323,37 @@ export default function About() {
                 ))}
               </div>
 
-              <article className={styles.processDetail} id="process-detail" role="tabpanel">
-                <span className={styles.stepNumber}>
-                  {String(activeProcess + 1).padStart(2, '0')}
-                </span>
+              <article
+                className={styles.processDetail}
+                id="process-detail"
+                role="tabpanel"
+                aria-labelledby={`process-tab-${activeProcess}`}
+              >
+                <span className={styles.stepNumber}>{String(activeProcess + 1).padStart(2, '0')}</span>
                 <h3>{loc(selectedProcess.title, lang)}</h3>
                 <p>{loc(selectedProcess.text, lang)}</p>
               </article>
             </div>
+
+            <ol className={styles.processMobile} aria-label={t('about.processStepsLabel')}>
+              {processSteps.map((step, index) => (
+                <li className={activeProcess === index ? styles.activeMobileStep : undefined} key={step.title.en}>
+                  <button
+                    type="button"
+                    aria-expanded={activeProcess === index}
+                    aria-controls={`mobile-process-detail-${index}`}
+                    onClick={() => setActiveProcess(index)}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{loc(step.title, lang)}</strong>
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
+                  {activeProcess === index ? (
+                    <p id={`mobile-process-detail-${index}`}>{loc(step.text, lang)}</p>
+                  ) : null}
+                </li>
+              ))}
+            </ol>
 
             <div className={styles.processHighlights} aria-label={t('about.completeProcessLabel')}>
               {processHighlights.map((item) => {
@@ -431,88 +374,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className={styles.valuesSection} id="values">
-        <div className="container">
-          <div className={styles.valuesHeader}>
-            <span className="eyebrow">{t('about.valuesEyebrow')}</span>
-            <h2>{t('about.valuesTitle')}</h2>
-            <span className="dash" />
-          </div>
-          <div className={styles.valuesShell}>
-            <div className={styles.valueNav} role="tablist" aria-label={t('about.valuesLabel')}>
-              {values.map((value, index) => {
-                const ValueIcon = value.icon;
-                return (
-                  <button
-                    type="button"
-                    role="tab"
-                    aria-selected={activeValue === index}
-                    aria-controls="value-detail"
-                    className={activeValue === index ? styles.activeValueButton : undefined}
-                    key={value.title.en}
-                    onClick={() => setActiveValue(index)}
-                  >
-                    <ValueIcon size={18} strokeWidth={1.7} aria-hidden="true" />
-                    <span>{loc(value.title, lang)}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <article className={styles.valueDetail} id="value-detail" role="tabpanel">
-              <span className="icon-circle">
-                <SelectedValueIcon size={28} strokeWidth={1.5} aria-hidden="true" />
-              </span>
-              <h3>{loc(selectedValue.title, lang)}</h3>
-              <p>{loc(selectedValue.text, lang)}</p>
-            </article>
-          </div>
-
-        </div>
-      </section>
-
-      <section className={styles.foundersSection} id="founders">
-        <div className="container">
-          <div className={styles.foundersPanel}>
-            <div className={styles.sectionIntro}>
-              <span className="eyebrow">{t('about.founders')}</span>
-              <h2>{t('about.foundersTitle')}</h2>
-              <span className="dash" />
-            </div>
-
-            <div className={styles.foundersGrid}>
-              {founders.map((founder) => {
-                const FounderIcon = founder.icon;
-                return (
-                  <article className={styles.founderCard} key={founder.name.en}>
-                    <div className={styles.founderHeader}>
-                      <span className={styles.founderPhoto}>
-                        <FounderIcon size={34} strokeWidth={1.4} aria-hidden="true" />
-                      </span>
-                      <div>
-                        <h3>{loc(founder.name, lang)}</h3>
-                        <p>{loc(founder.role, lang)}</p>
-                      </div>
-                    </div>
-                    <p>{loc(founder.text, lang)}</p>
-                    <blockquote>{loc(founder.quote, lang)}</blockquote>
-                  </article>
-                );
-              })}
-            </div>
-
-            <div className={styles.consultCta}>
-              <div>
-                <Waves size={24} aria-hidden="true" />
-                <strong>{t('about.readyProject')}</strong>
-              </div>
-              <button type="button" onClick={openConsultationModal} className="btn btn--primary">
-                {t('cta.book')}
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PartnersMarquee heading={t('about.partnersTitle')} label={t('about.partnersLabel')} />
     </>
   );
 }

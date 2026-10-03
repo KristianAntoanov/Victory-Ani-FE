@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Menu, CalendarDays } from 'lucide-react';
 import Logo from '@/components/common/Logo';
@@ -11,7 +11,13 @@ import { openConsultationModal } from '@/utils/consultationModal';
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const { t } = useLanguage();
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    window.setTimeout(() => menuButtonRef.current?.focus(), 0);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -53,10 +59,12 @@ export default function Header() {
         </button>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className="hamburger"
           aria-label={t('nav.openMenu')}
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           onClick={() => setMenuOpen(true)}
           data-testid="mobile-menu-open"
         >
@@ -64,7 +72,7 @@ export default function Header() {
         </button>
       </div>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu open={menuOpen} onClose={closeMenu} />
     </header>
   );
 }

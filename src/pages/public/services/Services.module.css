@@ -1,185 +1,99 @@
-.hero {
-  position: relative;
-  overflow: hidden;
-  padding-top: clamp(1.1rem, 2vw, 2rem);
-  padding-bottom: clamp(1rem, 2vw, 1.5rem);
+.servicesSection {
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(2.5rem, 5vw, 5rem);
   background:
-    linear-gradient(
-      90deg,
-      var(--color-cream) 0%,
-      rgba(250, 245, 239, 0.98) 28%,
-      rgba(250, 245, 239, 0.68) 52%,
-      rgba(250, 245, 239, 0.2) 74%,
-      rgba(250, 245, 239, 0) 100%
-    ),
-    url('/assets/services-hero.png') right top / min(82vw, 1320px) auto no-repeat;
+    radial-gradient(circle at 92% 4%, rgba(122, 0, 70, 0.08), transparent 30rem),
+    var(--color-cream);
 }
 
-.hero :global(.container),
-.explorerSection :global(.container),
+.servicesSection :global(.container),
 .deliverySection :global(.container) {
   max-width: none;
   padding-left: clamp(3rem, 4.2vw, 3.6rem);
   padding-right: clamp(3rem, 4.2vw, 3.6rem);
 }
 
-.heroGrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.92fr);
-  gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: start;
-}
-
-.heroContent {
-  transform: translateY(clamp(-2.25rem, -2.6vw, -1rem));
-}
-
-.heroTitle {
-  max-width: 38rem;
-  margin-top: var(--space-3);
-  color: var(--color-bordo);
-  font-size: clamp(2.75rem, 5vw, 4.65rem);
-  line-height: 0.95;
-}
-
-.heroTitle em,
-.heroTitle strong {
-  display: block;
-  color: inherit;
-  font-style: normal;
-  font-weight: inherit;
-}
-
-.heroContent :global(.dash) {
-  margin-top: var(--space-4);
-}
-
-.heroLead {
-  max-width: 34rem;
-  margin-top: var(--space-4);
-  color: var(--color-text);
-  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.2rem);
-  font-weight: 650;
-  line-height: 1.56;
-}
-
-.heroActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: clamp(1.4rem, 2vw, 2rem);
-}
-
-.heroButton {
-  padding: 0.78rem 1.08rem;
-  font-size: 0.86rem;
-}
-
-.heroVisual {
-  position: relative;
-  min-height: clamp(280px, 27vw, 420px);
-}
-
-.heroSignal {
-  position: absolute;
-  right: clamp(0rem, 3vw, 3rem);
-  bottom: clamp(2rem, 4vw, 4.5rem);
-  width: min(260px, 70%);
-  padding: clamp(1rem, 1.45vw, 1.45rem);
-  border: 1px solid rgba(122, 0, 70, 0.18);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.82);
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(10px);
-}
-
-.heroSignal span {
-  color: var(--color-bordo);
-  font-family: var(--font-serif);
-  font-size: clamp(3rem, 4vw, 4rem);
-  line-height: 0.9;
-}
-
-.heroSignal strong {
-  display: block;
-  margin-top: var(--space-2);
-  color: var(--color-bordo);
-  font-size: 0.98rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.heroSignal p {
-  margin-top: var(--space-2);
-  color: var(--color-text);
-  font-size: 0.92rem;
-  font-weight: 650;
-  line-height: 1.4;
-}
-
-.serviceStrip {
-  position: relative;
-  z-index: 2;
+.serviceSelectorGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.65rem, 1vw, 1rem);
-  margin-top: clamp(0.45rem, 1vw, 1rem);
+  gap: clamp(0.8rem, 1.4vw, 1.25rem);
 }
 
-.serviceStrip button {
-  display: flex;
-  align-items: center;
-  gap: 0.62rem;
-  min-height: 70px;
-  padding: 0.8rem 0.92rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 253, 252, 0.88);
+.serviceSelector {
+  display: grid;
+  min-width: 0;
+  min-height: 190px;
+  align-content: start;
+  gap: var(--space-3);
+  padding: clamp(1.15rem, 1.8vw, 1.65rem);
+  border: 1px solid rgba(122, 0, 70, 0.16);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 252, 0.9);
   color: var(--color-text);
-  box-shadow: var(--shadow-sm);
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  font-weight: 800;
-  line-height: 1.18;
   text-align: left;
-  transition:
-    background var(--t-base),
-    border-color var(--t-base),
-    color var(--t-base),
-    transform var(--t-base);
-  animation: tabsRiseIn 520ms var(--t-base) both;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-base), border-color var(--t-base), background var(--t-base), box-shadow var(--t-base);
 }
 
-.serviceStrip button svg {
-  flex: 0 0 auto;
+.serviceSelector:hover,
+.activeSelector {
+  border-color: var(--color-bordo);
+  background: var(--color-bordo);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.selectorIcon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(122, 0, 70, 0.08);
   color: var(--color-bordo);
+  transition: background var(--t-base), color var(--t-base);
 }
 
-.serviceStrip button:hover,
-.serviceStrip .activeStripItem {
-  border-color: rgba(122, 0, 70, 0.4);
-  background: rgba(122, 0, 70, 0.075);
-  color: var(--color-bordo);
-  transform: translateY(-3px);
+.serviceSelector:hover .selectorIcon,
+.activeSelector .selectorIcon {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 
-.serviceStrip button:nth-child(2) {
-  animation-delay: 70ms;
+.serviceSelector strong {
+  font-family: var(--font-serif);
+  font-size: clamp(1.38rem, 1.55vw, 1.72rem);
+  line-height: 1.08;
 }
 
-.serviceStrip button:nth-child(3) {
-  animation-delay: 140ms;
+.serviceSelector > span:last-child {
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.45;
 }
 
-.serviceStrip button:nth-child(4) {
-  animation-delay: 210ms;
+.serviceSelector:hover > span:last-child,
+.activeSelector > span:last-child {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-@keyframes tabsRiseIn {
+.serviceDetail {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  margin-top: clamp(1.25rem, 2.5vw, 2.25rem);
+  padding: clamp(1.25rem, 2.5vw, 2.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 253, 252, 0.84);
+  box-shadow: var(--shadow-sm);
+  animation: serviceReveal 320ms var(--t-base) both;
+}
+
+@keyframes serviceReveal {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -187,195 +101,93 @@
   }
 }
 
-.explorerSection {
-  padding-top: clamp(1rem, 2vw, 1.5rem);
-}
-
-.explorerPanel {
-  display: grid;
-  grid-template-columns: minmax(240px, 310px) minmax(0, 1fr);
-  gap: clamp(1rem, 1.6vw, 1.6rem);
-  align-items: start;
-  padding: clamp(1rem, 1.45vw, 1.45rem);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.72);
-  box-shadow: var(--shadow-sm);
-}
-
-.serviceRail {
-  position: sticky;
-  top: calc(var(--header-h) + 1.25rem);
-  display: grid;
-  gap: 0.55rem;
-}
-
-.serviceRail :global(.eyebrow) {
-  margin-bottom: var(--space-2);
-}
-
-.serviceRail button {
-  display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  align-items: center;
-  gap: 0.68rem;
-  min-height: 58px;
-  padding: 0.65rem 0.78rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 253, 252, 0.9);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: 0.92rem;
-  font-weight: 800;
-  line-height: 1.2;
-  text-align: left;
-  transition:
-    background var(--t-base),
-    border-color var(--t-base),
-    color var(--t-base),
-    transform var(--t-base);
-}
-
-.serviceRail button svg {
-  color: var(--color-bordo);
-}
-
-.serviceRail button:hover,
-.serviceRail .activeServiceButton {
-  border-color: rgba(122, 0, 70, 0.42);
-  background: var(--color-bordo);
-  color: #fff;
-  transform: translateX(4px);
-}
-
-.serviceRail .activeServiceButton svg,
-.serviceRail button:hover svg {
-  color: #fff;
-}
-
-.serviceDetail {
-  padding: clamp(1rem, 1.5vw, 1.55rem);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: rgba(255, 253, 252, 0.94);
-}
-
 .detailHeader {
   display: flex;
-  align-items: center;
   gap: var(--space-4);
-  padding-bottom: var(--space-4);
-  border-bottom: 1px solid var(--color-border);
+  align-items: center;
 }
 
 .detailHeader :global(.icon-circle) {
-  width: 62px;
-  height: 62px;
-  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
 }
 
 .detailHeader h2 {
-  max-width: 48rem;
+  max-width: 58rem;
   margin-top: var(--space-2);
   color: var(--color-bordo);
-  font-size: clamp(2rem, 2.7vw, 3.1rem);
-  line-height: 1.02;
+  font-size: clamp(2rem, 3.5vw, 3.7rem);
 }
 
 .detailIntro {
-  max-width: 70rem;
-  margin-top: var(--space-4);
+  max-width: 76rem;
   color: var(--color-text);
-  font-size: clamp(1.04rem, 1rem + 0.16vw, 1.16rem);
-  font-weight: 650;
-  line-height: 1.6;
+  font-size: clamp(1.02rem, 0.98rem + 0.17vw, 1.15rem);
+  font-weight: 620;
+  line-height: 1.65;
 }
 
 .supportGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.7rem, 1vw, 1rem);
-  margin-top: var(--space-5);
+  gap: clamp(0.8rem, 1.35vw, 1.25rem);
 }
 
 .supportCard {
   display: grid;
-  min-height: 188px;
+  min-width: 0;
   align-content: start;
   gap: var(--space-3);
-  padding: clamp(0.95rem, 1.25vw, 1.2rem);
+  padding: clamp(1rem, 1.5vw, 1.4rem);
   border: 1px solid rgba(122, 0, 70, 0.14);
   border-radius: var(--radius-sm);
-  background: rgba(255, 253, 252, 0.86);
-  color: inherit;
-  font-family: var(--font-sans);
-  text-align: left;
-  cursor: pointer;
-  transition:
-    border-color var(--t-base),
-    background var(--t-base),
-    transform var(--t-base);
+  background: rgba(255, 253, 252, 0.92);
+  transition: border-color var(--t-base), transform var(--t-base), box-shadow var(--t-base);
 }
 
-.supportCard:hover,
-.activeSupportCard {
-  border-color: rgba(122, 0, 70, 0.34);
-  background: rgba(122, 0, 70, 0.055);
+.supportCard:hover {
+  border-color: rgba(122, 0, 70, 0.38);
+  box-shadow: var(--shadow-sm);
   transform: translateY(-3px);
 }
 
 .supportCard > span {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   place-items: center;
   border-radius: 50%;
   background: rgba(122, 0, 70, 0.08);
   color: var(--color-bordo);
 }
 
-.supportCard small {
-  color: var(--color-bordo);
-  font-family: var(--font-serif);
-  font-size: 0.94rem;
-  font-weight: 800;
-  line-height: 1;
-}
-
 .supportCard h3 {
   color: var(--color-bordo);
-  font-size: clamp(1.08rem, 1.04rem + 0.12vw, 1.24rem);
-  line-height: 1.12;
+  font-size: clamp(1.35rem, 1.2rem + 0.35vw, 1.7rem);
+  line-height: 1.1;
 }
 
 .supportCard p {
   color: var(--color-text);
-  font-size: 0.95rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  line-height: 1.54;
-}
-
-.mobileServiceControls,
-.mobileSupportSummary {
-  display: none;
+  line-height: 1.55;
 }
 
 .resultBox {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: minmax(120px, 0.22fr) minmax(0, 1fr);
   gap: var(--space-4);
   align-items: start;
-  margin-top: var(--space-5);
-  padding: var(--space-4);
-  border: 1px solid rgba(122, 0, 70, 0.18);
-  border-radius: var(--radius-sm);
-  background: rgba(122, 0, 70, 0.055);
+  padding: clamp(1rem, 1.8vw, 1.5rem);
+  border-left: 4px solid var(--color-bordo);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: rgba(122, 0, 70, 0.065);
 }
 
 .resultBox strong {
   color: var(--color-bordo);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 850;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -383,70 +195,76 @@
 
 .resultBox p {
   color: var(--color-text);
-  font-size: clamp(1rem, 0.97rem + 0.12vw, 1.08rem);
-  font-weight: 650;
-  line-height: 1.55;
+  font-weight: 620;
+  line-height: 1.58;
 }
 
 .deliverySection {
-  padding-top: clamp(1rem, 2vw, 1.5rem);
-  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  padding: 0 0 clamp(2.5rem, 6vw, 5.5rem);
 }
 
 .deliveryPanel {
   display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1fr) auto;
-  gap: clamp(1rem, 1.7vw, 1.7rem);
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1fr) auto;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
   align-items: center;
-  padding: clamp(1rem, 1.45vw, 1.45rem);
-  border: 1px solid var(--color-border);
+  padding: clamp(1.25rem, 2.5vw, 2.4rem);
   border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.76);
-  box-shadow: var(--shadow-sm);
+  background: var(--color-bordo);
+  color: #fff;
+}
+
+.deliveryPanel :global(.eyebrow) {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .deliveryPanel h2 {
-  max-width: 22rem;
   margin-top: var(--space-3);
-  color: var(--color-bordo);
-  font-size: clamp(1.8rem, 2.25vw, 2.5rem);
-  line-height: 1.04;
+  color: #fff;
+  font-size: clamp(1.8rem, 2.7vw, 3rem);
 }
 
 .deliveryPanel p {
-  max-width: 34rem;
   margin-top: var(--space-3);
-  color: var(--color-text);
-  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.84);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .deliverySteps {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.55rem;
 }
 
 .deliverySteps span {
   display: inline-flex;
-  align-items: center;
   min-height: 38px;
-  padding: 0.5rem 0.72rem;
-  border: 1px solid rgba(122, 0, 70, 0.18);
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: var(--radius-pill);
-  background: rgba(122, 0, 70, 0.055);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+
+.deliveryPanel :global(.btn--primary) {
+  border-color: #fff;
+  background: #fff;
   color: var(--color-bordo);
-  font-size: 0.86rem;
-  font-weight: 850;
 }
 
-.deliveryButton {
-  white-space: nowrap;
+.deliveryPanel :global(.btn--primary:hover:not(:disabled)) {
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--color-bordo);
 }
 
-@media (max-width: 1180px) {
-  .serviceStrip,
+@media (max-width: 1120px) {
+  .serviceSelectorGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .supportGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -462,385 +280,67 @@
 }
 
 @media (max-width: 1024px) {
-  .hero {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(250, 245, 239, 0.9) 0%,
-        rgba(250, 245, 239, 0.96) 50%,
-        var(--color-cream) 100%
-      ),
-      url('/assets/services-hero.png') center top / min(1120px, 145vw) auto no-repeat;
-  }
-
-  .hero :global(.container),
-  .explorerSection :global(.container),
+  .servicesSection :global(.container),
   .deliverySection :global(.container) {
     padding-inline: clamp(1.25rem, 4vw, 3rem);
-  }
-
-  .heroGrid,
-  .explorerPanel {
-    grid-template-columns: 1fr;
-  }
-
-  .heroContent {
-    transform: none;
-  }
-
-  .heroVisual {
-    min-height: 220px;
-  }
-
-  .heroSignal {
-    right: auto;
-    left: 0;
-    bottom: 0;
-  }
-
-  .serviceRail {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .serviceRail :global(.eyebrow) {
-    grid-column: 1 / -1;
-  }
-
-  .serviceRail button:hover,
-  .serviceRail .activeServiceButton {
-    transform: none;
   }
 }
 
 @media (max-width: 640px) {
-  .hero {
-    padding-top: 0;
-    padding-bottom: 0;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(250, 245, 239, 0.96) 0%,
-        rgba(250, 245, 239, 0.9) 48%,
-        rgba(250, 245, 239, 0.5) 76%,
-        var(--color-cream) 100%
-      ),
-      url('/assets/services-hero.png') center bottom 0 / auto 420px no-repeat;
-  }
-
-  .hero :global(.container),
-  .explorerSection :global(.container),
+  .servicesSection :global(.container),
   .deliverySection :global(.container) {
-    max-width: 100vw;
-    overflow-x: hidden;
     padding-inline: 1rem;
   }
 
-  .heroGrid {
-    min-height: 590px;
-    align-content: start;
-    gap: var(--space-3);
-    padding-top: var(--space-4);
-  }
-
-  .heroContent {
-    display: grid;
-    min-width: 0;
-  }
-
-  .heroTitle {
-    max-width: 20rem;
-    font-size: 2.35rem;
-    line-height: 1;
-  }
-
-  .heroLead {
-    max-width: 21rem;
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-
-  .heroActions {
-    align-items: stretch;
-    flex-direction: column;
-    margin-top: var(--space-4);
-  }
-
-  .heroActions :global(.btn),
-  .deliveryButton {
-    width: 100%;
-    justify-content: center;
-    min-width: 0;
-    white-space: normal;
-  }
-
-  .heroButton {
-    min-height: 46px;
-    padding: 0.82rem 1rem;
-    font-size: 0.86rem;
-    text-align: center;
-  }
-
-  .heroVisual {
-    min-height: 0;
-  }
-
-  .heroSignal {
-    position: relative;
-    left: auto;
-    bottom: auto;
-    width: min(100%, 20rem);
-    margin-top: var(--space-3);
-    padding: var(--space-3);
-  }
-
-  .heroSignal span {
-    font-size: 2.5rem;
-  }
-
-  .serviceStrip {
-    position: sticky;
-    top: calc(var(--header-h) + 0.9rem);
-    z-index: 15;
-    display: flex;
-    gap: 0.55rem;
-    width: calc(100vw - 2.5rem);
-    max-width: calc(100vw - 2.5rem);
-    margin: 0.75rem auto 0;
-    padding: 0.7rem;
-    border: 1px solid rgba(122, 0, 70, 0.14);
-    border-radius: var(--radius-md);
-    overflow-x: auto;
-    background: rgba(255, 253, 252, 0.9);
-    box-shadow: var(--shadow-sm);
-    backdrop-filter: blur(12px);
-    scroll-padding-inline: 0.7rem;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-
-  .serviceStrip::-webkit-scrollbar {
-    display: none;
-  }
-
-  .serviceStrip button {
-    flex: 0 0 min(15.5rem, calc(100vw - 6.4rem));
-    min-height: 58px;
-    padding: 0.68rem 0.78rem;
-    scroll-snap-align: start;
-    font-size: 0.86rem;
-    box-shadow: none;
-  }
-
-  .serviceStrip button:hover,
-  .serviceStrip .activeStripItem {
-    transform: none;
-  }
-
-  .serviceStrip,
-  .serviceRail,
+  .serviceSelectorGrid,
   .supportGrid {
     grid-template-columns: 1fr;
   }
 
-  .explorerPanel,
-  .deliveryPanel {
-    width: 100%;
-    max-width: 100%;
-    margin-inline: auto;
-    padding: var(--space-3);
+  .serviceSelector {
+    min-height: 0;
+    padding: var(--space-4);
   }
 
-  .explorerPanel {
-    display: block;
-    overflow: hidden;
-  }
-
-  .serviceRail {
-    display: none;
-  }
-
-  .serviceDetail {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    margin-inline: 0;
-    padding: var(--space-3);
-    border-radius: var(--radius-md);
-  }
-
-  .detailHeader {
-    display: grid;
-    grid-template-columns: 48px minmax(0, 1fr);
-    align-items: start;
-    gap: var(--space-3);
-    padding-bottom: var(--space-3);
-  }
-
-  .detailHeader :global(.icon-circle) {
-    width: 48px;
-    height: 48px;
-  }
-
-  .detailHeader h2 {
-    max-width: calc(100vw - 6rem);
-    font-size: 1.65rem;
-    line-height: 1.08;
-    overflow-wrap: anywhere;
-  }
-
-  .mobileServiceControls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-top: var(--space-3);
-    padding: 0.45rem;
-    border: 1px solid rgba(122, 0, 70, 0.16);
-    border-radius: var(--radius-pill);
-    background: rgba(122, 0, 70, 0.045);
-  }
-
-  .mobileServiceControls button {
-    display: grid;
-    width: 38px;
-    height: 38px;
-    place-items: center;
-    border: 1px solid rgba(122, 0, 70, 0.2);
-    border-radius: 50%;
-    background: rgba(255, 253, 252, 0.86);
-    color: var(--color-bordo);
-  }
-
-  .mobileServiceControls span {
-    color: var(--color-bordo);
-    font-size: 0.84rem;
-    font-weight: 850;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .detailIntro {
-    max-width: calc(100vw - 4rem);
-    font-size: 1rem;
-    line-height: 1.52;
-    overflow-wrap: anywhere;
-  }
-
-  .supportGrid {
-    display: flex;
-    gap: 0.65rem;
-    margin: var(--space-4) 0 0;
-    padding: 0 0.85rem 0.1rem 0.25rem;
-    overflow-x: auto;
-    scroll-padding-inline: 0.25rem 0.85rem;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .supportGrid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .supportCard {
-    flex: 0 0 calc(100% - 1.1rem);
-    grid-template-columns: 38px minmax(0, 1fr) auto;
-    align-items: center;
-    min-height: 86px;
-    gap: 0.7rem;
-    padding: 0.82rem;
-    scroll-snap-align: start;
-  }
-
-  .supportCard:hover,
-  .activeSupportCard {
+  .serviceSelector:hover,
+  .activeSelector,
+  .supportCard:hover {
     transform: none;
   }
 
-  .supportCard > span {
-    grid-row: 1 / span 2;
+  .serviceDetail,
+  .deliveryPanel {
+    padding: var(--space-4);
   }
 
-  .supportCard small {
-    grid-column: 3;
-    grid-row: 1;
-    justify-self: end;
+  .detailHeader {
+    align-items: flex-start;
   }
 
-  .supportCard h3 {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    font-size: 1.02rem;
-    line-height: 1.15;
+  .detailHeader :global(.icon-circle) {
+    width: 52px;
+    height: 52px;
   }
 
-  .supportCard p {
-    display: none;
+  .detailHeader h2 {
+    font-size: clamp(1.8rem, 9vw, 2.35rem);
+    overflow-wrap: anywhere;
   }
 
-  .mobileSupportSummary {
-    display: grid;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-    padding: var(--space-3);
-    border: 1px solid rgba(122, 0, 70, 0.16);
-    border-radius: var(--radius-sm);
-    background: rgba(122, 0, 70, 0.05);
-  }
-
-  .mobileSupportSummary strong {
-    color: var(--color-bordo);
-    font-size: 1rem;
-  }
-
-  .mobileSupportSummary p {
-    color: var(--color-text);
-    font-size: 0.96rem;
-    font-weight: 620;
-    line-height: 1.48;
+  .detailIntro,
+  .supportCard h3,
+  .supportCard p,
+  .resultBox p {
+    overflow-wrap: anywhere;
   }
 
   .resultBox {
     grid-template-columns: 1fr;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
-    padding: var(--space-3);
   }
 
-  .resultBox p,
-  .deliveryPanel p {
-    max-width: calc(100vw - 4rem);
-    overflow-wrap: anywhere;
-  }
-
-  .deliverySection {
-    padding-top: var(--space-3);
-  }
-
-  .deliveryPanel {
-    gap: var(--space-4);
-  }
-
-  .deliveryPanel h2 {
-    max-width: calc(100vw - 4rem);
-    font-size: 1.7rem;
-  }
-
-  .deliverySteps {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 0.5rem;
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .deliverySteps::-webkit-scrollbar {
-    display: none;
-  }
-
-  .deliverySteps span {
-    flex: 0 0 auto;
+  .deliveryButton {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
   }
 }

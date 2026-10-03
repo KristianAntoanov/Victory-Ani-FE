@@ -1,10 +1,9 @@
-import { loc, locList, type Lang, type Localized, type LocalizedList } from '@/i18n';
+import { loc, type Lang, type Localized } from '@/i18n';
 import type { ServiceItem } from '@/types';
 
-type ServiceRecord = Omit<ServiceItem, 'title' | 'description' | 'tags'> & {
+type ServiceRecord = Omit<ServiceItem, 'title' | 'description'> & {
   title: Localized;
   description: Localized;
-  tags: LocalizedList;
 };
 
 const homeServices: ServiceRecord[] = [
@@ -16,7 +15,6 @@ const homeServices: ServiceRecord[] = [
       bg: 'Оформяме проектни идеи в ясни цели, работни планове, бюджети и аргументи за въздействие.',
     },
     icon: 'pen-line',
-    tags: { en: ['Concept', 'Writing', 'Submission'], bg: ['Концепция', 'Писане', 'Подаване'] },
   },
   {
     id: 'proposal-review',
@@ -26,7 +24,6 @@ const homeServices: ServiceRecord[] = [
       bg: 'Оценяваме проектни предложения спрямо логиката на поканата, очакванията на оценителите и правилата.',
     },
     icon: 'file-search',
-    tags: { en: ['Review', 'Compliance', 'Advice'], bg: ['Преглед', 'Съответствие', 'Насоки'] },
   },
   {
     id: 'project-management',
@@ -36,7 +33,6 @@ const homeServices: ServiceRecord[] = [
       bg: 'Подкрепяме одобрени проекти с координация, документация, отчитане и контрол на качеството.',
     },
     icon: 'users',
-    tags: { en: ['Delivery', 'Reporting', 'Quality'], bg: ['Изпълнение', 'Отчитане', 'Качество'] },
   },
 ];
 
@@ -46,6 +42,5 @@ export function getHomeServiceCards(lang: Lang = 'en'): ServiceItem[] {
     title: loc(service.title, lang),
     description: loc(service.description, lang),
     icon: service.icon,
-    tags: locList(service.tags, lang),
   }));
 }

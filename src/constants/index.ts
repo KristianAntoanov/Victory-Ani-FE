@@ -29,7 +29,6 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { labelKey: 'nav.home', path: ROUTES.home },
   { labelKey: 'nav.about', path: ROUTES.about },
   { labelKey: 'nav.services', path: ROUTES.services },
   { labelKey: 'nav.programmes', path: ROUTES.programmes },
@@ -41,8 +40,9 @@ export const CONTACT = {
   email: 'info@va-projects.eu',
   phone: '+359 888 934 068',
   phoneHref: 'tel:+359888934068',
-  tagline: 'Turning bold ideas into European progress.',
 } as const;
+
+export const SITE_URL = 'https://va-projects.eu';
 
 export const SOCIAL = {
   linkedin: 'https://www.linkedin.com/company/v-a-projects/?viewAsMember=true',
@@ -55,11 +55,10 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const ASSETS = {
-  logoOriginal: '/assets/logo-original.png',
-  heroArchitecture: '/assets/hero-architecture.png',
-  servicesHero: '/assets/services-hero.png',
-  programmesHero: '/assets/programmes-hero.png',
-  projectsHero: '/assets/projects-hero.png',
-  newsHero: '/assets/news-hero.png',
-  aboutHero: '/assets/about-european-mission.png',
+  logoOriginal: '/assets/logo-original.webp',
+  heroArchitecture: '/assets/hero-architecture.webp',
+  servicesHero: '/assets/services-hero.webp',
+  programmesHero: '/assets/programmes-hero.webp',
+  projectsHero: '/assets/projects-hero.webp',
+  newsHero: '/assets/news-hero.webp',
 } as const;

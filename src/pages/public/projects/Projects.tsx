@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CalendarDays,
   FolderKanban,
@@ -20,21 +20,8 @@ import { getTestimonials } from '@/data/testimonials';
 import { projectService } from '@/services/projectService';
 import { useLanguage } from '@/context/LanguageContext';
 import { getProjectContent } from '@/utils/localizedContent';
-import type { ProgrammeKey, Project } from '@/types';
+import type { Project } from '@/types';
 import styles from './Projects.module.css';
-
-interface ProgrammeFilter {
-  id: ProgrammeKey | 'all';
-  label: string;
-}
-
-const getFilters = (allLabel: string): ProgrammeFilter[] => [
-  { id: 'all', label: allLabel },
-  { id: 'erasmus', label: 'Erasmus+' },
-  { id: 'horizon', label: 'Horizon Europe' },
-  { id: 'life', label: 'LIFE' },
-  { id: 'cerv', label: 'CERV' },
-];
 
 const getTheme = (project: Project, lang: 'en' | 'bg') => {
   const content = getProjectContent(project, lang);
@@ -47,8 +34,6 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const filters = getFilters(t('projects.allProjects'));
-  const [activeFilter, setActiveFilter] = useState<ProgrammeFilter['id']>('all');
 
   useEffect(() => {
     let active = true;
@@ -69,14 +54,7 @@ export default function Projects() {
     };
   }, []);
 
-  const filteredProjects = useMemo(
-    () =>
-      activeFilter === 'all'
-        ? projects
-        : projects.filter((project) => project.programme === activeFilter),
-    [activeFilter, projects],
-  );
-  const featuredProject = filteredProjects[0] ?? projects[0];
+  const featuredProject = projects[0];
   const countriesCount = new Set(projects.flatMap((project) => getProjectContent(project, lang).countries)).size;
   const programmeCount = new Set(projects.map((project) => project.programme)).size;
   const featuredContent = featuredProject ? getProjectContent(featuredProject, lang) : null;
@@ -96,6 +74,7 @@ export default function Projects() {
               <span className="eyebrow">{t('projects.eyebrow')}</span>
               <h1 className={styles.heroTitle}>
                 {t('projects.heroLine1')}
+                {' '}
                 <em>{t('projects.heroLine2')}</em>
               </h1>
               <span className="dash" />
@@ -123,21 +102,6 @@ export default function Projects() {
       <section className={styles.projectsSection} data-testid="projects-grid">
         <div className="container">
           <div className={styles.portfolioShell}>
-            <div className={styles.filterBar} role="tablist" aria-label="Filter projects">
-              {filters.map((filter) => (
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={activeFilter === filter.id}
-                  className={activeFilter === filter.id ? styles.activeFilter : undefined}
-                  key={filter.id}
-                  onClick={() => setActiveFilter(filter.id)}
-                >
-                  {filter.label}
-                </button>
-              ))}
-            </div>
-
             {loading ? (
               <LoadingState label="Loading projects..." />
             ) : error ? (
@@ -183,20 +147,22 @@ export default function Projects() {
               </article>
             )}
 
-            <div className={styles.projectsHeader}>
-              <div>
-                <span className="eyebrow">{t('projects.listEyebrow')}</span>
-                <h2>{t('projects.listTitle')}</h2>
-              </div>
-              <p>{t('projects.listText')}</p>
-            </div>
+            {!loading && !error && projects.length > 0 ? (
+              <>
+                <div className={styles.projectsHeader}>
+                  <div>
+                    <span className="eyebrow">{t('projects.listEyebrow')}</span>
+                    <h2>{t('projects.listTitle')}</h2>
+                  </div>
+                  <p>{t('projects.listText')}</p>
+                </div>
 
-            {!loading && !error ? (
-              <div className={styles.projectsGrid}>
-                {filteredProjects.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
-                ))}
-              </div>
+                <div className={styles.projectsGrid}>
+                  {projects.map((project) => (
+                    <ProjectCard key={project.id} project={project} />
+                  ))}
+                </div>
+              </>
             ) : null}
           </div>
         </div>

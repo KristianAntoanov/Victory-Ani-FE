@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>{t('footer.quickLinks')}</h4>
+            <h2>{t('footer.quickLinks')}</h2>
             <ul>
               {QUICK_LINKS.map((l) => (
                 <li key={l.labelKey}>
@@ -54,7 +54,7 @@ export default function Footer() {
           </div>
 
           <div className="footer-col">
-            <h4>{t('footer.ourServices')}</h4>
+            <h2>{t('footer.ourServices')}</h2>
             <ul>
               {OUR_SERVICES.map((key) => (
                 <li key={key}>
@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div className="footer-newsletter footer-col">
-            <h4>{t('newsletter.followUs')}</h4>
+            <h2>{t('newsletter.followUs')}</h2>
             <div className="footer-social">
               <a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                 <Linkedin size={18} aria-hidden="true" />

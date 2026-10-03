@@ -1,0 +1,200 @@
+.section {
+  padding-block: clamp(2.25rem, 5vw, 4.5rem);
+}
+
+.section :global(.container) {
+  max-width: none;
+  padding-left: clamp(3rem, 4.2vw, 3.6rem);
+  padding-right: clamp(3rem, 4.2vw, 3.6rem);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3vw, 3rem);
+  align-items: end;
+  padding: clamp(1.25rem, 2.2vw, 2rem);
+  border: 1px solid rgba(122, 0, 70, 0.12);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(255, 253, 252, 0.96), rgba(238, 248, 245, 0.82));
+  box-shadow: var(--shadow-sm);
+}
+
+.header h2 {
+  max-width: 34rem;
+  margin-top: var(--space-3);
+  color: var(--color-bordo);
+  font-size: clamp(2rem, 3vw, 3.25rem);
+  line-height: 1.02;
+}
+
+.header :global(.dash) {
+  margin-top: var(--space-3);
+  background: var(--color-green);
+}
+
+.header > p {
+  max-width: 52rem;
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+  border-left: 3px solid rgba(38, 112, 92, 0.38);
+  color: var(--color-text);
+  font-size: clamp(1rem, 0.97rem + 0.16vw, 1.12rem);
+  font-weight: 620;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.8rem, 1.25vw, 1.2rem);
+  margin-top: clamp(1rem, 1.8vw, 1.6rem);
+}
+
+.card {
+  --expertise-accent: #26705c;
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.2vw, 1.15rem);
+  align-content: start;
+  padding: clamp(1rem, 1.45vw, 1.35rem);
+  overflow: hidden;
+  border: 1px solid rgba(122, 0, 70, 0.14);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 253, 252, 0.9);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--t-base), transform var(--t-base), background var(--t-base);
+}
+
+.card::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: var(--expertise-accent);
+  content: '';
+}
+
+.card:nth-child(1) { --expertise-accent: #2f6f91; }
+.card:nth-child(2) { --expertise-accent: #26705c; }
+.card:nth-child(3) { --expertise-accent: #6b6f2f; }
+.card:nth-child(4) { --expertise-accent: #4f7d3a; }
+.card:nth-child(5) { --expertise-accent: #8a6b2f; }
+.card:nth-child(6) { --expertise-accent: #6d5f8f; }
+
+.card:hover {
+  border-color: rgba(122, 0, 70, 0.34);
+  background: rgba(255, 253, 252, 0.98);
+  transform: translateY(-3px);
+}
+
+.icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--expertise-accent) 12%, #fff);
+  color: var(--expertise-accent);
+}
+
+.card h3 {
+  color: var(--color-bordo);
+  font-size: clamp(1.3rem, 1.2rem + 0.25vw, 1.55rem);
+  line-height: 1.1;
+}
+
+.card p {
+  margin-top: var(--space-2);
+  color: var(--color-text);
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.mobileToggle {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .section :global(.container) {
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .header > p {
+    padding-top: var(--space-4);
+    padding-left: 0;
+    border-top: 1px solid rgba(38, 112, 92, 0.25);
+    border-left: 0;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 2rem;
+  }
+
+  .section :global(.container) {
+    padding-inline: 1rem;
+  }
+
+  .header {
+    padding: var(--space-4);
+  }
+
+  .header h2 {
+    font-size: 1.9rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .card {
+    grid-template-columns: 46px minmax(0, 1fr);
+    padding: var(--space-4);
+  }
+
+  .compactMobile .card:nth-child(n + 4) {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    margin-top: var(--space-3);
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--color-bordo);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-bordo);
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .mobileToggle svg {
+    transition: transform var(--t-base);
+  }
+
+  .mobileToggle[aria-expanded='true'] svg {
+    transform: rotate(180deg);
+  }
+
+  .icon {
+    width: 46px;
+    height: 46px;
+  }
+}

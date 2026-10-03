@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Anchor,
   Atom,
   BadgeCheck,
-  BookOpenCheck,
-  BrainCircuit,
+  ChevronDown,
   ExternalLink,
   GraduationCap,
-  HeartPulse,
   Leaf,
   Mail,
   Network,
   Scale,
-  Sprout,
   type LucideIcon,
 } from 'lucide-react';
+import ExpertiseAreas from '@/components/common/ExpertiseAreas';
 import Seo from '@/components/common/Seo';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
@@ -38,12 +35,6 @@ interface ProgrammeDetail {
   intro: Localized;
   supportTitle: Localized;
   support: Localized;
-}
-
-interface ExpertiseArea {
-  title: Localized;
-  text: Localized;
-  icon: LucideIcon;
 }
 
 const programmes: ProgrammeDetail[] = [
@@ -219,66 +210,6 @@ const programmes: ProgrammeDetail[] = [
   },
 ];
 
-const expertiseAreas: ExpertiseArea[] = [
-  {
-    title: {
-      en: 'Social Sciences, Human Rights & International Law',
-      bg: 'Социални науки, човешки права и международно право',
-    },
-    text: {
-      en: 'Social sciences, human rights protection, equality, inclusion, democratic participation, international law and rights-based policy development.',
-      bg: 'Социални науки, защита на човешките права, равенство, приобщаване, демократично участие, международно право и политики, основани на права.',
-    },
-    icon: Scale,
-  },
-  {
-    title: { en: 'Maritime & Blue Economy', bg: 'Морско дело и синя икономика' },
-    text: {
-      en: 'Maritime education, marine innovation, blue growth, safety at sea, maritime sustainability and projects linked to the future of the maritime sector.',
-      bg: 'Морско образование, морски иновации, син растеж, безопасност на море, морска устойчивост и проекти, свързани с бъдещето на морския сектор.',
-    },
-    icon: Anchor,
-  },
-  {
-    title: {
-      en: 'Engineering, AI & Digital Technologies',
-      bg: 'Инженерство, AI и дигитални технологии',
-    },
-    text: {
-      en: 'Engineering, artificial intelligence, computer science, programming, digital systems, smart solutions and technology-driven innovation.',
-      bg: 'Инженерство, изкуствен интелект, компютърни науки, програмиране, дигитални системи, умни решения и технологично водени иновации.',
-    },
-    icon: BrainCircuit,
-  },
-  {
-    title: {
-      en: 'Agronomy, Environment & Sustainable Development',
-      bg: 'Агрономия, околна среда и устойчиво развитие',
-    },
-    text: {
-      en: 'Agronomy, agriculture, biodiversity, natural resources, environmental protection, sustainability and green transition initiatives.',
-      bg: 'Агрономия, земеделие, биоразнообразие, природни ресурси, опазване на околната среда, устойчивост и инициативи за зелен преход.',
-    },
-    icon: Sprout,
-  },
-  {
-    title: { en: 'Education, Business & Innovation', bg: 'Образование, бизнес и иновации' },
-    text: {
-      en: 'Education and training, organisational development, entrepreneurship, business growth, innovation management, skills development and new approaches to learning and professional development.',
-      bg: 'Образование и обучение, организационно развитие, предприемачество, бизнес растеж, управление на иновации, развитие на умения и нови подходи към ученето и професионалното развитие.',
-    },
-    icon: BookOpenCheck,
-  },
-  {
-    title: { en: 'Health, Medicine & Life Sciences', bg: 'Здраве, медицина и науки за живота' },
-    text: {
-      en: 'Health, medicine, biology, life sciences, well-being, public health and research-driven solutions for healthier communities.',
-      bg: 'Здраве, медицина, биология, науки за живота, благосъстояние, обществено здраве и научно базирани решения за по-здрави общности.',
-    },
-    icon: HeartPulse,
-  },
-];
-
 const getProgrammeIndex = (id: string | null) => {
   const index = programmes.findIndex((programme) => programme.id === id);
   return index >= 0 ? index : 0;
@@ -287,6 +218,7 @@ const getProgrammeIndex = (id: string | null) => {
 export default function Programmes() {
   const { lang, t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [expandedCopy, setExpandedCopy] = useState<string[]>([]);
   const [activeProgramme, setActiveProgramme] = useState(() =>
     getProgrammeIndex(searchParams.get('programme')),
   );
@@ -296,6 +228,17 @@ export default function Programmes() {
   useEffect(() => {
     setActiveProgramme(getProgrammeIndex(searchParams.get('programme')));
   }, [searchParams]);
+
+  const toggleCopy = (copyId: string) => {
+    setExpandedCopy((current) => (
+      current.includes(copyId)
+        ? current.filter((id) => id !== copyId)
+        : [...current, copyId]
+    ));
+  };
+
+  const introCopyId = `${selected.id}-intro`;
+  const supportCopyId = `${selected.id}-support`;
 
   return (
     <>
@@ -312,7 +255,9 @@ export default function Programmes() {
               <span className="eyebrow">{t('programmes.title')}</span>
               <h1 className={styles.heroTitle}>
                 {t('programmes.heroLine1')}
+                {' '}
                 <em>{t('programmes.heroLine2')}</em>
+                {' '}
                 <strong>{t('programmes.heroLine3')}</strong>
               </h1>
               <span className="dash" />
@@ -389,31 +334,22 @@ export default function Programmes() {
                   </span>
                   <span className="eyebrow">{t('programmes.dossier')}</span>
                   <h2>{selected.title}</h2>
-                  <p>{loc(selected.intro, lang)}</p>
-                </div>
-
-                <div className={styles.dossierTimeline} aria-label={`${selected.title} ${t('programmes.supportFlowLabel')}`}>
-                  <article>
-                    <span>01</span>
-                    <div>
-                      <h3>{t('programmes.match')}</h3>
-                      <p>{t('programmes.matchText')}</p>
-                    </div>
-                  </article>
-                  <article>
-                    <span>02</span>
-                    <div>
-                      <h3>{t('programmes.shape')}</h3>
-                      <p>{t('programmes.shapeText')}</p>
-                    </div>
-                  </article>
-                  <article>
-                    <span>03</span>
-                    <div>
-                      <h3>{t('programmes.strengthen')}</h3>
-                      <p>{t('programmes.strengthenText')}</p>
-                    </div>
-                  </article>
+                  <div
+                    className={`${styles.mobileCopy} ${expandedCopy.includes(introCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
+                    id={`programme-intro-${selected.id}`}
+                  >
+                    <p>{loc(selected.intro, lang)}</p>
+                  </div>
+                  <button
+                    type="button"
+                    className={styles.copyToggle}
+                    aria-expanded={expandedCopy.includes(introCopyId)}
+                    aria-controls={`programme-intro-${selected.id}`}
+                    onClick={() => toggleCopy(introCopyId)}
+                  >
+                    {expandedCopy.includes(introCopyId) ? t('common.showLess') : t('common.readMore')}
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
                 </div>
               </div>
 
@@ -422,7 +358,22 @@ export default function Programmes() {
                   <BadgeCheck size={21} strokeWidth={1.7} aria-hidden="true" />
                   <div>
                     <h3>{loc(selected.supportTitle, lang)}</h3>
-                    <p>{loc(selected.support, lang)}</p>
+                    <div
+                      className={`${styles.mobileCopy} ${expandedCopy.includes(supportCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
+                      id={`programme-support-${selected.id}`}
+                    >
+                      <p>{loc(selected.support, lang)}</p>
+                    </div>
+                    <button
+                      type="button"
+                      className={styles.copyToggle}
+                      aria-expanded={expandedCopy.includes(supportCopyId)}
+                      aria-controls={`programme-support-${selected.id}`}
+                      onClick={() => toggleCopy(supportCopyId)}
+                    >
+                      {expandedCopy.includes(supportCopyId) ? t('common.showLess') : t('common.readMore')}
+                      <ChevronDown size={18} aria-hidden="true" />
+                    </button>
                   </div>
                 </div>
 
@@ -453,33 +404,11 @@ export default function Programmes() {
         </div>
       </section>
 
-      <section className={styles.expertiseSection}>
-        <div className="container">
-          <div className={styles.expertiseHeader}>
-            <span className="eyebrow">{t('programmes.expertiseEyebrow')}</span>
-            <h2>{t('programmes.expertiseTitle')}</h2>
-            <span className="dash" />
-            <p>{t('programmes.expertiseText')}</p>
-          </div>
-
-          <div className={styles.expertiseGrid}>
-            {expertiseAreas.map((area) => {
-              const AreaIcon = area.icon;
-              return (
-                <article className={styles.expertiseCard} key={area.title.en}>
-                  <span>
-                    <AreaIcon size={24} strokeWidth={1.6} aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3>{loc(area.title, lang)}</h3>
-                    <p>{loc(area.text, lang)}</p>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      <ExpertiseAreas
+        eyebrow={t('programmes.expertiseEyebrow')}
+        title={t('programmes.expertiseTitle')}
+        description={t('programmes.expertiseText')}
+      />
 
       <section className={styles.routeSection}>
         <div className="container">

@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(1.1rem, 2vw, 2rem);
-  padding-bottom: clamp(1rem, 2vw, 1.8rem);
+  padding-bottom: clamp(0.75rem, 1.4vw, 1.25rem);
   background:
     linear-gradient(
       90deg,
@@ -12,7 +12,7 @@
       rgba(250, 245, 239, 0.08) 76%,
       rgba(250, 245, 239, 0) 100%
     ),
-    url('/assets/projects-hero.png') right -0.3rem top -0.2rem / min(86vw, 1380px) auto no-repeat;
+    url('/assets/projects-hero.webp') right -0.3rem top -0.2rem / min(86vw, 1380px) auto no-repeat;
 }
 
 .hero :global(.container),
@@ -29,7 +29,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.55fr);
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: start;
-  min-height: clamp(420px, 35vw, 540px);
+  min-height: clamp(270px, 22vw, 320px);
 }
 
 .heroContent {
@@ -70,7 +70,7 @@
   align-self: start;
   justify-self: end;
   width: min(100%, 430px);
-  margin-top: clamp(5rem, 9vw, 9rem);
+  margin-top: clamp(1.5rem, 4vw, 3.5rem);
   padding: 0;
   border: 0;
   background: transparent;
@@ -109,54 +109,13 @@
 .projectsSection {
   position: relative;
   z-index: 3;
-  margin-top: clamp(-4.5rem, -5vw, -2.5rem);
+  margin-top: clamp(-2.25rem, -3vw, -1.25rem);
   padding-top: 0;
 }
 
 .portfolioShell {
   display: grid;
   gap: clamp(1rem, 1.6vw, 1.6rem);
-}
-
-.filterBar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  padding: clamp(0.6rem, 1vw, 0.85rem);
-  border: 1px solid rgba(122, 0, 70, 0.12);
-  border-radius: var(--radius-md);
-  background: rgba(255, 253, 252, 0.78);
-  box-shadow: var(--shadow-sm);
-  backdrop-filter: blur(10px);
-}
-
-.filterBar button {
-  min-height: 42px;
-  padding: 0.6rem 0.85rem;
-  border: 1px solid rgba(122, 0, 70, 0.18);
-  border-radius: var(--radius-pill);
-  background: rgba(255, 253, 252, 0.82);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: 0.86rem;
-  font-weight: 850;
-  letter-spacing: 0.02em;
-  transition:
-    background var(--t-base),
-    border-color var(--t-base),
-    color var(--t-base),
-    transform var(--t-base);
-}
-
-.filterBar button:hover,
-.filterBar .activeFilter {
-  border-color: var(--color-bordo);
-  background: var(--color-bordo);
-  color: #fff;
-  transform: translateY(-2px);
 }
 
 .featurePanel {
@@ -499,7 +458,7 @@
         rgba(250, 245, 239, 0.96) 50%,
         var(--color-cream) 100%
       ),
-      url('/assets/projects-hero.png') center top / min(1080px, 140vw) auto no-repeat;
+      url('/assets/projects-hero.webp') center top / min(1080px, 140vw) auto no-repeat;
   }
 
   .hero :global(.container),
@@ -537,11 +496,6 @@
 
 @media (max-width: 760px) {
   .projectsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .filterBar {
-    display: grid;
     grid-template-columns: 1fr;
   }
 }
@@ -582,7 +536,7 @@
         rgba(250, 245, 239, 0.7) 72%,
         var(--color-cream) 100%
       ),
-      url('/assets/projects-hero.png') center top / auto min(480px, 64svh) no-repeat;
+      url('/assets/projects-hero.webp') center top / auto min(480px, 64svh) no-repeat;
   }
 
   .heroContent {
@@ -607,7 +561,7 @@
 
   .heroSummary {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
     max-width: 100%;
     gap: 0.5rem;
@@ -625,9 +579,9 @@
   }
 
   .heroSummary span {
-    font-size: 0.86rem;
-    letter-spacing: 0.04em;
-    overflow-wrap: break-word;
+    font-size: clamp(0.62rem, 2.8vw, 0.76rem);
+    letter-spacing: 0.02em;
+    overflow-wrap: anywhere;
   }
 
   .projectsSection {
@@ -644,35 +598,6 @@
   .addPanel {
     min-width: 0;
     max-width: 100%;
-  }
-
-  .filterBar {
-    display: flex;
-    flex-wrap: nowrap;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-    padding: 0.45rem;
-    border-radius: var(--radius-pill);
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-  }
-
-  .filterBar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .filterBar button {
-    flex: 0 0 auto;
-    min-height: 38px;
-    padding: 0.5rem 0.78rem;
-    scroll-snap-align: start;
-    white-space: nowrap;
-  }
-
-  .filterBar button:hover,
-  .filterBar .activeFilter {
-    transform: none;
   }
 
   .featurePanel,

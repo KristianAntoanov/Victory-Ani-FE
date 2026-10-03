@@ -29,6 +29,7 @@ interface BackendProjectItem {
   partners?: string[] | null;
   objectives?: string[] | null;
   activities?: string[] | null;
+  outputs?: string[] | null;
   results?: string[] | null;
   mainActivitiesBg?: string | null;
   mainActivitiesEn?: string | null;
@@ -96,6 +97,11 @@ function toProject(item: BackendProjectItem): Project {
     mainActivitiesBg,
     mainActivitiesEn,
     mainActivities: mainActivitiesEn || mainActivitiesBg,
+    objectives: item.objectives ?? [],
+    activities: item.activities ?? [],
+    outputs: item.outputs ?? [],
+    results: item.results ?? [],
+    partners: item.partners ?? [],
     isFeatured: item.isFeatured ?? false,
     isActive: item.isActive,
     createdOn: item.createdOn,

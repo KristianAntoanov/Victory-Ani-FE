@@ -2,8 +2,6 @@ import { useState } from 'react';
 import {
   BarChart3,
   CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
   ClipboardCheck,
   FileCheck2,
   FileSearch,
@@ -22,8 +20,7 @@ import {
 } from 'lucide-react';
 import Seo from '@/components/common/Seo';
 import PrimaryButton from '@/components/common/PrimaryButton';
-import SecondaryButton from '@/components/common/SecondaryButton';
-import { ASSETS, ROUTES } from '@/constants';
+import { ASSETS } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
 import { loc, type Localized } from '@/i18n';
 import { openConsultationModal } from '@/utils/consultationModal';
@@ -316,19 +313,8 @@ const services: ServiceDetail[] = [
 export default function Services() {
   const { lang, t } = useLanguage();
   const [activeService, setActiveService] = useState(0);
-  const [activeSupport, setActiveSupport] = useState(0);
   const selected = services[activeService];
   const SelectedIcon = selected.icon;
-  const selectedSupport = selected.support[activeSupport] ?? selected.support[0];
-
-  const selectService = (index: number) => {
-    setActiveService(index);
-    setActiveSupport(0);
-  };
-
-  const goToService = (direction: -1 | 1) => {
-    selectService((activeService + direction + services.length) % services.length);
-  };
 
   return (
     <>
@@ -338,140 +324,66 @@ export default function Services() {
         image={ASSETS.servicesHero}
       />
 
-      <section className={styles.hero} data-testid="services-hero">
+      <section className={styles.servicesSection} data-testid="services-overview">
         <div className="container">
-          <div className={styles.heroGrid}>
-            <div className={styles.heroContent}>
-              <span className="eyebrow">{t('services.title')}</span>
-              <h1 className={styles.heroTitle}>
-                {t('services.heroLine1')}
-                <em>{t('services.heroLine2')}</em>
-                <strong>{t('services.heroLine3')}</strong>
-              </h1>
-              <span className="dash" />
-              <p className={styles.heroLead}>{t('services.lead')}</p>
-              <div className={styles.heroActions}>
-                <PrimaryButton
-                  type="button"
-                  onClick={openConsultationModal}
-                  className={styles.heroButton}
-                >
-                  {t('services.chooseSupport')}
-                </PrimaryButton>
-                <SecondaryButton to={ROUTES.programmes} className={styles.heroButton}>
-                  {t('nav.programmes')}
-                </SecondaryButton>
-              </div>
-            </div>
-            <div className={styles.heroVisual} aria-hidden="true">
-              <div className={styles.heroSignal}>
-                <span>4</span>
-                <strong>{t('services.servicePaths')}</strong>
-                <p>{t('services.servicePathsText')}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.serviceStrip} aria-label={t('services.serviceOverviewLabel')}>
+          <h1 className="visually-hidden">{t('services.title')}</h1>
+          <div className={styles.serviceSelectorGrid} aria-label={t('services.serviceOverviewLabel')}>
             {services.map((service, index) => {
               const ServiceIcon = service.icon;
               return (
                 <button
                   type="button"
-                  className={activeService === index ? styles.activeStripItem : undefined}
+                  className={`${styles.serviceSelector} ${
+                    activeService === index ? styles.activeSelector : ''
+                  }`.trim()}
                   key={service.id}
-                  onClick={() => selectService(index)}
+                  aria-pressed={activeService === index}
+                  aria-controls="service-detail"
+                  onClick={() => setActiveService(index)}
                 >
-                  <ServiceIcon size={20} strokeWidth={1.6} aria-hidden="true" />
-                  <span>{loc(service.title, lang)}</span>
+                  <span className={styles.selectorIcon}>
+                    <ServiceIcon size={28} strokeWidth={1.55} aria-hidden="true" />
+                  </span>
+                  <strong>{loc(service.title, lang)}</strong>
+                  <span>{loc(service.subtitle, lang)}</span>
                 </button>
               );
             })}
           </div>
-        </div>
-      </section>
 
-      <section className={styles.explorerSection}>
-        <div className="container">
-          <div className={styles.explorerPanel}>
-            <aside className={styles.serviceRail} aria-label={t('services.servicesLabel')}>
-              <span className="eyebrow">{t('services.chooseService')}</span>
-              {services.map((service, index) => {
-                const ServiceIcon = service.icon;
+          <article className={styles.serviceDetail} id="service-detail" key={selected.id}>
+            <div className={styles.detailHeader}>
+              <span className="icon-circle">
+                <SelectedIcon size={30} strokeWidth={1.5} aria-hidden="true" />
+              </span>
+              <div>
+                <span className="eyebrow">{loc(selected.subtitle, lang)}</span>
+                <h2>{loc(selected.title, lang)}</h2>
+              </div>
+            </div>
+
+            <p className={styles.detailIntro}>{loc(selected.intro, lang)}</p>
+
+            <div className={styles.supportGrid}>
+              {selected.support.map((item) => {
+                const ItemIcon = item.icon;
                 return (
-                  <button
-                    type="button"
-                    className={activeService === index ? styles.activeServiceButton : undefined}
-                    key={service.id}
-                    onClick={() => selectService(index)}
-                  >
-                    <ServiceIcon size={18} strokeWidth={1.6} aria-hidden="true" />
-                    <span>{loc(service.title, lang)}</span>
-                  </button>
+                  <article className={styles.supportCard} key={item.title.en}>
+                    <span>
+                      <ItemIcon size={22} strokeWidth={1.7} aria-hidden="true" />
+                    </span>
+                    <h3>{loc(item.title, lang)}</h3>
+                    <p>{loc(item.text, lang)}</p>
+                  </article>
                 );
               })}
-            </aside>
+            </div>
 
-            <article className={styles.serviceDetail}>
-              <div className={styles.detailHeader}>
-                <span className="icon-circle">
-                  <SelectedIcon size={28} strokeWidth={1.5} aria-hidden="true" />
-                </span>
-                <div>
-                  <span className="eyebrow">{loc(selected.subtitle, lang)}</span>
-                  <h2>{loc(selected.title, lang)}</h2>
-                </div>
-              </div>
-
-              <div className={styles.mobileServiceControls} aria-label={t('services.browseServicesLabel')}>
-                <button type="button" onClick={() => goToService(-1)} aria-label={t('services.previousService')}>
-                  <ChevronLeft size={18} aria-hidden="true" />
-                </button>
-                <span>
-                  {activeService + 1} / {services.length}
-                </span>
-                <button type="button" onClick={() => goToService(1)} aria-label={t('services.nextService')}>
-                  <ChevronRight size={18} aria-hidden="true" />
-                </button>
-              </div>
-
-              <p className={styles.detailIntro}>{loc(selected.intro, lang)}</p>
-
-              <div className={styles.supportGrid}>
-                {selected.support.map((item, index) => {
-                  const ItemIcon = item.icon;
-                  return (
-                    <button
-                      type="button"
-                      className={`${styles.supportCard} ${
-                        activeSupport === index ? styles.activeSupportCard : ''
-                      }`.trim()}
-                      key={item.title.en}
-                      aria-expanded={activeSupport === index}
-                      onClick={() => setActiveSupport(index)}
-                    >
-                      <span>
-                        <ItemIcon size={19} strokeWidth={1.7} aria-hidden="true" />
-                      </span>
-                      <small>{String(index + 1).padStart(2, '0')}</small>
-                      <h3>{loc(item.title, lang)}</h3>
-                      <p>{loc(item.text, lang)}</p>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className={styles.mobileSupportSummary} aria-live="polite">
-                <strong>{loc(selectedSupport.title, lang)}</strong>
-                <p>{loc(selectedSupport.text, lang)}</p>
-              </div>
-
-              <div className={styles.resultBox}>
-                <strong>{t('services.outcome')}</strong>
-                <p>{loc(selected.result, lang)}</p>
-              </div>
-            </article>
-          </div>
+            <div className={styles.resultBox}>
+              <strong>{t('services.outcome')}</strong>
+              <p>{loc(selected.result, lang)}</p>
+            </div>
+          </article>
         </div>
       </section>
 

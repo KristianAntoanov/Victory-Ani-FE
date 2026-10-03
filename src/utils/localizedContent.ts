@@ -21,6 +21,8 @@ export function getNewsContent(article: NewsArticle, lang: Lang) {
 }
 
 export function getProjectContent(project: Project, lang: Lang) {
+  const fallbackActivities = stringList(project.mainActivitiesBg, project.mainActivitiesEn, lang);
+
   return {
     title: text(project.titleBg, project.titleEn, lang),
     programmeLabel: text(project.programmeBg, project.programmeEn, lang),
@@ -31,6 +33,10 @@ export function getProjectContent(project: Project, lang: Lang) {
     imageAlt: text(project.titleBg, project.titleEn, lang),
     duration: text(project.durationBg, project.durationEn, lang),
     countries: stringList(project.countriesBg, project.countriesEn, lang),
-    activities: stringList(project.mainActivitiesBg, project.mainActivitiesEn, lang),
+    objectives: project.objectives ?? [],
+    activities: project.activities?.length ? project.activities : fallbackActivities,
+    outputs: project.outputs ?? [],
+    results: project.results ?? [],
+    partners: project.partners ?? [],
   };
 }

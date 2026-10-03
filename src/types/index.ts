@@ -61,6 +61,11 @@ export interface Project {
   mainActivitiesBg: string;
   mainActivitiesEn: string;
   mainActivities: string;
+  objectives?: string[];
+  activities?: string[];
+  outputs?: string[];
+  results?: string[];
+  partners?: string[];
   isFeatured: boolean;
   isActive: boolean;
   createdOn?: string | null;
@@ -93,6 +98,7 @@ export interface TeamMember {
   image: string;
   imageAlt: string;
   linkedin: string;
+  quote?: string;
 }
 
 export interface ServiceItem {
@@ -100,7 +106,6 @@ export interface ServiceItem {
   title: string;
   description: string;
   icon: string;
-  tags: string[];
 }
 
 export interface Programme {

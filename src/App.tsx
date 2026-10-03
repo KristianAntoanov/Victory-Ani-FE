@@ -1,11 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
+import { Navigate, Routes, Route } from 'react-router-dom';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import PublicLayout from '@/layouts/PublicLayout';
 import AdminLayout from '@/layouts/AdminLayout';
 import ProtectedRoute from '@/components/admin/ProtectedRoute';
 import { ROUTES } from '@/constants';
 
-import Home from '@/pages/public/home/Home';
 import About from '@/pages/public/about/About';
 import Team from '@/pages/public/team/Team';
 import Projects from '@/pages/public/projects/Projects';
@@ -35,7 +34,7 @@ export default function App() {
       <Routes>
         {/* Public site */}
         <Route element={<PublicLayout />}>
-          <Route path={ROUTES.home} element={<Home />} />
+          <Route path={ROUTES.home} element={<Navigate to={ROUTES.about} replace />} />
           <Route path={ROUTES.about} element={<About />} />
           <Route path={ROUTES.team} element={<Team />} />
           <Route path={ROUTES.projects} element={<Projects />} />
