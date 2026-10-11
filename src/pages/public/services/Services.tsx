@@ -176,15 +176,18 @@ const services: ServiceDetail[] = [
   },
   {
     id: 'quality-assurance',
-    title: { en: 'Quality assurance and evaluation', bg: 'Осигуряване на качество и оценка' },
+    title: {
+      en: 'Quality assurance, ethics and data management',
+      bg: 'Осигуряване на качество, етика и управление на данни',
+    },
     subtitle: {
       en: 'Clear standards that guide your project to success',
       bg: 'Ясни стандарти, които водят проекта към успех',
     },
     icon: ShieldCheck,
     intro: {
-      en: 'V&A Projects develops and applies structured quality control systems that help partnerships maintain high standards, meet contractual obligations and identify problems before they affect delivery.',
-      bg: 'V&A Projects разработва и прилага структурирани системи за контрол на качеството, които помагат на партньорствата да поддържат високи стандарти, да изпълняват договорните си задължения и да откриват проблеми, преди да засегнат изпълнението.',
+      en: 'V&A Projects can join your consortium, develop and implement quality assurance systems, ethical procedures and data management practices that help European partnerships maintain high standards, protect participants and manage project information responsibly throughout implementation.',
+      bg: 'V&A Projects може да се включи във вашия консорциум, да разработи и приложи системи за осигуряване на качество, етични процедури и практики за управление на данни, които помагат на европейските партньорства да поддържат високи стандарти, да защитават участниците и да управляват проектната информация отговорно през цялото изпълнение.',
     },
     result: {
       en: 'This service gives coordinators and partners a clear system for monitoring performance, protecting quality and maintaining readiness for reporting, reviews and audits.',
@@ -218,16 +221,16 @@ const services: ServiceDetail[] = [
       {
         title: { en: 'Ethics compliance', bg: 'Етично съответствие' },
         text: {
-          en: 'We support the identification and management of ethical requirements related to participants, research activities and vulnerable groups.',
-          bg: 'Подкрепяме идентифицирането и управлението на етични изисквания, свързани с участници, изследователски дейности и уязвими групи.',
+          en: 'We develop ethics procedures and support compliance with relevant EU requirements concerning research integrity, informed consent, participant protection and vulnerable groups.',
+          bg: 'Разработваме етични процедури и подкрепяме съответствието с релевантните изисквания на ЕС относно изследователската почтеност, информираното съгласие, защитата на участниците и уязвимите групи.',
         },
         icon: CheckCircle2,
       },
       {
-        title: { en: 'Data protection and management plans', bg: 'Защита на данните и планове за управление' },
+        title: { en: 'Data management and GDPR compliance', bg: 'Управление на данни и GDPR съответствие' },
         text: {
-          en: 'We help establish responsible procedures for collecting, storing, processing and sharing personal data.',
-          bg: 'Помагаме за създаване на отговорни процедури за събиране, съхранение, обработване и споделяне на лични данни.',
+          en: 'We support the preparation of Data Management Plans (DMPs) and procedures for data collection, storage, access, sharing, retention and protection in accordance with GDPR and programme requirements.',
+          bg: 'Подкрепяме подготовката на планове за управление на данни (DMP) и процедури за събиране, съхранение, достъп, споделяне, запазване и защита на данни в съответствие с GDPR и изискванията на програмата.',
         },
         icon: FileCheck2,
       },
@@ -369,19 +372,16 @@ export default function Services() {
                 const ItemIcon = item.icon;
                 return (
                   <article className={styles.supportCard} key={item.title.en}>
-                    <span>
-                      <ItemIcon size={22} strokeWidth={1.7} aria-hidden="true" />
-                    </span>
-                    <h3>{loc(item.title, lang)}</h3>
+                    <div className={styles.supportCardHeader}>
+                      <span>
+                        <ItemIcon size={24} strokeWidth={1.7} aria-hidden="true" />
+                      </span>
+                      <h3>{loc(item.title, lang)}</h3>
+                    </div>
                     <p>{loc(item.text, lang)}</p>
                   </article>
                 );
               })}
-            </div>
-
-            <div className={styles.resultBox}>
-              <strong>{t('services.outcome')}</strong>
-              <p>{loc(selected.result, lang)}</p>
             </div>
           </article>
         </div>
@@ -390,18 +390,8 @@ export default function Services() {
       <section className={styles.deliverySection}>
         <div className="container">
           <div className={styles.deliveryPanel}>
-            <div>
-              <span className="eyebrow">{t('services.howToStart')}</span>
-              <h2>{t('services.startTitle')}</h2>
-              <p>{t('services.startText')}</p>
-            </div>
-            <div className={styles.deliverySteps}>
-              <span>{t('services.stepIdea')}</span>
-              <span>{t('services.stepProposal')}</span>
-              <span>{t('services.stepApproval')}</span>
-              <span>{t('services.stepDelivery')}</span>
-              <span>{t('services.stepEvaluation')}</span>
-            </div>
+            <h2>{t('services.startTitle')}</h2>
+            <p>{t('services.startText')}</p>
             <PrimaryButton
               type="button"
               onClick={openConsultationModal}

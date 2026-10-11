@@ -5,7 +5,6 @@ import ConsultationBanner from '@/components/common/ConsultationBanner';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
 import LoadingState from '@/components/common/LoadingState';
-import SectionTitle from '@/components/common/SectionTitle';
 import SecondaryButton from '@/components/common/SecondaryButton';
 import { ASSETS } from '@/constants';
 import { newsService } from '@/services/newsService';
@@ -41,11 +40,15 @@ export default function News() {
 
   const hasMoreArticles = published.length > 4;
   const visibleArticles = hasMoreArticles && !showAll ? published.slice(0, 4) : published;
+  const newsTitle = t('news.title');
+  const newsTitleAccentIndex = newsTitle.lastIndexOf(' ');
+  const newsTitleMain = newsTitleAccentIndex > -1 ? newsTitle.slice(0, newsTitleAccentIndex) : '';
+  const newsTitleAccent = newsTitleAccentIndex > -1 ? newsTitle.slice(newsTitleAccentIndex + 1) : newsTitle;
 
   return (
     <>
       <Seo
-        title={t('news.title')}
+        title={newsTitle}
         description={t('news.lead')}
         image={ASSETS.newsHero}
       />
@@ -54,8 +57,10 @@ export default function News() {
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className="eyebrow">{t('common.eyebrow')}</span>
-              <h1 className={styles.heroTitle}>{t('news.title')}</h1>
+              <h1 className={styles.heroTitle}>
+                {newsTitleMain && `${newsTitleMain} `}
+                <em>{newsTitleAccent}</em>
+              </h1>
               <span className="dash" />
               <p className={styles.heroLead}>{t('news.lead')}</p>
             </div>
@@ -95,11 +100,6 @@ export default function News() {
         <section className={styles.newsSection} data-testid="news-grid">
           <div className="container">
             <div className={styles.newsPanel}>
-              <div className={styles.newsIntro}>
-                <SectionTitle eyebrow={t('common.latestUpdates')} title={t('common.fundingInsights')} />
-                <p>{t('news.introText')}</p>
-              </div>
-
               <div className={styles.articlesBlock}>
                 <div className={styles.articlesGrid}>
                   {visibleArticles.map((a) => (

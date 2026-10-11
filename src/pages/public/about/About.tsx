@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronDown, Phone, ShieldCheck, Target, Users, type LucideIcon } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import ExpertiseAreas from '@/components/common/ExpertiseAreas';
 import Icon from '@/components/common/Icon';
 import PartnersMarquee from '@/components/common/PartnersMarquee';
-import PrimaryButton from '@/components/common/PrimaryButton';
-import SecondaryButton from '@/components/common/SecondaryButton';
 import Seo from '@/components/common/Seo';
-import ServiceCard from '@/components/common/ServiceCard';
-import { ASSETS, CONTACT, ROUTES } from '@/constants';
+import { ASSETS, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
 import { getProgrammes } from '@/data/programmes';
-import { getHomeServiceCards } from '@/data/services';
 import { getTeamMembers } from '@/data/team';
 import { loc, type Localized } from '@/i18n';
 import styles from './About.module.css';
@@ -19,12 +15,6 @@ import styles from './About.module.css';
 interface ProcessStep {
   title: Localized;
   text: Localized;
-}
-
-interface ProcessHighlight {
-  title: Localized;
-  text: Localized;
-  icon: LucideIcon;
 }
 
 const processSteps: ProcessStep[] = [
@@ -72,44 +62,14 @@ const processSteps: ProcessStep[] = [
   },
 ];
 
-const processHighlights: ProcessHighlight[] = [
-  {
-    title: { en: 'Clear project logic', bg: 'Ясна проектна логика' },
-    text: {
-      en: 'Needs, objectives, activities, results and impact are aligned before the proposal is written.',
-      bg: 'Нуждите, целите, дейностите, резултатите и въздействието се съгласуват преди писането на предложението.',
-    },
-    icon: Target,
-  },
-  {
-    title: { en: 'The right partners', bg: 'Правилните партньори' },
-    text: {
-      en: 'Each organisation has a defined role, relevant expertise and a reason to be part of the project.',
-      bg: 'Всяка организация има ясна роля, подходяща експертиза и конкретна причина да бъде част от проекта.',
-    },
-    icon: Users,
-  },
-  {
-    title: { en: 'Confident delivery', bg: 'Уверено изпълнение' },
-    text: {
-      en: 'The project is prepared with practical management, reporting, communication and quality needs in mind.',
-      bg: 'Проектът се подготвя с мисъл за управлението, отчитането, комуникацията и качеството.',
-    },
-    icon: ShieldCheck,
-  },
-];
-
 export default function About() {
   const { lang, t } = useLanguage();
-  const [activeProcess, setActiveProcess] = useState(0);
   const [expandedFounders, setExpandedFounders] = useState<string[]>([]);
   const [expandedAboutCopy, setExpandedAboutCopy] = useState<string[]>([]);
   const programmes = getProgrammes(lang);
-  const services = getHomeServiceCards(lang);
   const founders = getTeamMembers(lang).filter((member) =>
     ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
   );
-  const selectedProcess = processSteps[activeProcess];
 
   const toggleFounder = (founderId: string) => {
     setExpandedFounders((current) => (
@@ -140,106 +100,51 @@ export default function About() {
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className="eyebrow">{t('common.eyebrow')}</span>
               <h1 className={styles.heroTitle}>
-                {t('home.titleLine1')}
-                {' '}
-                <em>{t('home.titleLine2')}</em>
+                <span className={styles.heroTitleLine}>{t('home.titleLine1')}</span>
+                <em className={styles.heroTitleAccent}>{t('home.titleLine2')}</em>
               </h1>
               <p className={styles.heroLead}>{t('home.lead')}</p>
-              <div className={styles.heroActions}>
-                <PrimaryButton to={ROUTES.services} className={styles.heroButton}>
-                  {t('cta.exploreServices')}
-                </PrimaryButton>
-                <SecondaryButton href={CONTACT.phoneHref} icon={Phone} className={styles.heroButton}>
-                  {CONTACT.phone}
-                </SecondaryButton>
-              </div>
             </div>
-
-            <div className={styles.heroVisual}>
-              <div className={styles.heroCards}>
-                {programmes.map((programme) => (
-                  <Link
-                    key={programme.id}
-                    to={`${ROUTES.programmes}?programme=${programme.id}`}
-                    className={styles.programmePill}
-                  >
-                    <span className={styles.programmeIcon}>
-                      <Icon name={programme.icon} size={18} />
-                    </span>
-                    <span>
-                      <span className={styles.programmeTitle}>{programme.title}</span>
-                      <span className={styles.programmeSub}>{programme.tagline}</span>
-                    </span>
-                    <ArrowRight className={styles.arrowMini} size={14} aria-hidden="true" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.servicesSection} data-testid="about-services">
-        <div className="container">
-          <div className={styles.sectionHeading}>
-            <h2>{t('about.whatWeDo')}</h2>
-            <span className="dash" />
-          </div>
-          <div className={styles.servicesGrid}>
-            {services.map((service) => (
-              <ServiceCard
-                key={service.id}
-                title={service.title}
-                description={service.description}
-                icon={service.icon}
-                to={ROUTES.services}
-                linkLabel={`${t('common.learnMoreAbout')} ${service.title}`}
-              />
-            ))}
           </div>
         </div>
       </section>
 
       <section className={styles.introSection}>
         <div className="container">
-          <div className={styles.introGrid}>
-            <article className={styles.introCopy}>
-              <h2>{t('about.introTitle')}</h2>
-              <span className="dash" />
-              <div className={`${styles.mobileCopy} ${expandedAboutCopy.includes('intro') ? styles.mobileCopyExpanded : ''}`.trim()} id="about-intro-copy">
-                <p>{t('about.introText')}</p>
-              </div>
-              <button
-                type="button"
-                className={styles.copyToggle}
-                aria-expanded={expandedAboutCopy.includes('intro')}
-                aria-controls="about-intro-copy"
-                onClick={() => toggleAboutCopy('intro')}
-              >
-                {expandedAboutCopy.includes('intro') ? t('common.showLess') : t('common.readMore')}
-                <ChevronDown size={18} aria-hidden="true" />
-              </button>
-            </article>
-            <article className={styles.storyCopy}>
-              <span className="eyebrow">{t('about.storyTitle')}</span>
-              <h2>{t('about.storyTitle')}</h2>
-              <div className={`${styles.mobileCopy} ${expandedAboutCopy.includes('story') ? styles.mobileCopyExpanded : ''}`.trim()} id="about-story-copy">
-                <p>{t('about.storyText')}</p>
-              </div>
-              <button
-                type="button"
-                className={`${styles.copyToggle} ${styles.storyCopyToggle}`}
-                aria-expanded={expandedAboutCopy.includes('story')}
-                aria-controls="about-story-copy"
-                onClick={() => toggleAboutCopy('story')}
-              >
-                {expandedAboutCopy.includes('story') ? t('common.showLess') : t('common.readMore')}
-                <ChevronDown size={18} aria-hidden="true" />
-              </button>
-            </article>
-          </div>
+          <article className={styles.introCopy}>
+            <h2>{t('about.introTitle')}</h2>
+            <span className="dash" />
+            <div className={`${styles.mobileCopy} ${expandedAboutCopy.includes('intro') ? styles.mobileCopyExpanded : ''}`.trim()} id="about-intro-copy">
+              <p>{t('about.introText')}</p>
+            </div>
+            <button
+              type="button"
+              className={styles.copyToggle}
+              aria-expanded={expandedAboutCopy.includes('intro')}
+              aria-controls="about-intro-copy"
+              onClick={() => toggleAboutCopy('intro')}
+            >
+              {expandedAboutCopy.includes('intro') ? t('common.showLess') : t('common.readMore')}
+              <ChevronDown size={18} aria-hidden="true" />
+            </button>
+
+            <div className={styles.programmeGrid} aria-label={t('programmes.programmesLabel')}>
+              {programmes.map((programme) => (
+                <Link
+                  key={programme.id}
+                  to={`${ROUTES.programmes}?programme=${programme.id}`}
+                  className={styles.programmePill}
+                >
+                  <span className={styles.programmeIcon}>
+                    <Icon name={programme.icon} size={22} />
+                  </span>
+                  <span className={styles.programmeTitle}>{programme.title}</span>
+                  <ArrowRight className={styles.arrowMini} size={16} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          </article>
         </div>
       </section>
 
@@ -289,88 +194,28 @@ export default function About() {
       <ExpertiseAreas
         id="areas-of-expertise"
         title={t('programmes.expertiseEyebrow')}
-        description={t('programmes.expertiseText')}
+        description=""
         compactOnMobile
       />
 
       <section className={styles.processSection} id="how-we-work">
         <div className="container">
-          <div className={styles.processPanel}>
-            <div className={styles.processIntro}>
-              <span className="eyebrow">{t('services.processEyebrow')}</span>
-              <h2>{t('about.listeningTitle')}</h2>
-              <span className="dash" />
-              <p>{t('about.listeningText')}</p>
-              <SecondaryButton to={ROUTES.services}>{t('cta.exploreServices')}</SecondaryButton>
-            </div>
-
-            <div className={styles.processBoard}>
-              <div className={styles.processRail} role="tablist" aria-label={t('about.processStepsLabel')}>
-                {processSteps.map((step, index) => (
-                  <button
-                    type="button"
-                    role="tab"
-                    id={`process-tab-${index}`}
-                    aria-selected={activeProcess === index}
-                    aria-controls="process-detail"
-                    className={activeProcess === index ? styles.activeStepButton : undefined}
-                    key={step.title.en}
-                    onClick={() => setActiveProcess(index)}
-                  >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    {loc(step.title, lang)}
-                  </button>
-                ))}
-              </div>
-
-              <article
-                className={styles.processDetail}
-                id="process-detail"
-                role="tabpanel"
-                aria-labelledby={`process-tab-${activeProcess}`}
-              >
-                <span className={styles.stepNumber}>{String(activeProcess + 1).padStart(2, '0')}</span>
-                <h3>{loc(selectedProcess.title, lang)}</h3>
-                <p>{loc(selectedProcess.text, lang)}</p>
-              </article>
-            </div>
-
-            <ol className={styles.processMobile} aria-label={t('about.processStepsLabel')}>
-              {processSteps.map((step, index) => (
-                <li className={activeProcess === index ? styles.activeMobileStep : undefined} key={step.title.en}>
-                  <button
-                    type="button"
-                    aria-expanded={activeProcess === index}
-                    aria-controls={`mobile-process-detail-${index}`}
-                    onClick={() => setActiveProcess(index)}
-                  >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{loc(step.title, lang)}</strong>
-                    <ChevronDown size={18} aria-hidden="true" />
-                  </button>
-                  {activeProcess === index ? (
-                    <p id={`mobile-process-detail-${index}`}>{loc(step.text, lang)}</p>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-
-            <div className={styles.processHighlights} aria-label={t('about.completeProcessLabel')}>
-              {processHighlights.map((item) => {
-                const HighlightIcon = item.icon;
-                return (
-                  <article className={styles.processHighlight} key={item.title.en}>
-                    <span className="icon-circle icon-circle--soft">
-                      <HighlightIcon size={24} strokeWidth={1.6} aria-hidden="true" />
-                    </span>
-                    <h3>{loc(item.title, lang)}</h3>
-                    <p>{loc(item.text, lang)}</p>
-                  </article>
-                );
-              })}
-            </div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}>
+            <h2>{t('services.processEyebrow')}</h2>
+            <span className="dash" />
           </div>
-          <p className={styles.processTagline}>{t('about.processTagline')}</p>
+
+          <ol className={styles.processTable} aria-label={t('about.processStepsLabel')}>
+            {processSteps.map((step, index) => (
+              <li className={styles.processRow} key={step.title.en}>
+                <div className={styles.processStep}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <strong>{loc(step.title, lang)}</strong>
+                </div>
+                <p className={styles.processText}>{loc(step.text, lang)}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

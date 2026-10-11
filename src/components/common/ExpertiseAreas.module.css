@@ -43,6 +43,10 @@
   line-height: 1.6;
 }
 
+.headerNoDescription {
+  grid-template-columns: 1fr;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -99,12 +103,13 @@
 
 .card h3 {
   color: var(--color-bordo);
-  font-size: clamp(1.3rem, 1.2rem + 0.25vw, 1.55rem);
+  font-size: clamp(1.5rem, 1.38rem + 0.32vw, 1.8rem);
+  font-weight: 700;
   line-height: 1.1;
 }
 
 .card p {
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
   color: var(--color-text);
   font-size: 0.96rem;
   font-weight: 600;

@@ -8,11 +8,11 @@ import {
   GraduationCap,
   Leaf,
   Mail,
+  MessagesSquare,
   Network,
   Scale,
   type LucideIcon,
 } from 'lucide-react';
-import ExpertiseAreas from '@/components/common/ExpertiseAreas';
 import Seo from '@/components/common/Seo';
 import PrimaryButton from '@/components/common/PrimaryButton';
 import SecondaryButton from '@/components/common/SecondaryButton';
@@ -252,7 +252,6 @@ export default function Programmes() {
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className="eyebrow">{t('programmes.title')}</span>
               <h1 className={styles.heroTitle}>
                 {t('programmes.heroLine1')}
                 {' '}
@@ -262,12 +261,6 @@ export default function Programmes() {
               </h1>
               <span className="dash" />
               <p className={styles.heroLead}>{t('programmes.lead')}</p>
-            </div>
-
-            <div className={styles.heroPanel}>
-              <span>{t('programmes.explore')}</span>
-              <strong>{t('programmes.keyProgrammes')}</strong>
-              <p>{t('programmes.keyProgrammesText')}</p>
             </div>
           </div>
 
@@ -309,15 +302,6 @@ export default function Programmes() {
               </div>
 
               <p>{loc(selected.lead, lang)}</p>
-
-              <div className={styles.spotlightActions}>
-                <SecondaryButton href={selected.officialUrl} icon={ExternalLink}>
-                  {t('programmes.officialWebsite')}
-                </SecondaryButton>
-                <PrimaryButton type="button" onClick={openConsultationModal} icon={Mail}>
-                  {loc(selected.emailCta, lang)}
-                </PrimaryButton>
-              </div>
             </article>
           </div>
         </div>
@@ -329,11 +313,13 @@ export default function Programmes() {
             <article className={styles.programmeDetail} id="programme-detail" role="tabpanel">
               <div className={styles.dossierTop} key={`${selected.id}-dossier`}>
                 <div className={styles.dossierCard}>
-                  <span className="icon-circle">
-                    <SelectedIcon size={28} strokeWidth={1.5} aria-hidden="true" />
-                  </span>
                   <span className="eyebrow">{t('programmes.dossier')}</span>
-                  <h2>{selected.title}</h2>
+                  <div className={styles.dossierHeader}>
+                    <span className="icon-circle">
+                      <SelectedIcon size={34} strokeWidth={1.5} aria-hidden="true" />
+                    </span>
+                    <h2>{selected.title}</h2>
+                  </div>
                   <div
                     className={`${styles.mobileCopy} ${expandedCopy.includes(introCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
                     id={`programme-intro-${selected.id}`}
@@ -354,26 +340,37 @@ export default function Programmes() {
               </div>
 
               <div className={styles.dossierGrid}>
-                <div className={styles.supportBox}>
-                  <BadgeCheck size={21} strokeWidth={1.7} aria-hidden="true" />
-                  <div>
-                    <h3>{loc(selected.supportTitle, lang)}</h3>
-                    <div
-                      className={`${styles.mobileCopy} ${expandedCopy.includes(supportCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
-                      id={`programme-support-${selected.id}`}
-                    >
-                      <p>{loc(selected.support, lang)}</p>
+                <div className={styles.supportColumn}>
+                  <div className={styles.supportBox}>
+                    <BadgeCheck size={21} strokeWidth={1.7} aria-hidden="true" />
+                    <div>
+                      <h3>{loc(selected.supportTitle, lang)}</h3>
+                      <div
+                        className={`${styles.mobileCopy} ${expandedCopy.includes(supportCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
+                        id={`programme-support-${selected.id}`}
+                      >
+                        <p>{loc(selected.support, lang)}</p>
+                      </div>
+                      <button
+                        type="button"
+                        className={styles.copyToggle}
+                        aria-expanded={expandedCopy.includes(supportCopyId)}
+                        aria-controls={`programme-support-${selected.id}`}
+                        onClick={() => toggleCopy(supportCopyId)}
+                      >
+                        {expandedCopy.includes(supportCopyId) ? t('common.showLess') : t('common.readMore')}
+                        <ChevronDown size={18} aria-hidden="true" />
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      className={styles.copyToggle}
-                      aria-expanded={expandedCopy.includes(supportCopyId)}
-                      aria-controls={`programme-support-${selected.id}`}
-                      onClick={() => toggleCopy(supportCopyId)}
-                    >
-                      {expandedCopy.includes(supportCopyId) ? t('common.showLess') : t('common.readMore')}
-                      <ChevronDown size={18} aria-hidden="true" />
-                    </button>
+                  </div>
+
+                  <div className={styles.detailActions}>
+                    <SecondaryButton href={selected.officialUrl} icon={ExternalLink}>
+                      {t('programmes.visitOfficialWebsite')}
+                    </SecondaryButton>
+                    <PrimaryButton type="button" onClick={openConsultationModal} icon={Mail}>
+                      {loc(selected.emailCta, lang)}
+                    </PrimaryButton>
                   </div>
                 </div>
 
@@ -391,40 +388,21 @@ export default function Programmes() {
                 </div>
               </div>
 
-              <div className={styles.detailActions}>
-                <SecondaryButton href={selected.officialUrl} icon={ExternalLink}>
-                  {t('programmes.visitOfficialWebsite')}
-                </SecondaryButton>
-                <PrimaryButton type="button" onClick={openConsultationModal} icon={Mail}>
-                  {loc(selected.emailCta, lang)}
-                </PrimaryButton>
-              </div>
             </article>
           </div>
         </div>
       </section>
 
-      <ExpertiseAreas
-        eyebrow={t('programmes.expertiseEyebrow')}
-        title={t('programmes.expertiseTitle')}
-        description={t('programmes.expertiseText')}
-      />
-
       <section className={styles.routeSection}>
         <div className="container">
           <div className={styles.routePanel}>
-            <div>
-              <span className="eyebrow">{t('programmes.notSure')}</span>
-              <h2>{t('programmes.routeTitle')}</h2>
-              <p>{t('programmes.routeText')}</p>
-            </div>
-            <div className={styles.routeSteps}>
-              <span>Erasmus+</span>
-              <span>Horizon Europe</span>
-              <span>CERV</span>
-              <span>LIFE</span>
-              <span>{t('programmes.otherCalls')}</span>
-            </div>
+            <span className={styles.routeIcon}>
+              <MessagesSquare size={28} strokeWidth={1.7} aria-hidden="true" />
+            </span>
+            <h2>
+              {t('programmes.notSure')}
+              <em>{t('programmes.routeContact')}</em>
+            </h2>
             <PrimaryButton type="button" onClick={openConsultationModal}>
               {t('programmes.discussRightProgramme')}
             </PrimaryButton>

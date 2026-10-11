@@ -33,13 +33,13 @@
 }
 
 .heroContent {
-  transform: translateY(clamp(-1.8rem, -2vw, -0.8rem));
+  transform: none;
 }
 
 .heroTitle {
   max-width: 46rem;
-  margin-top: var(--space-3);
-  color: var(--color-bordo);
+  margin-top: 0;
+  color: var(--color-green);
   font-size: clamp(2.8rem, 5vw, 4.85rem);
   line-height: 0.96;
 }
@@ -48,6 +48,10 @@
   display: block;
   color: inherit;
   font-style: normal;
+}
+
+.heroTitle em span {
+  color: var(--color-bordo);
 }
 
 .heroContent :global(.dash) {
@@ -109,8 +113,8 @@
 .projectsSection {
   position: relative;
   z-index: 3;
-  margin-top: clamp(-2.25rem, -3vw, -1.25rem);
-  padding-top: 0;
+  margin-top: 0;
+  padding-top: clamp(1rem, 2vw, 1.5rem);
 }
 
 .portfolioShell {
@@ -164,11 +168,11 @@
 }
 
 .featureContent p {
-  max-width: 58rem;
   color: var(--color-text);
   font-size: clamp(1.04rem, 1rem + 0.16vw, 1.16rem);
   font-weight: 620;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .featureFacts {
@@ -291,15 +295,15 @@
 
 .testimonialsHeader {
   display: grid;
-  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1rem, 2vw, 2rem);
-  align-items: end;
+  align-items: start;
   margin-bottom: clamp(0.9rem, 1.4vw, 1.4rem);
 }
 
 .testimonialsHeader h2 {
   max-width: 38rem;
-  margin-top: var(--space-3);
+  margin: 0;
   color: var(--color-bordo);
   font-size: clamp(1.9rem, 2.65vw, 3rem);
   line-height: 1.04;
@@ -315,23 +319,23 @@
 
 .testimonialViewport {
   overflow: hidden;
-  padding: 0.25rem clamp(0.5rem, 1.8vw, 1.5rem);
+  padding: 0.25rem clamp(0.35rem, 1vw, 0.9rem);
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 4%,
-    #000 13%,
-    #000 87%,
-    rgba(0, 0, 0, 0.22) 96%,
+    rgba(0, 0, 0, 0.92) 0.8%,
+    #000 1.8%,
+    #000 98.2%,
+    rgba(0, 0, 0, 0.92) 99.2%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 4%,
-    #000 13%,
-    #000 87%,
-    rgba(0, 0, 0, 0.22) 96%,
+    rgba(0, 0, 0, 0.92) 0.8%,
+    #000 1.8%,
+    #000 98.2%,
+    rgba(0, 0, 0, 0.92) 99.2%,
     transparent 100%
   );
 }
@@ -340,7 +344,7 @@
   display: flex;
   width: max-content;
   gap: clamp(0.75rem, 1vw, 1rem);
-  animation: testimonialScroll 78s linear infinite;
+  animation: testimonialScroll 125s linear infinite;
 }
 
 .testimonialViewport:hover .testimonialTrack {
@@ -422,7 +426,6 @@
 }
 
 .addPanel p {
-  max-width: 56rem;
   margin-top: var(--space-2);
   color: var(--color-text);
   font-size: 1rem;
@@ -480,7 +483,7 @@
   }
 
   .projectsSection {
-    margin-top: clamp(-2rem, -4vw, -1rem);
+    margin-top: 0;
   }
 
   .heroSummary {

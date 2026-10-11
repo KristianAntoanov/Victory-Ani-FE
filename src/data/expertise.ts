@@ -18,7 +18,7 @@ export interface ExpertiseArea {
 export const expertiseAreas: ExpertiseArea[] = [
   {
     title: {
-      en: 'Social Sciences, Human Rights & International Law',
+      en: 'Social sciences, human rights & international law',
       bg: 'Социални науки, човешки права и международно право',
     },
     text: {
@@ -28,7 +28,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     icon: Scale,
   },
   {
-    title: { en: 'Maritime & Blue Economy', bg: 'Морско дело и синя икономика' },
+    title: { en: 'Maritime & blue economy', bg: 'Морско дело и синя икономика' },
     text: {
       en: 'Maritime education, marine innovation, blue growth, safety at sea, maritime sustainability and projects linked to the future of the maritime sector.',
       bg: 'Морско образование, морски иновации, син растеж, безопасност на море, морска устойчивост и проекти, свързани с бъдещето на морския сектор.',
@@ -37,7 +37,7 @@ export const expertiseAreas: ExpertiseArea[] = [
   },
   {
     title: {
-      en: 'Engineering, AI & Digital Technologies',
+      en: 'Engineering, AI & digital technologies',
       bg: 'Инженерство, AI и дигитални технологии',
     },
     text: {
@@ -48,7 +48,7 @@ export const expertiseAreas: ExpertiseArea[] = [
   },
   {
     title: {
-      en: 'Agronomy, Environment & Sustainable Development',
+      en: 'Agronomy, environment & sustainable development',
       bg: 'Агрономия, околна среда и устойчиво развитие',
     },
     text: {
@@ -58,7 +58,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     icon: Sprout,
   },
   {
-    title: { en: 'Education, Business & Innovation', bg: 'Образование, бизнес и иновации' },
+    title: { en: 'Education, business & innovation', bg: 'Образование, бизнес и иновации' },
     text: {
       en: 'Education and training, organisational development, entrepreneurship, business growth, innovation management, skills development and new approaches to learning and professional development.',
       bg: 'Образование и обучение, организационно развитие, предприемачество, бизнес растеж, управление на иновации, развитие на умения и нови подходи към ученето и професионалното развитие.',
@@ -66,7 +66,7 @@ export const expertiseAreas: ExpertiseArea[] = [
     icon: BookOpenCheck,
   },
   {
-    title: { en: 'Health, Medicine & Life Sciences', bg: 'Здраве, медицина и науки за живота' },
+    title: { en: 'Health, medicine & life sciences', bg: 'Здраве, медицина и науки за живота' },
     text: {
       en: 'Health, medicine, biology, life sciences, well-being, public health and research-driven solutions for healthier communities.',
       bg: 'Здраве, медицина, биология, науки за живота, благосъстояние, обществено здраве и научно базирани решения за по-здрави общности.',
