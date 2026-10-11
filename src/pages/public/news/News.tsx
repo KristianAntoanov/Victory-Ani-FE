@@ -5,7 +5,6 @@ import ConsultationBanner from '@/components/common/ConsultationBanner';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
 import LoadingState from '@/components/common/LoadingState';
-import SectionTitle from '@/components/common/SectionTitle';
 import SecondaryButton from '@/components/common/SecondaryButton';
 import { ASSETS } from '@/constants';
 import { newsService } from '@/services/newsService';
@@ -54,7 +53,6 @@ export default function News() {
         <div className="container">
           <div className={styles.heroGrid}>
             <div className={styles.heroContent}>
-              <span className="eyebrow">{t('common.eyebrow')}</span>
               <h1 className={styles.heroTitle}>{t('news.title')}</h1>
               <span className="dash" />
               <p className={styles.heroLead}>{t('news.lead')}</p>
@@ -95,11 +93,6 @@ export default function News() {
         <section className={styles.newsSection} data-testid="news-grid">
           <div className="container">
             <div className={styles.newsPanel}>
-              <div className={styles.newsIntro}>
-                <SectionTitle eyebrow={t('common.latestUpdates')} title={t('common.fundingInsights')} />
-                <p>{t('news.introText')}</p>
-              </div>
-
               <div className={styles.articlesBlock}>
                 <div className={styles.articlesGrid}>
                   {visibleArticles.map((a) => (
