@@ -338,9 +338,9 @@
 
 .processRail button {
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-columns: 74px minmax(0, 1fr);
   align-items: center;
-  min-height: 74px;
+  min-height: 94px;
   gap: var(--space-3);
   padding: 0.75rem 0.85rem;
   border: 1px solid var(--color-border);
@@ -355,21 +355,21 @@
 .processRail button > span,
 .stepNumber {
   display: grid;
-  width: 48px;
-  height: 48px;
+  width: 70px;
+  height: 70px;
   place-items: center;
   border: 1px solid rgba(var(--color-green-rgb), 0.22);
   border-radius: 50%;
   color: var(--color-green);
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 1.48rem;
   font-weight: 700;
 }
 
 .processRail button strong {
   color: inherit;
   font-family: var(--font-serif);
-  font-size: clamp(1.3rem, 1.4vw, 1.62rem);
+  font-size: clamp(1.45rem, 1.55vw, 1.78rem);
   line-height: 1;
 }
 
@@ -412,7 +412,7 @@
   max-width: 68rem;
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: clamp(1.08rem, 1rem + 0.25vw, 1.25rem);
+  font-size: clamp(1.2rem, 1.08rem + 0.32vw, 1.42rem);
   font-weight: 620;
   line-height: 1.62;
 }
@@ -520,11 +520,11 @@
 
   .processMobile button {
     display: grid;
-    grid-template-columns: 42px minmax(0, 1fr) 24px;
+    grid-template-columns: 58px minmax(0, 1fr) 24px;
     gap: var(--space-3);
     align-items: center;
     width: 100%;
-    min-height: 64px;
+    min-height: 80px;
     padding: 0.65rem var(--space-4);
     border: 0;
     background: transparent;
@@ -535,27 +535,28 @@
 
   .processMobile button > span {
     display: grid;
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     place-items: center;
     border-radius: 50%;
     background: var(--color-green);
     color: #fff;
     font-family: var(--font-serif);
+    font-size: 1.3rem;
     font-weight: 700;
   }
 
   .processMobile button strong {
     color: var(--color-green);
     font-family: var(--font-serif);
-    font-size: 1.35rem;
+    font-size: 1.5rem;
     line-height: 1.15;
   }
 
   .processMobile p {
-    padding: 0 var(--space-4) var(--space-4) calc(42px + var(--space-6));
+    padding: 0 var(--space-4) var(--space-4) calc(58px + var(--space-6));
     color: var(--color-text);
-    font-size: 1rem;
+    font-size: 1.08rem;
     font-weight: 600;
     line-height: 1.55;
   }
