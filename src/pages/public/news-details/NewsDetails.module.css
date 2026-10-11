@@ -47,7 +47,7 @@
 .title {
   max-width: 46rem;
   margin-top: var(--space-3);
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(2.2rem, 3.65vw, 3.65rem);
   line-height: 0.98;
 }
@@ -156,7 +156,7 @@
 }
 
 .progressLabel {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -167,14 +167,14 @@
   height: 7px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: rgba(var(--color-green-rgb), 0.1);
+  background: rgba(122, 0, 70, 0.1);
 }
 
 .progressBar span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--color-green);
+  background: var(--color-bordo);
   transition: width var(--t-fast);
 }
 
@@ -194,7 +194,7 @@
 
 .metaList dt {
   margin-bottom: 0.15rem;
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: 0.84rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -216,7 +216,7 @@
   gap: 0.45rem;
   width: 100%;
   padding: 0.82rem 1rem;
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-family: var(--font-sans);
   font-size: 0.86rem;
   font-weight: 800;
@@ -230,8 +230,8 @@
 }
 
 .copyButton:hover {
-  border-color: var(--color-green);
-  background: var(--color-green);
+  border-color: var(--color-bordo);
+  background: var(--color-bordo);
   color: #fff;
   transform: translateY(-2px);
 }
@@ -260,7 +260,7 @@
 .articleDescription {
   padding-bottom: var(--space-4);
   border-bottom: 1px solid var(--color-border);
-  color: var(--color-green) !important;
+  color: var(--color-bordo) !important;
   font-size: clamp(1.15rem, 1.35vw, 1.38rem) !important;
   font-weight: 750 !important;
   line-height: 1.5 !important;
@@ -276,7 +276,7 @@
 .firstParagraph::first-letter {
   float: left;
   margin: 0.08rem 0.45rem 0 0;
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-family: var(--font-serif);
   font-size: 3.35rem;
   line-height: 0.78;
@@ -314,7 +314,7 @@
 
 .relatedIntro h2 {
   max-width: 13rem;
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(2rem, 2.35vw, 2.65rem);
 }
 
@@ -352,7 +352,7 @@
 }
 
 .relatedGrid :global(.news-tag) {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
 }
@@ -364,7 +364,7 @@
 }
 
 .relatedGrid :global(.news-card__title) {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(1rem, 1.05vw, 1.2rem);
   line-height: 1.08;
 }
@@ -387,7 +387,7 @@
   width: 32px;
   height: 32px;
   background: rgba(255, 253, 252, 0.76);
-  border-color: rgba(var(--color-green-rgb), 0.35);
+  border-color: rgba(122, 0, 70, 0.35);
 }
 
 @media (max-width: 1024px) {

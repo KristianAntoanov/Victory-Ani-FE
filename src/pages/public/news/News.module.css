@@ -36,7 +36,7 @@
 .heroTitle {
   max-width: 30rem;
   margin-top: 0;
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(3.2rem, 5.4vw, 5rem);
   line-height: 0.95;
 }
@@ -118,7 +118,7 @@
 }
 
 .articlesGrid :global(.news-tag) {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
 }
@@ -130,7 +130,7 @@
 }
 
 .articlesGrid :global(.news-card__title) {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(1rem, 1.05vw, 1.2rem);
   line-height: 1.08;
 }
@@ -153,7 +153,7 @@
   width: 32px;
   height: 32px;
   background: rgba(255, 253, 252, 0.76);
-  border-color: rgba(var(--color-green-rgb), 0.35);
+  border-color: rgba(122, 0, 70, 0.35);
 }
 
 .articlesActions {

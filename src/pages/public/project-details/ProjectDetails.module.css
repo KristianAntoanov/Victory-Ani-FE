@@ -13,7 +13,7 @@
   min-height: 44px;
   align-items: center;
   gap: var(--space-2);
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: 0.92rem;
   font-weight: 800;
   transition: gap var(--t-base), color var(--t-base);
@@ -22,7 +22,7 @@
 .backLink:hover,
 .backLinkBottom:hover {
   gap: var(--space-3);
-  color: var(--color-green-dark);
+  color: var(--color-bordo-dark);
 }
 
 .header {
@@ -32,7 +32,7 @@
 .header h1 {
   max-width: 62rem;
   margin-top: var(--space-3);
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(2.5rem, 5.5vw, 5rem);
   line-height: 0.98;
   overflow-wrap: anywhere;
@@ -96,7 +96,7 @@
 }
 
 .contentSection h2 {
-  color: var(--color-green);
+  color: var(--color-bordo);
   font-size: clamp(1.75rem, 2.8vw, 2.7rem);
 }
 
@@ -125,7 +125,7 @@
 }
 
 .contentSection li::marker {
-  color: var(--color-green);
+  color: var(--color-bordo);
 }
 
 .backLinkBottom {
