@@ -33,12 +33,12 @@
 }
 
 .heroContent {
-  transform: translateY(clamp(-1.8rem, -2vw, -0.8rem));
+  transform: none;
 }
 
 .heroTitle {
   max-width: 46rem;
-  margin-top: var(--space-3);
+  margin-top: 0;
   color: var(--color-green);
   font-size: clamp(2.8rem, 5vw, 4.85rem);
   line-height: 0.96;
@@ -109,8 +109,8 @@
 .projectsSection {
   position: relative;
   z-index: 3;
-  margin-top: clamp(-2.25rem, -3vw, -1.25rem);
-  padding-top: 0;
+  margin-top: 0;
+  padding-top: clamp(1rem, 2vw, 1.5rem);
 }
 
 .portfolioShell {
@@ -291,15 +291,15 @@
 
 .testimonialsHeader {
   display: grid;
-  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(1rem, 2vw, 2rem);
-  align-items: end;
+  align-items: start;
   margin-bottom: clamp(0.9rem, 1.4vw, 1.4rem);
 }
 
 .testimonialsHeader h2 {
   max-width: 38rem;
-  margin-top: var(--space-3);
+  margin: 0;
   color: var(--color-green);
   font-size: clamp(1.9rem, 2.65vw, 3rem);
   line-height: 1.04;
@@ -319,19 +319,19 @@
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 4%,
-    #000 13%,
-    #000 87%,
-    rgba(0, 0, 0, 0.22) 96%,
+    rgba(0, 0, 0, 0.55) 2%,
+    #000 6%,
+    #000 94%,
+    rgba(0, 0, 0, 0.55) 98%,
     transparent 100%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.22) 4%,
-    #000 13%,
-    #000 87%,
-    rgba(0, 0, 0, 0.22) 96%,
+    rgba(0, 0, 0, 0.55) 2%,
+    #000 6%,
+    #000 94%,
+    rgba(0, 0, 0, 0.55) 98%,
     transparent 100%
   );
 }
@@ -340,7 +340,7 @@
   display: flex;
   width: max-content;
   gap: clamp(0.75rem, 1vw, 1rem);
-  animation: testimonialScroll 78s linear infinite;
+  animation: testimonialScroll 125s linear infinite;
 }
 
 .testimonialViewport:hover .testimonialTrack {
@@ -480,7 +480,7 @@
   }
 
   .projectsSection {
-    margin-top: clamp(-2rem, -4vw, -1rem);
+    margin-top: 0;
   }
 
   .heroSummary {
