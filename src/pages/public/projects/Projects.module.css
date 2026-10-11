@@ -39,7 +39,7 @@
 .heroTitle {
   max-width: 46rem;
   margin-top: 0;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2.8rem, 5vw, 4.85rem);
   line-height: 0.96;
 }
@@ -48,6 +48,10 @@
   display: block;
   color: inherit;
   font-style: normal;
+}
+
+.heroTitle em span {
+  color: var(--color-bordo);
 }
 
 .heroContent :global(.dash) {

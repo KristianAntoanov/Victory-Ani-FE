@@ -41,6 +41,11 @@ export default function Projects() {
 
   const countriesCount = new Set(projects.flatMap((project) => getProjectContent(project, lang).countries)).size;
   const programmeCount = new Set(projects.map((project) => project.programme)).size;
+  const heroLine2 = t('projects.heroLine2');
+  const heroLine2Accent = 'a difference';
+  const heroLine2AccentIndex = heroLine2.toLowerCase().indexOf(heroLine2Accent);
+  const heroLine2Main = heroLine2AccentIndex > -1 ? heroLine2.slice(0, heroLine2AccentIndex) : heroLine2;
+  const heroLine2Highlighted = heroLine2AccentIndex > -1 ? heroLine2.slice(heroLine2AccentIndex) : '';
 
   return (
     <>
@@ -57,7 +62,10 @@ export default function Projects() {
               <h1 className={styles.heroTitle}>
                 {t('projects.heroLine1')}
                 {' '}
-                <em>{t('projects.heroLine2')}</em>
+                <em>
+                  {heroLine2Main}
+                  {heroLine2Highlighted && <span>{heroLine2Highlighted}</span>}
+                </em>
               </h1>
               <span className="dash" />
               <p className={styles.heroLead}>{t('projects.lead')}</p>

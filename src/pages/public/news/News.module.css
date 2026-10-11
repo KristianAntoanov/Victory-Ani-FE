@@ -36,13 +36,12 @@
 .heroTitle {
   max-width: 30rem;
   margin-top: 0;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(3.2rem, 5.4vw, 5rem);
   line-height: 0.95;
 }
 
 .heroTitle em {
-  display: block;
   color: inherit;
   font-style: normal;
 }
