@@ -123,7 +123,6 @@
 }
 
 .detailIntro {
-  max-width: 76rem;
   color: var(--color-text);
   font-size: clamp(1.12rem, 1rem + 0.32vw, 1.32rem);
   font-weight: 620;

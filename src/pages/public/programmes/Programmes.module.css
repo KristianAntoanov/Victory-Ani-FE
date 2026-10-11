@@ -252,7 +252,6 @@
 
 .programmeSpotlight > p {
   grid-column: 1;
-  max-width: 76rem;
   color: var(--color-text);
   font-size: clamp(1.12rem, 1.04rem + 0.28vw, 1.3rem);
   font-weight: 650;
@@ -349,7 +348,6 @@
 }
 
 .dossierCard p {
-  max-width: 82rem;
   margin-top: clamp(1rem, 1.5vw, 1.45rem);
   color: rgba(255, 255, 255, 0.82);
   font-size: clamp(1.16rem, 1.05rem + 0.3vw, 1.34rem);
@@ -507,7 +505,6 @@
 }
 
 .routePanel p {
-  max-width: 40rem;
   margin-top: var(--space-3);
   color: rgba(255, 255, 255, 0.78);
   font-size: 1rem;

@@ -106,7 +106,6 @@
 }
 
 .mobileCopy > p {
-  max-width: 76rem;
   margin-top: var(--space-4);
   color: var(--color-text);
   font-size: clamp(1.08rem, 1rem + 0.24vw, 1.24rem);
@@ -410,7 +409,6 @@
 }
 
 .processDetail p {
-  max-width: 68rem;
   margin-top: var(--space-4);
   color: var(--color-text);
   font-size: clamp(1.2rem, 1.08rem + 0.32vw, 1.42rem);
