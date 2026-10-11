@@ -13,14 +13,6 @@ const QUICK_LINKS = [
   { labelKey: 'nav.programmes', to: ROUTES.programmes },
 ];
 
-const OUR_SERVICES = [
-  'footer.svcProgrammes',
-  'footer.svcWriting',
-  'footer.svcManagement',
-  'footer.svcTraining',
-  'footer.svcPartner',
-];
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { t } = useLanguage();
@@ -31,15 +23,6 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Logo />
-            <p>{t('footer.brandTagline')}</p>
-            <div className="footer-contact">
-              <button type="button" onClick={openConsultationModal}>
-                <Mail size={16} aria-hidden="true" /> {CONTACT.email}
-              </button>
-              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`}>
-                <Phone size={16} aria-hidden="true" /> {CONTACT.phone}
-              </a>
-            </div>
           </div>
 
           <div className="footer-col">
@@ -53,18 +36,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="footer-col">
-            <h2>{t('footer.ourServices')}</h2>
-            <ul>
-              {OUR_SERVICES.map((key) => (
-                <li key={key}>
-                  <Link to={ROUTES.services}>{t(key)}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           <div className="footer-newsletter footer-col">
+            <h2>{t('cta.contactUs')}</h2>
+            <div className="footer-contact">
+              <button type="button" onClick={openConsultationModal}>
+                <Mail size={16} aria-hidden="true" /> {CONTACT.email}
+              </button>
+              <a href={CONTACT.phoneHref}>
+                <Phone size={16} aria-hidden="true" /> {CONTACT.phone}
+              </a>
+            </div>
             <h2>{t('newsletter.followUs')}</h2>
             <div className="footer-social">
               <a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
@@ -82,9 +63,6 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span>© {currentYear} V&A Projects. {t('footer.rights')}</span>
-          <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--color-green)' }}>
-            {t('footer.tagline')}
-          </span>
           <div className="footer-bottom__links">
             <Link to={ROUTES.privacyPolicy}>{t('footer.privacy')}</Link>
             <Link to={ROUTES.termsConditions}>{t('footer.terms')}</Link>
