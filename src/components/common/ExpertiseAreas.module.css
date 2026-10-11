@@ -43,6 +43,10 @@
   line-height: 1.6;
 }
 
+.headerNoDescription {
+  grid-template-columns: 1fr;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

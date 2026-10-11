@@ -27,13 +27,13 @@ export default function ExpertiseAreas({
   return (
     <section className={styles.section} id={id}>
       <div className="container">
-        <div className={styles.header}>
+        <div className={`${styles.header} ${description ? '' : styles.headerNoDescription}`.trim()}>
           <div>
             {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
             <h2>{title}</h2>
             <span className="dash" />
           </div>
-          <p>{description}</p>
+          {description ? <p>{description}</p> : null}
         </div>
 
         <div
