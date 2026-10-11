@@ -390,17 +390,8 @@ export default function Services() {
       <section className={styles.deliverySection}>
         <div className="container">
           <div className={styles.deliveryPanel}>
-            <div>
-              <h2>{t('services.startTitle')}</h2>
-              <p>{t('services.startText')}</p>
-            </div>
-            <div className={styles.deliverySteps}>
-              <span>{t('services.stepIdea')}</span>
-              <span>{t('services.stepProposal')}</span>
-              <span>{t('services.stepApproval')}</span>
-              <span>{t('services.stepDelivery')}</span>
-              <span>{t('services.stepEvaluation')}</span>
-            </div>
+            <h2>{t('services.startTitle')}</h2>
+            <p>{t('services.startText')}</p>
             <PrimaryButton
               type="button"
               onClick={openConsultationModal}

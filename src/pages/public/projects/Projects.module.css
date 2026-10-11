@@ -172,6 +172,7 @@
   font-size: clamp(1.04rem, 1rem + 0.16vw, 1.16rem);
   font-weight: 620;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .featureFacts {

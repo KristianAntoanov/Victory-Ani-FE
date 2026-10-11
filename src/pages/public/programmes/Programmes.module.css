@@ -256,6 +256,7 @@
   font-size: clamp(1.12rem, 1.04rem + 0.28vw, 1.3rem);
   font-weight: 650;
   line-height: 1.58;
+  text-align: justify;
 }
 
 .spotlightActions {
@@ -353,6 +354,7 @@
   font-size: clamp(1.16rem, 1.05rem + 0.3vw, 1.34rem);
   font-weight: 620;
   line-height: 1.62;
+  text-align: justify;
 }
 
 .copyToggle {
@@ -403,6 +405,7 @@
   font-size: clamp(1.05rem, 1rem + 0.18vw, 1.18rem);
   font-weight: 620;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .mobileCopy > p {
@@ -481,15 +484,41 @@
 }
 
 .routePanel {
+  position: relative;
+  isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(1rem, 1.7vw, 1.7rem);
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 1.8vw, 1.8rem);
   align-items: center;
+  margin: 0 14px 14px 0;
   padding: clamp(1.4rem, 2.4vw, 2.5rem);
-  border: 0;
+  border: 2px solid var(--color-green);
+  border-left-width: 8px;
   border-radius: var(--radius-md);
-  background: var(--color-bordo);
-  box-shadow: var(--shadow-sm);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(48, 58, 36, 0.09), transparent 42%),
+    var(--color-card);
+}
+
+.routePanel::before {
+  position: absolute;
+  z-index: -1;
+  inset: 12px -14px -14px 12px;
+  border: 2px dashed rgba(48, 58, 36, 0.45);
+  border-radius: var(--radius-md);
+  content: '';
+}
+
+.routeIcon {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border: 2px solid var(--color-green);
+  border-radius: 50%;
+  background: rgba(48, 58, 36, 0.07);
+  color: var(--color-green);
+  transform: rotate(-8deg);
 }
 
 .routePanel :global(.eyebrow) {
@@ -499,7 +528,7 @@
 .routePanel h2 {
   max-width: 58rem;
   margin: 0;
-  color: #fff;
+  color: var(--color-green);
   font-size: clamp(2.15rem, 3.2vw, 3.65rem);
   line-height: 1.05;
 }
@@ -531,18 +560,29 @@
   font-weight: 850;
 }
 
+.routePanel h2 em {
+  display: block;
+  width: fit-content;
+  margin-top: 0.15em;
+  padding-bottom: 0.08em;
+  background: linear-gradient(transparent 68%, rgba(48, 58, 36, 0.14) 68%);
+  color: var(--color-green);
+  font-style: italic;
+}
+
 .routePanel :global(.btn--primary) {
-  border-color: #fff;
-  background: #fff;
-  color: var(--color-bordo);
+  border-color: var(--color-green);
+  background: var(--color-green);
+  color: #fff;
   min-height: 56px;
   padding: 1rem 1.5rem;
   font-size: clamp(0.86rem, 0.8rem + 0.18vw, 1rem);
 }
 
 .routePanel :global(.btn--primary:hover:not(:disabled)) {
-  background: rgba(255, 255, 255, 0.88);
-  color: var(--color-bordo);
+  border-color: var(--color-green-dark);
+  background: var(--color-green-dark);
+  color: #fff;
 }
 
 @media (max-width: 1180px) {
@@ -557,7 +597,13 @@
     align-items: start;
   }
 
+  .routePanel {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+  }
+
   .routePanel :global(.btn) {
+    grid-column: 1 / -1;
     width: fit-content;
   }
 }
@@ -627,6 +673,24 @@
   .spotlightActions :global(.btn),
   .routePanel :global(.btn) {
     width: 100%;
+  }
+
+  .routePanel {
+    gap: var(--space-3);
+    margin: 0 10px 10px 0;
+  }
+
+  .routePanel::before {
+    inset: 8px -10px -10px 8px;
+  }
+
+  .routeIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .routePanel h2 {
+    font-size: clamp(1.6rem, 7vw, 2.1rem);
   }
 
   .supportBox {

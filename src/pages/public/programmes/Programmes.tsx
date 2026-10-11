@@ -8,6 +8,7 @@ import {
   GraduationCap,
   Leaf,
   Mail,
+  MessagesSquare,
   Network,
   Scale,
   type LucideIcon,
@@ -395,9 +396,13 @@ export default function Programmes() {
       <section className={styles.routeSection}>
         <div className="container">
           <div className={styles.routePanel}>
-            <div>
-              <h2>{t('programmes.routeTitle')}</h2>
-            </div>
+            <span className={styles.routeIcon}>
+              <MessagesSquare size={28} strokeWidth={1.7} aria-hidden="true" />
+            </span>
+            <h2>
+              {t('programmes.notSure')}
+              <em>{t('programmes.routeContact')}</em>
+            </h2>
             <PrimaryButton type="button" onClick={openConsultationModal}>
               {t('programmes.discussRightProgramme')}
             </PrimaryButton>

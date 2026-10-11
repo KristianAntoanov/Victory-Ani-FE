@@ -64,14 +64,12 @@ const processSteps: ProcessStep[] = [
 
 export default function About() {
   const { lang, t } = useLanguage();
-  const [activeProcess, setActiveProcess] = useState(0);
   const [expandedFounders, setExpandedFounders] = useState<string[]>([]);
   const [expandedAboutCopy, setExpandedAboutCopy] = useState<string[]>([]);
   const programmes = getProgrammes(lang);
   const founders = getTeamMembers(lang).filter((member) =>
     ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
   );
-  const selectedProcess = processSteps[activeProcess];
 
   const toggleFounder = (founderId: string) => {
     setExpandedFounders((current) => (
@@ -202,65 +200,22 @@ export default function About() {
 
       <section className={styles.processSection} id="how-we-work">
         <div className="container">
-          <div className={styles.sectionHeading}>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}>
             <h2>{t('services.processEyebrow')}</h2>
             <span className="dash" />
           </div>
 
-          <div className={styles.processPanel}>
-            <div className={styles.processBoard}>
-              <div className={styles.processRail} role="tablist" aria-label={t('about.processStepsLabel')}>
-                {processSteps.map((step, index) => (
-                  <button
-                    type="button"
-                    role="tab"
-                    id={`process-tab-${index}`}
-                    aria-selected={activeProcess === index}
-                    aria-controls="process-detail"
-                    className={activeProcess === index ? styles.activeStepButton : undefined}
-                    key={step.title.en}
-                    onClick={() => setActiveProcess(index)}
-                  >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{loc(step.title, lang)}</strong>
-                  </button>
-                ))}
-              </div>
-
-              <article
-                className={styles.processDetail}
-                id="process-detail"
-                role="tabpanel"
-                aria-labelledby={`process-tab-${activeProcess}`}
-              >
-                <div className={styles.processDetailHead}>
-                  <span className={styles.stepNumber}>{String(activeProcess + 1).padStart(2, '0')}</span>
-                  <h3>{loc(selectedProcess.title, lang)}</h3>
+          <ol className={styles.processTable} aria-label={t('about.processStepsLabel')}>
+            {processSteps.map((step, index) => (
+              <li className={styles.processRow} key={step.title.en}>
+                <div className={styles.processStep}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <strong>{loc(step.title, lang)}</strong>
                 </div>
-                <p>{loc(selectedProcess.text, lang)}</p>
-              </article>
-            </div>
-
-            <ol className={styles.processMobile} aria-label={t('about.processStepsLabel')}>
-              {processSteps.map((step, index) => (
-                <li className={activeProcess === index ? styles.activeMobileStep : undefined} key={step.title.en}>
-                  <button
-                    type="button"
-                    aria-expanded={activeProcess === index}
-                    aria-controls={`mobile-process-detail-${index}`}
-                    onClick={() => setActiveProcess(index)}
-                  >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
-                    <strong>{loc(step.title, lang)}</strong>
-                    <ChevronDown size={18} aria-hidden="true" />
-                  </button>
-                  {activeProcess === index ? (
-                    <p id={`mobile-process-detail-${index}`}>{loc(step.text, lang)}</p>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-          </div>
+                <p className={styles.processText}>{loc(step.text, lang)}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

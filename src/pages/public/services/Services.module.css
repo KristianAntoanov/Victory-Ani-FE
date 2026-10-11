@@ -181,6 +181,7 @@
   font-size: clamp(1.02rem, 0.98rem + 0.14vw, 1.12rem);
   font-weight: 600;
   line-height: 1.6;
+  text-align: justify;
 }
 
 .deliverySection {
@@ -189,8 +190,8 @@
 
 .deliveryPanel {
   display: grid;
-  grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1fr) auto;
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: clamp(1.25rem, 2.5vw, 2.5rem);
   align-items: center;
   padding: clamp(1.25rem, 2.5vw, 2.4rem);
   border-radius: var(--radius-md);
@@ -206,6 +207,7 @@
   color: #fff;
   font-size: clamp(2.25rem, 3.15vw, 3.55rem);
   white-space: nowrap;
+  grid-column: 1 / -1;
 }
 
 .deliveryPanel p {
@@ -214,24 +216,7 @@
   font-size: clamp(1.08rem, 1rem + 0.22vw, 1.22rem);
   font-weight: 600;
   line-height: 1.6;
-}
-
-.deliverySteps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.deliverySteps span {
-  display: inline-flex;
-  min-height: 38px;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: var(--radius-pill);
-  color: #fff;
-  font-size: 0.98rem;
-  font-weight: 750;
+  text-align: justify;
 }
 
 .deliveryPanel :global(.btn--primary) {
@@ -264,6 +249,7 @@
 
   .deliveryButton {
     width: fit-content;
+    margin-top: var(--space-4);
   }
 }
 
