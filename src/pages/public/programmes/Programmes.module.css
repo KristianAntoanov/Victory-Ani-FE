@@ -479,13 +479,14 @@
 }
 
 .routeSection {
+  position: relative;
+  z-index: 0;
   padding-top: clamp(1.5rem, 3vw, 3rem);
   padding-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
 .routePanel {
   position: relative;
-  isolation: isolate;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: clamp(1rem, 1.8vw, 1.8rem);
@@ -757,5 +758,14 @@
 
   .copyToggle[aria-expanded='true'] svg {
     transform: rotate(180deg);
+  }
+}
+
+/* Justified text leaves large word gaps in narrow mobile columns. */
+@media (max-width: 640px) {
+  .programmeSpotlight > p,
+  .dossierCard p,
+  .supportBox p {
+    text-align: left;
   }
 }

@@ -576,3 +576,12 @@
     max-height: 9.5rem;
   }
 }
+
+/* Justified text leaves large word gaps in narrow mobile columns. */
+@media (max-width: 640px) {
+  .mobileCopy > p,
+  .founderDetails > p,
+  .processText {
+    text-align: left;
+  }
+}
