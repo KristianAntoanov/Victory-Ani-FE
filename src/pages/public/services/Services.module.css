@@ -327,3 +327,11 @@
     white-space: normal;
   }
 }
+
+/* Justified text leaves large word gaps in narrow mobile columns. */
+@media (max-width: 640px) {
+  .supportCard p,
+  .deliveryPanel p {
+    text-align: left;
+  }
+}

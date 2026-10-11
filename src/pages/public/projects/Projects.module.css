@@ -752,3 +752,10 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Justified text leaves large word gaps in narrow mobile columns. */
+@media (max-width: 640px) {
+  .featureContent p {
+    text-align: left;
+  }
+}
