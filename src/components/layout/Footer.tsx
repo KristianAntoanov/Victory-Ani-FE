@@ -82,7 +82,7 @@ export default function Footer() {
 
         <div className="footer-bottom">
           <span>© {currentYear} V&A Projects. {t('footer.rights')}</span>
-          <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--color-bordo)' }}>
+          <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', color: 'var(--color-green)' }}>
             {t('footer.tagline')}
           </span>
           <div className="footer-bottom__links">

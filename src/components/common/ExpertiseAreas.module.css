@@ -14,7 +14,7 @@
   gap: clamp(1.25rem, 3vw, 3rem);
   align-items: end;
   padding: clamp(1.25rem, 2.2vw, 2rem);
-  border: 1px solid rgba(122, 0, 70, 0.12);
+  border: 1px solid rgba(var(--color-green-rgb), 0.12);
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, rgba(255, 253, 252, 0.96), rgba(238, 248, 245, 0.82));
   box-shadow: var(--shadow-sm);
@@ -23,7 +23,7 @@
 .header h2 {
   max-width: 34rem;
   margin-top: var(--space-3);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2rem, 3vw, 3.25rem);
   line-height: 1.02;
 }
@@ -59,7 +59,7 @@
   align-content: start;
   padding: clamp(1rem, 1.45vw, 1.35rem);
   overflow: hidden;
-  border: 1px solid rgba(122, 0, 70, 0.14);
+  border: 1px solid rgba(var(--color-green-rgb), 0.14);
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.9);
   box-shadow: var(--shadow-sm);
@@ -82,7 +82,7 @@
 .card:nth-child(6) { --expertise-accent: #6d5f8f; }
 
 .card:hover {
-  border-color: rgba(122, 0, 70, 0.34);
+  border-color: rgba(var(--color-green-rgb), 0.34);
   background: rgba(255, 253, 252, 0.98);
   transform: translateY(-3px);
 }
@@ -98,7 +98,7 @@
 }
 
 .card h3 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.3rem, 1.2rem + 0.25vw, 1.55rem);
   line-height: 1.1;
 }
@@ -177,10 +177,10 @@
     width: 100%;
     margin-top: var(--space-3);
     padding: 0.7rem 1rem;
-    border: 1px solid var(--color-bordo);
+    border: 1px solid var(--color-green);
     border-radius: var(--radius-sm);
     background: transparent;
-    color: var(--color-bordo);
+    color: var(--color-green);
     font-weight: 800;
     cursor: pointer;
   }

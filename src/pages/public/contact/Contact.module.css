@@ -33,7 +33,7 @@
   place-items: center;
   border: 1.5px solid var(--color-border);
   border-radius: 50%;
-  color: var(--color-bordo);
+  color: var(--color-green);
 }
 
 .contactAction {
@@ -47,7 +47,7 @@
 }
 
 .contactAction:hover {
-  color: var(--color-bordo);
+  color: var(--color-green);
 }
 
 .contactCard {

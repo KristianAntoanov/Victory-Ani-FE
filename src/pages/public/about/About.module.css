@@ -45,7 +45,7 @@
 
 .heroTitle em {
   display: block;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-style: italic;
 }
 
@@ -106,8 +106,8 @@
   flex: 0 0 auto;
   place-items: center;
   border-radius: 50%;
-  background: rgba(122, 0, 70, 0.08);
-  color: var(--color-bordo);
+  background: rgba(var(--color-green-rgb), 0.08);
+  color: var(--color-green);
 }
 
 .programmeTitle {
@@ -127,7 +127,7 @@
 .arrowMini {
   margin-left: auto;
   flex: 0 0 auto;
-  color: var(--color-bordo);
+  color: var(--color-green);
   transition: transform var(--t-base);
 }
 
@@ -151,7 +151,7 @@
 }
 
 .sectionHeading h2 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2rem, 3.2vw, 3.5rem);
 }
 
@@ -188,7 +188,7 @@
 .servicesGrid :global(.service-card__title) {
   grid-area: title;
   align-self: end;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.3rem, 1.45vw, 1.6rem);
 }
 
@@ -233,7 +233,7 @@
 
 .introCopy h2,
 .storyCopy h2 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2rem, 3vw, 3.25rem);
 }
 
@@ -251,7 +251,7 @@
 }
 
 .storyCopy {
-  background: var(--color-bordo);
+  background: var(--color-green);
   color: #fff;
 }
 
@@ -324,7 +324,7 @@
 }
 
 .founderContent h3 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.55rem, 2vw, 2rem);
 }
 
@@ -354,8 +354,8 @@
   margin: auto 0 0;
   padding: var(--space-4) 0 0 var(--space-4);
   border-top: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-bordo);
-  color: var(--color-bordo);
+  border-left: 3px solid var(--color-green);
+  color: var(--color-green);
   font-family: var(--font-serif);
   font-size: clamp(1.08rem, 1.02rem + 0.2vw, 1.25rem);
   font-style: italic;
@@ -394,7 +394,7 @@
 
 .processIntro h2 {
   margin-top: var(--space-3);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.9rem, 2.65vw, 3rem);
 }
 
@@ -448,23 +448,23 @@
   width: 32px;
   height: 32px;
   place-items: center;
-  border: 1px solid rgba(122, 0, 70, 0.22);
+  border: 1px solid rgba(var(--color-green-rgb), 0.22);
   border-radius: 50%;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-family: var(--font-serif);
   font-weight: 700;
 }
 
 .processRail button:hover,
 .processRail .activeStepButton {
-  border-color: rgba(122, 0, 70, 0.38);
-  background: rgba(122, 0, 70, 0.07);
-  color: var(--color-bordo);
+  border-color: rgba(var(--color-green-rgb), 0.38);
+  background: rgba(var(--color-green-rgb), 0.07);
+  color: var(--color-green);
   transform: translateX(3px);
 }
 
 .processRail .activeStepButton > span {
-  background: var(--color-bordo);
+  background: var(--color-green);
   color: #fff;
 }
 
@@ -473,14 +473,14 @@
   min-height: 100%;
   align-content: center;
   padding: clamp(1.1rem, 2vw, 1.8rem);
-  border: 1px solid rgba(122, 0, 70, 0.18);
+  border: 1px solid rgba(var(--color-green-rgb), 0.18);
   border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, rgba(122, 0, 70, 0.065), rgba(255, 253, 252, 0.94) 50%);
+  background: linear-gradient(135deg, rgba(var(--color-green-rgb), 0.065), rgba(255, 253, 252, 0.94) 50%);
 }
 
 .processDetail h3 {
   margin-top: var(--space-3);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.65rem, 2.2vw, 2.35rem);
 }
 
@@ -507,7 +507,7 @@
   align-content: start;
   gap: var(--space-3);
   padding: var(--space-4);
-  border: 1px solid rgba(122, 0, 70, 0.16);
+  border: 1px solid rgba(var(--color-green-rgb), 0.16);
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.92);
 }
@@ -518,7 +518,7 @@
 }
 
 .processHighlight h3 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.25rem, 1.4vw, 1.5rem);
 }
 
@@ -531,7 +531,7 @@
 
 .processTagline {
   margin-top: var(--space-4);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-family: var(--font-serif);
   font-size: clamp(1.15rem, 1.5vw, 1.55rem);
   font-style: italic;
@@ -642,15 +642,15 @@
 
   .processMobile li {
     overflow: hidden;
-    border: 1px solid rgba(122, 0, 70, 0.16);
+    border: 1px solid rgba(var(--color-green-rgb), 0.16);
     border-radius: var(--radius-sm);
     background: rgba(255, 253, 252, 0.92);
     transition: border-color var(--t-base), background var(--t-base);
   }
 
   .processMobile li.activeMobileStep {
-    border-color: rgba(122, 0, 70, 0.38);
-    background: rgba(122, 0, 70, 0.045);
+    border-color: rgba(var(--color-green-rgb), 0.38);
+    background: rgba(var(--color-green-rgb), 0.045);
   }
 
   .processMobile button {
@@ -674,14 +674,14 @@
     height: 40px;
     place-items: center;
     border-radius: 50%;
-    background: var(--color-bordo);
+    background: var(--color-green);
     color: #fff;
     font-family: var(--font-serif);
     font-weight: 700;
   }
 
   .processMobile button strong {
-    color: var(--color-bordo);
+    color: var(--color-green);
     font-family: var(--font-serif);
     font-size: 1.35rem;
     line-height: 1.15;
@@ -695,7 +695,7 @@
   }
 
   .processMobile button svg {
-    color: var(--color-bordo);
+    color: var(--color-green);
     transition: transform var(--t-base);
   }
 
@@ -802,7 +802,7 @@
   }
 
   .storyCopy .mobileCopy::after {
-    background: linear-gradient(transparent, var(--color-bordo));
+    background: linear-gradient(transparent, var(--color-green));
   }
 
   .mobileCopyExpanded {
@@ -822,10 +822,10 @@
     width: 100%;
     margin-top: var(--space-3);
     padding: 0.65rem 1rem;
-    border: 1px solid rgba(122, 0, 70, 0.28);
+    border: 1px solid rgba(var(--color-green-rgb), 0.28);
     border-radius: var(--radius-sm);
-    background: rgba(122, 0, 70, 0.045);
-    color: var(--color-bordo);
+    background: rgba(var(--color-green-rgb), 0.045);
+    color: var(--color-green);
     font-weight: 800;
     cursor: pointer;
   }
@@ -896,10 +896,10 @@
     width: 100%;
     margin-top: var(--space-3);
     padding: 0.65rem 1rem;
-    border: 1px solid rgba(122, 0, 70, 0.28);
+    border: 1px solid rgba(var(--color-green-rgb), 0.28);
     border-radius: var(--radius-sm);
-    background: rgba(122, 0, 70, 0.045);
-    color: var(--color-bordo);
+    background: rgba(var(--color-green-rgb), 0.045);
+    color: var(--color-green);
     font-weight: 800;
     cursor: pointer;
   }

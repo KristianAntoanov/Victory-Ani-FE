@@ -1,7 +1,7 @@
 .servicesSection {
   padding: clamp(2rem, 4vw, 4rem) 0 clamp(2.5rem, 5vw, 5rem);
   background:
-    radial-gradient(circle at 92% 4%, rgba(122, 0, 70, 0.08), transparent 30rem),
+    radial-gradient(circle at 92% 4%, rgba(var(--color-green-rgb), 0.08), transparent 30rem),
     var(--color-cream);
 }
 
@@ -25,7 +25,7 @@
   align-content: start;
   gap: var(--space-3);
   padding: clamp(1.15rem, 1.8vw, 1.65rem);
-  border: 1px solid rgba(122, 0, 70, 0.16);
+  border: 1px solid rgba(var(--color-green-rgb), 0.16);
   border-radius: var(--radius-md);
   background: rgba(255, 253, 252, 0.9);
   color: var(--color-text);
@@ -36,8 +36,8 @@
 
 .serviceSelector:hover,
 .activeSelector {
-  border-color: var(--color-bordo);
-  background: var(--color-bordo);
+  border-color: var(--color-green);
+  background: var(--color-green);
   color: #fff;
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
@@ -49,8 +49,8 @@
   height: 54px;
   place-items: center;
   border-radius: 50%;
-  background: rgba(122, 0, 70, 0.08);
-  color: var(--color-bordo);
+  background: rgba(var(--color-green-rgb), 0.08);
+  color: var(--color-green);
   transition: background var(--t-base), color var(--t-base);
 }
 
@@ -115,7 +115,7 @@
 .detailHeader h2 {
   max-width: 58rem;
   margin-top: var(--space-2);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2rem, 3.5vw, 3.7rem);
 }
 
@@ -139,14 +139,14 @@
   align-content: start;
   gap: var(--space-3);
   padding: clamp(1rem, 1.5vw, 1.4rem);
-  border: 1px solid rgba(122, 0, 70, 0.14);
+  border: 1px solid rgba(var(--color-green-rgb), 0.14);
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.92);
   transition: border-color var(--t-base), transform var(--t-base), box-shadow var(--t-base);
 }
 
 .supportCard:hover {
-  border-color: rgba(122, 0, 70, 0.38);
+  border-color: rgba(var(--color-green-rgb), 0.38);
   box-shadow: var(--shadow-sm);
   transform: translateY(-3px);
 }
@@ -157,12 +157,12 @@
   height: 48px;
   place-items: center;
   border-radius: 50%;
-  background: rgba(122, 0, 70, 0.08);
-  color: var(--color-bordo);
+  background: rgba(var(--color-green-rgb), 0.08);
+  color: var(--color-green);
 }
 
 .supportCard h3 {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1.35rem, 1.2rem + 0.35vw, 1.7rem);
   line-height: 1.1;
 }
@@ -180,13 +180,13 @@
   gap: var(--space-4);
   align-items: start;
   padding: clamp(1rem, 1.8vw, 1.5rem);
-  border-left: 4px solid var(--color-bordo);
+  border-left: 4px solid var(--color-green);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: rgba(122, 0, 70, 0.065);
+  background: rgba(var(--color-green-rgb), 0.065);
 }
 
 .resultBox strong {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: 0.86rem;
   font-weight: 850;
   letter-spacing: 0.1em;
@@ -210,7 +210,7 @@
   align-items: center;
   padding: clamp(1.25rem, 2.5vw, 2.4rem);
   border-radius: var(--radius-md);
-  background: var(--color-bordo);
+  background: var(--color-green);
   color: #fff;
 }
 
@@ -252,12 +252,12 @@
 .deliveryPanel :global(.btn--primary) {
   border-color: #fff;
   background: #fff;
-  color: var(--color-bordo);
+  color: var(--color-green);
 }
 
 .deliveryPanel :global(.btn--primary:hover:not(:disabled)) {
   background: rgba(255, 255, 255, 0.88);
-  color: var(--color-bordo);
+  color: var(--color-green);
 }
 
 @media (max-width: 1120px) {

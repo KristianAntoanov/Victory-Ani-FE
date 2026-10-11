@@ -25,14 +25,14 @@
 }
 
 .input:hover:not(:disabled) {
-  border-color: rgba(122, 0, 70, 0.38);
+  border-color: rgba(var(--color-green-rgb), 0.38);
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--color-bordo);
+  border-color: var(--color-green);
   background: #fff;
-  box-shadow: 0 0 0 3px rgba(122, 0, 70, 0.12);
+  box-shadow: 0 0 0 3px rgba(var(--color-green-rgb), 0.12);
 }
 
 .input:disabled {
@@ -52,14 +52,14 @@
   border: 0;
   border-radius: 7px;
   background: transparent;
-  color: var(--color-bordo);
+  color: var(--color-green);
   transform: translateY(-50%);
   transition: background var(--t-fast), color var(--t-fast);
 }
 
 .toggle:hover:not(:disabled) {
-  background: rgba(122, 0, 70, 0.1);
-  color: var(--color-bordo-dark);
+  background: rgba(var(--color-green-rgb), 0.1);
+  color: var(--color-green-dark);
 }
 
 .toggle:disabled {
@@ -74,7 +74,7 @@
   right: 0;
   width: min(316px, calc(100vw - 2rem));
   padding: 0.85rem;
-  border: 1px solid rgba(122, 0, 70, 0.16);
+  border: 1px solid rgba(var(--color-green-rgb), 0.16);
   border-radius: var(--radius-md);
   background:
     linear-gradient(180deg, rgba(250, 245, 239, 0.74), rgba(255, 253, 252, 0.96)),
@@ -98,14 +98,14 @@
   border: 1px solid transparent;
   border-radius: 8px;
   background: transparent;
-  color: var(--color-bordo);
+  color: var(--color-green);
   transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
 }
 
 .headerButton:hover {
-  border-color: rgba(122, 0, 70, 0.14);
-  background: rgba(122, 0, 70, 0.08);
-  color: var(--color-bordo-dark);
+  border-color: rgba(var(--color-green-rgb), 0.14);
+  background: rgba(var(--color-green-rgb), 0.08);
+  color: var(--color-green-dark);
 }
 
 .monthLabel {
@@ -156,9 +156,9 @@
 }
 
 .day:hover:not(:disabled) {
-  border-color: rgba(122, 0, 70, 0.14);
-  background: rgba(122, 0, 70, 0.1);
-  color: var(--color-bordo);
+  border-color: rgba(var(--color-green-rgb), 0.14);
+  background: rgba(var(--color-green-rgb), 0.1);
+  color: var(--color-green);
   transform: translateY(-1px);
 }
 
@@ -167,19 +167,19 @@
 }
 
 .today {
-  border-color: rgba(122, 0, 70, 0.38);
-  color: var(--color-bordo);
+  border-color: rgba(var(--color-green-rgb), 0.38);
+  color: var(--color-green);
 }
 
 .selected {
-  border-color: var(--color-bordo);
-  background: linear-gradient(135deg, var(--color-bordo), var(--color-bordo-dark));
+  border-color: var(--color-green);
+  background: linear-gradient(135deg, var(--color-green), var(--color-green-dark));
   color: #fff;
-  box-shadow: 0 10px 22px rgba(122, 0, 70, 0.2);
+  box-shadow: 0 10px 22px rgba(var(--color-green-rgb), 0.2);
 }
 
 .selected:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--color-bordo), var(--color-bordo-dark));
+  background: linear-gradient(135deg, var(--color-green), var(--color-green-dark));
   color: #fff;
 }
 
@@ -193,14 +193,14 @@
   justify-content: flex-end;
   margin-top: 0.75rem;
   padding-top: 0.7rem;
-  border-top: 1px solid rgba(122, 0, 70, 0.1);
+  border-top: 1px solid rgba(var(--color-green-rgb), 0.1);
 }
 
 .clearButton {
   border: 0;
   border-radius: 7px;
-  background: rgba(122, 0, 70, 0.08);
-  color: var(--color-bordo);
+  background: rgba(var(--color-green-rgb), 0.08);
+  color: var(--color-green);
   padding: 0.42rem 0.65rem;
   font-size: 0.9rem;
   font-weight: 800;
@@ -208,7 +208,7 @@
 }
 
 .clearButton:hover {
-  background: var(--color-bordo);
+  background: var(--color-green);
   color: #fff;
 }
 

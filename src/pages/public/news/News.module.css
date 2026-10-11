@@ -37,7 +37,7 @@
 .heroTitle {
   max-width: 30rem;
   margin-top: var(--space-3);
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(3.2rem, 5.4vw, 5rem);
   line-height: 0.95;
 }
@@ -98,7 +98,7 @@
 
 .newsIntro :global(.section-title h2) {
   max-width: 13rem;
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(2rem, 2.35vw, 2.65rem);
 }
 
@@ -154,7 +154,7 @@
 }
 
 .articlesGrid :global(.news-tag) {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
 }
@@ -166,7 +166,7 @@
 }
 
 .articlesGrid :global(.news-card__title) {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(1rem, 1.05vw, 1.2rem);
   line-height: 1.08;
 }
@@ -189,7 +189,7 @@
   width: 32px;
   height: 32px;
   background: rgba(255, 253, 252, 0.76);
-  border-color: rgba(122, 0, 70, 0.35);
+  border-color: rgba(var(--color-green-rgb), 0.35);
 }
 
 .articlesActions {

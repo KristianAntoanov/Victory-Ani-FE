@@ -6,7 +6,7 @@
 }
 
 .code {
-  color: var(--color-bordo);
+  color: var(--color-green);
   font-size: clamp(5rem, 14vw, 11rem);
   line-height: 0.9;
 }
