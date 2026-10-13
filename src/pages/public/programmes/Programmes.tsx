@@ -237,7 +237,6 @@ export default function Programmes() {
     ));
   };
 
-  const introCopyId = `${selected.id}-intro`;
   const supportCopyId = `${selected.id}-support`;
 
   return (
@@ -302,6 +301,7 @@ export default function Programmes() {
               </div>
 
               <p>{loc(selected.lead, lang)}</p>
+              <p>{loc(selected.intro, lang)}</p>
             </article>
           </div>
         </div>
@@ -311,34 +311,6 @@ export default function Programmes() {
         <div className="container">
           <div className={styles.matchPanel}>
             <article className={styles.programmeDetail} id="programme-detail" role="tabpanel">
-              <div className={styles.dossierTop} key={`${selected.id}-dossier`}>
-                <div className={styles.dossierCard}>
-                  <span className="eyebrow">{t('programmes.dossier')}</span>
-                  <div className={styles.dossierHeader}>
-                    <span className="icon-circle">
-                      <SelectedIcon size={34} strokeWidth={1.5} aria-hidden="true" />
-                    </span>
-                    <h2>{selected.title}</h2>
-                  </div>
-                  <div
-                    className={`${styles.mobileCopy} ${expandedCopy.includes(introCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
-                    id={`programme-intro-${selected.id}`}
-                  >
-                    <p>{loc(selected.intro, lang)}</p>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.copyToggle}
-                    aria-expanded={expandedCopy.includes(introCopyId)}
-                    aria-controls={`programme-intro-${selected.id}`}
-                    onClick={() => toggleCopy(introCopyId)}
-                  >
-                    {expandedCopy.includes(introCopyId) ? t('common.showLess') : t('common.readMore')}
-                    <ChevronDown size={18} aria-hidden="true" />
-                  </button>
-                </div>
-              </div>
-
               <div className={styles.dossierGrid}>
                 <div className={styles.supportColumn}>
                   <div className={styles.supportBox}>

@@ -66,7 +66,9 @@ export default function About() {
   const { lang, t } = useLanguage();
   const [expandedFounders, setExpandedFounders] = useState<string[]>([]);
   const [expandedAboutCopy, setExpandedAboutCopy] = useState<string[]>([]);
+  const [activeProcessStep, setActiveProcessStep] = useState(0);
   const programmes = getProgrammes(lang);
+  const selectedProcessStep = processSteps[activeProcessStep];
   const founders = getTeamMembers(lang).filter((member) =>
     ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
   );
@@ -205,17 +207,34 @@ export default function About() {
             <span className="dash" />
           </div>
 
-          <ol className={styles.processTable} aria-label={t('about.processStepsLabel')}>
+          <ol className={styles.processTabs} role="tablist" aria-label={t('about.processStepsLabel')}>
             {processSteps.map((step, index) => (
-              <li className={styles.processRow} key={step.title.en}>
-                <div className={styles.processStep}>
+              <li key={step.title.en}>
+                <button
+                  type="button"
+                  role="tab"
+                  id={`process-step-${index}`}
+                  aria-selected={activeProcessStep === index}
+                  aria-controls="process-step-text"
+                  className={activeProcessStep === index ? styles.activeProcessStep : undefined}
+                  onClick={() => setActiveProcessStep(index)}
+                >
                   <span>{String(index + 1).padStart(2, '0')}</span>
                   <strong>{loc(step.title, lang)}</strong>
-                </div>
-                <p className={styles.processText}>{loc(step.text, lang)}</p>
+                </button>
               </li>
             ))}
           </ol>
+
+          <div
+            className={styles.processTextPanel}
+            id="process-step-text"
+            role="tabpanel"
+            aria-labelledby={`process-step-${activeProcessStep}`}
+            key={selectedProcessStep.title.en}
+          >
+            <p>{loc(selectedProcessStep.text, lang)}</p>
+          </div>
         </div>
       </section>
 
