@@ -324,67 +324,98 @@
 }
 
 .processHeading,
-.processTable {
+.processTabs,
+.processTextPanel {
   max-width: 1180px;
   margin-inline: auto;
 }
 
-.processTable {
+.processTabs {
   display: grid;
-  gap: 0.6rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
   padding: 0;
   list-style: none;
 }
 
-.processRow {
-  display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
-  gap: 0.6rem;
+.processTabs li {
+  min-width: 0;
 }
 
-.processStep,
-.processText {
+.processTabs button,
+.processTextPanel {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.88);
 }
 
-.processStep {
+.processTabs button {
   display: grid;
-  grid-template-columns: 74px minmax(0, 1fr);
+  grid-template-columns: 46px minmax(0, 1fr);
   align-items: center;
-  min-height: 94px;
-  gap: var(--space-3);
-  padding: 0.75rem 0.85rem;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 66px;
+  padding: 0.62rem 0.72rem;
   border-color: rgba(122, 0, 70, 0.38);
   background: rgba(122, 0, 70, 0.07);
+  color: var(--color-bordo);
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background var(--t-base),
+    border-color var(--t-base),
+    box-shadow var(--t-base),
+    color var(--t-base),
+    transform var(--t-base);
 }
 
-.processStep > span {
+.processTabs button:hover,
+.processTabs .activeProcessStep {
+  border-color: rgba(122, 0, 70, 0.58);
+  background: var(--color-bordo);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.processTabs button > span {
   display: grid;
-  width: 70px;
-  height: 70px;
+  width: 42px;
+  height: 42px;
   place-items: center;
   border-radius: 50%;
   background: var(--color-bordo);
   color: #fff;
   font-family: var(--font-serif);
-  font-size: 1.48rem;
+  font-size: 1rem;
   font-weight: 700;
+  transition:
+    background var(--t-base),
+    color var(--t-base);
 }
 
-.processStep strong {
+.processTabs button:hover > span,
+.processTabs .activeProcessStep > span {
+  background: #fff;
   color: var(--color-bordo);
+}
+
+.processTabs button strong {
+  color: inherit;
   font-family: var(--font-serif);
-  font-size: clamp(1.45rem, 1.55vw, 1.78rem);
+  font-size: clamp(1.08rem, 1.2vw, 1.28rem);
   line-height: 1;
 }
 
-.processText {
-  display: flex;
-  align-items: center;
+.processTextPanel {
+  margin: 0.7rem auto 0;
+  padding: clamp(1rem, 1.8vw, 1.6rem);
+}
+
+.processTextPanel p {
   margin: 0;
-  padding: 0.9rem clamp(1rem, 1.8vw, 1.6rem);
   color: var(--color-text);
   font-size: clamp(1.08rem, 1rem + 0.24vw, 1.24rem);
   font-weight: 620;
@@ -458,29 +489,31 @@
     font-size: 1.45rem;
   }
 
-  .processRow {
-    grid-template-columns: 1fr;
-    gap: 0;
+  .processTabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .processStep {
-    grid-template-columns: 56px minmax(0, 1fr);
-    min-height: 76px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+  .processTabs button {
+    grid-template-columns: 38px minmax(0, 1fr);
+    min-height: 60px;
+    padding: 0.55rem;
   }
 
-  .processStep > span {
-    width: 54px;
-    height: 54px;
-    font-size: 1.3rem;
+  .processTabs button > span {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
   }
 
-  .processText {
+  .processTabs button strong {
+    font-size: 1.04rem;
+  }
+
+  .processTextPanel {
     padding: var(--space-4);
-    border-top: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  }
+
+  .processTextPanel p {
     font-size: 1.06rem;
   }
 }
@@ -577,11 +610,17 @@
   }
 }
 
+@media (max-width: 520px) {
+  .processTabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* Justified text leaves large word gaps in narrow mobile columns. */
 @media (max-width: 640px) {
   .mobileCopy > p,
   .founderDetails > p,
-  .processText {
+  .processTextPanel p {
     text-align: left;
   }
 }
