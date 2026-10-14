@@ -15,7 +15,6 @@ import Services from '@/pages/public/services/Services';
 import Programmes from '@/pages/public/programmes/Programmes';
 import Contact from '@/pages/public/contact/Contact';
 import PrivacyPolicy from '@/pages/public/legal/PrivacyPolicy';
-import TermsConditions from '@/pages/public/legal/TermsConditions';
 import NotFound from '@/pages/public/not-found/NotFound';
 
 import AdminLogin from '@/pages/admin/admin-login/AdminLogin';
@@ -45,7 +44,6 @@ export default function App() {
           <Route path={ROUTES.programmes} element={<Programmes />} />
           <Route path={ROUTES.contact} element={<Contact />} />
           <Route path={ROUTES.privacyPolicy} element={<PrivacyPolicy />} />
-          <Route path={ROUTES.termsConditions} element={<TermsConditions />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

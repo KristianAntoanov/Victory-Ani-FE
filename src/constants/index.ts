@@ -10,7 +10,6 @@ export const ROUTES = {
   programmes: '/programmes',
   contact: '/contact',
   privacyPolicy: '/privacy-policy',
-  termsConditions: '/terms-and-conditions',
   admin: {
     login: '/admin/login',
     dashboard: '/admin',

@@ -65,7 +65,6 @@ export default function Footer() {
           <span>© {currentYear} V&A Projects. {t('footer.rights')}</span>
           <div className="footer-bottom__links">
             <Link to={ROUTES.privacyPolicy}>{t('footer.privacy')}</Link>
-            <Link to={ROUTES.termsConditions}>{t('footer.terms')}</Link>
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { ArrowRight, CalendarDays, X } from 'lucide-react';
-import { CONTACT } from '@/constants';
+import { CONTACT, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
 import { CONSULTATION_MODAL_EVENT } from '@/utils/consultationModal';
 
@@ -187,6 +188,7 @@ export default function ConsultationModal() {
                   {t('contact.privacyLabel')} <span className="req">*</span>
                 </span>
               </label>
+              <Link className="form-privacy-link" to={ROUTES.privacyPolicy} onClick={close}>{t('contact.privacyLink')}</Link>
               {errors.privacy ? <p className="field-error">{errors.privacy.message}</p> : null}
             </div>
           </div>
