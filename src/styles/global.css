@@ -1600,6 +1600,18 @@ ul {
   accent-color: var(--color-bordo);
   flex-shrink: 0;
 }
+.form-privacy-link {
+  align-self: flex-start;
+  margin-left: calc(18px + var(--space-3));
+  color: var(--color-bordo);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.form-privacy-link:hover {
+  color: var(--color-bordo-dark);
+}
 
 /* ---------- States ---------- */
 .state-box {

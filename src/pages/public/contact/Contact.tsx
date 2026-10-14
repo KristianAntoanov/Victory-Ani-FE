@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, Phone, MapPin, CheckCircle2 } from 'lucide-react';
 import Seo from '@/components/common/Seo';
-import { CONTACT } from '@/constants';
+import { CONTACT, ROUTES } from '@/constants';
 import { contactService } from '@/services/contactService';
 import { useToast } from '@/context/ToastContext';
 import { useLanguage } from '@/context/LanguageContext';
@@ -206,6 +207,7 @@ export default function Contact() {
                           {t('contact.privacyLabel')} <span className="req">*</span>
                         </span>
                       </label>
+                      <Link className="form-privacy-link" to={ROUTES.privacyPolicy}>{t('contact.privacyLink')}</Link>
                       {errors.privacy ? <p className="field-error">{errors.privacy.message}</p> : null}
                     </div>
                   </div>

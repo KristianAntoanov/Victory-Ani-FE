@@ -1,109 +1,132 @@
-import { Link } from 'react-router-dom';
-import { Mail, ShieldCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowUpRight, Building2, Mail, ShieldCheck } from 'lucide-react';
 import Seo from '@/components/common/Seo';
-import PageHero from '@/components/layout/PageHero';
 import { ASSETS, CONTACT, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
-import { openConsultationModal } from '@/utils/consultationModal';
 import styles from './Legal.module.css';
 
 interface LegalSection {
   title: string;
   body?: string;
   items?: string[];
+  externalLink?: { label: string; href: string };
 }
 
 const sections: LegalSection[] = [
   {
-    title: 'Information we collect',
-    body: 'We collect only the information needed to respond to enquiries, prepare consultancy work, manage communication, and operate this website.',
+    title: 'Information we receive',
+    body: 'When you contact us through the website, we receive the information you choose to provide.',
     items: [
-      'Contact details such as name, email address, phone number, organisation, and role.',
-      'Project or funding information you choose to share through forms, email, calls, or meetings.',
-      'Newsletter or event preferences when you actively subscribe or request updates.',
-      'Basic technical information generated when you visit the website, such as device, browser, pages viewed, and approximate usage data.',
+      'The Contact form asks for your name, email address, organisation, service of interest and message. A phone number is optional.',
+      'The consultation dialog prepares an email in your email application. It is sent only if you confirm it there.',
+      'The website and hosting provider may process technical request data, such as IP address and browser information, to deliver and secure the website.',
     ],
   },
   {
-    title: 'How we use it',
+    title: 'Purposes and legal grounds',
+    body: 'We use your details to respond to enquiries and discuss a possible consultancy service.',
     items: [
-      'To respond to messages, consultation requests, and funding enquiries.',
-      'To prepare proposals, provide services, and manage client relationships.',
-      'To send relevant updates where you have requested them or where we have another lawful basis to contact you.',
-      'To improve website performance, security, user experience, and service quality.',
-      'To comply with legal, accounting, administrative, and regulatory obligations.',
+      'Where your request concerns a possible agreement with you, we may process the data to take steps at your request before a contract (GDPR Article 6(1)(b)).',
+      'For other business enquiries and website security, we may rely on our legitimate interest in handling requested communication and keeping the website secure (Article 6(1)(f)).',
+      'If a client relationship follows, contract performance or a legal obligation may provide the relevant legal ground (Article 6(1)(b) or (c)).',
     ],
   },
   {
-    title: 'Legal basis',
-    body: 'Depending on the context, we process personal data on the basis of consent, contract preparation or performance, legitimate interests, and legal obligations. EU data protection guidance recognises these as common grounds for lawful processing.',
+    title: 'Recipients and external services',
+    body: 'People working on your enquiry and providers of hosting, technical support or email may access the information needed for their tasks. We may share information with professional advisers or authorities when required by law or necessary to protect a legal claim. We do not sell personal data.',
+    items: [
+      'The site loads fonts from Google Fonts. Your browser connects to Google to fetch them.',
+      'Social media links lead to external platforms only when you click them; their own privacy notices then apply.',
+    ],
   },
   {
-    title: 'Sharing and storage',
-    items: [
-      'We do not sell personal data.',
-      'We may share information with trusted service providers, professional advisers, project partners, or public authorities where needed for the purposes described in this policy.',
-      'We retain information only for as long as necessary for the relevant purpose, legal requirement, or legitimate business record.',
-      'We use reasonable technical and organisational measures to protect personal data from unauthorised access, loss, misuse, or disclosure.',
-    ],
+    title: 'How long we keep information',
+    body: 'We keep enquiry information while we review and answer the request. After that, we retain correspondence only where it is needed for a resulting contract, applicable legal obligations or the establishment, exercise or defence of legal claims. Technical log retention depends on the hosting provider’s settings.',
   },
   {
     title: 'Your rights',
-    body: 'Under EU data protection rules, individuals may have rights to access, correct, delete, restrict, object to processing, request portability, and withdraw consent where consent is used. You can contact us to exercise these rights.',
+    body: 'You can email us to exercise your data protection rights. Depending on the situation, you may request:',
+    items: [
+      'Access to, correction or deletion of your data, or restriction of its processing.',
+      'An objection to processing based on legitimate interests, or data portability where applicable.',
+      'Withdrawal of consent where a specific activity is based on consent; withdrawal does not affect earlier lawful processing.',
+    ],
+    externalLink: { label: 'Complain to the Bulgarian data protection authority', href: 'https://cpdp.bg/home-default/подаване-на-жалби-и-сигнали-до-кзлд/' },
   },
   {
-    title: 'Cookies',
-    body: 'This website may use essential cookies or similar technologies to keep the site secure and functioning. If analytics or optional cookies are introduced, they should be used with the appropriate notice and consent controls.',
+    title: 'Browser storage and cookies',
+    body: 'The site saves your selected language in your browser’s local storage so it is remembered on your next visit. The staff administration area uses temporary browser storage for its session. The public website currently has no advertising or analytics trackers. If optional tracking is added, this notice and the required consent controls will be updated.',
   },
 ];
 
 const sectionsBg: LegalSection[] = [
   {
-    title: 'Каква информация събираме',
-    body: 'Събираме само информацията, нужна за отговор на запитвания, подготовка на консултантска работа, управление на комуникацията и функциониране на сайта.',
+    title: 'Каква информация получаваме',
+    body: 'Когато се свържете с нас през сайта, получаваме информацията, която решите да ни предоставите.',
     items: [
-      'Данни за контакт като име, имейл адрес, телефон, организация и роля.',
-      'Информация за проект или финансиране, която избирате да споделите чрез форми, имейл, разговори или срещи.',
-      'Предпочитания за бюлетин или събития, когато се абонирате или поискате актуализации.',
-      'Основна техническа информация при посещение на сайта, като устройство, браузър, разгледани страници и приблизителни данни за ползване.',
+      'Формата „Контакт“ изисква име, имейл, организация, интересуваща ви услуга и съобщение. Телефонът е по избор.',
+      'Прозорецът „Запазете консултация“ подготвя имейл във вашата пощенска програма. Той се изпраща само ако го потвърдите там.',
+      'Сайтът и доставчикът на хостинг могат да обработват технически данни за заявката, като IP адрес и данни за браузъра, за да доставят и защитават сайта.',
     ],
   },
   {
-    title: 'Как я използваме',
+    title: 'Цели и правни основания',
+    body: 'Използваме данните ви, за да отговорим на запитването и да обсъдим възможна консултантска услуга.',
     items: [
-      'За да отговаряме на съобщения, заявки за консултация и запитвания за финансиране.',
-      'За подготовка на предложения, предоставяне на услуги и управление на отношения с клиенти.',
-      'За изпращане на релевантни актуализации, когато сте ги поискали или имаме друго законово основание.',
-      'За подобряване на производителността, сигурността, потребителското изживяване и качеството на услугите.',
-      'За спазване на законови, счетоводни, административни и регулаторни задължения.',
+      'Когато искането ви е свързано с евентуален договор с вас, можем да обработваме данните за стъпки по ваше искане преди сключването му (чл. 6, пар. 1, б. „б“ от GDPR).',
+      'При други делови запитвания и за сигурността на сайта можем да се позовем на легитимния си интерес да водим поисканата комуникация и да поддържаме защитен сайт (чл. 6, пар. 1, б. „е“).',
+      'Ако възникнат отношения с клиент, приложимо основание може да бъде изпълнение на договор или законово задължение (чл. 6, пар. 1, б. „б“ или „в“).',
     ],
   },
   {
-    title: 'Правно основание',
-    body: 'В зависимост от контекста обработваме лични данни на основание съгласие, подготовка или изпълнение на договор, легитимен интерес и законови задължения.',
+    title: 'Получатели и външни услуги',
+    body: 'Достъп до необходимите данни могат да имат хората, които работят по запитването, и доставчици на хостинг, техническа поддръжка или електронна поща. Можем да предоставим информация на професионални консултанти или органи, когато законът го изисква или това е нужно за защита на правен интерес. Не продаваме лични данни.',
+    items: [
+      'Сайтът зарежда шрифтове чрез Google Fonts. За целта браузърът ви се свързва с Google.',
+      'Връзките към социални мрежи водят към външни платформи само когато ги отворите; след това важат техните политики.',
+    ],
   },
   {
-    title: 'Споделяне и съхранение',
-    items: [
-      'Не продаваме лични данни.',
-      'Можем да споделяме информация с доверени доставчици, професионални съветници, проектни партньори или публични органи, когато е необходимо за описаните цели.',
-      'Съхраняваме информацията само толкова дълго, колкото е нужно за съответната цел, законово изискване или легитимен бизнес запис.',
-      'Използваме разумни технически и организационни мерки за защита на личните данни.',
-    ],
+    title: 'Колко дълго пазим информацията',
+    body: 'Пазим данните от запитването, докато го разгледаме и отговорим. След това съхраняваме кореспонденцията само когато е нужна за последващ договор, приложимо законово задължение или установяване, упражняване или защита на правни претенции. Срокът на техническите записи зависи от настройките на доставчика на хостинг.',
   },
   {
     title: 'Вашите права',
-    body: 'Съгласно правилата на ЕС за защита на данните лицата могат да имат права на достъп, корекция, изтриване, ограничаване, възражение, преносимост и оттегляне на съгласие.',
+    body: 'Можете да ни пишете на посочения имейл, за да упражните правата си. Според случая можете да поискате:',
+    items: [
+      'Достъп, поправка или изтриване на данните ви или ограничаване на обработването им.',
+      'Възражение срещу обработване на основание легитимен интерес или преносимост на данните, когато е приложимо.',
+      'Оттегляне на съгласие, когато конкретна дейност се основава на такова; това не засяга законосъобразното обработване преди оттеглянето.',
+    ],
+    externalLink: { label: 'Подаване на жалба до Комисията за защита на личните данни', href: 'https://cpdp.bg/home-default/подаване-на-жалби-и-сигнали-до-кзлд/' },
   },
   {
-    title: 'Бисквитки',
-    body: 'Този сайт може да използва основни бисквитки или подобни технологии, нужни за сигурността и нормалното функциониране. Ако се въведат аналитични или допълнителни бисквитки, те следва да се използват с подходящо уведомление и съгласие.',
+    title: 'Съхранение в браузъра и бисквитки',
+    body: 'Сайтът запазва избрания от вас език в локалното хранилище на браузъра, за да го помни при следващо посещение. Администраторската част използва временно хранилище за служебната сесия. Публичният сайт към момента няма рекламни или аналитични инструменти. Ако се добавят такива, тази политика и необходимите настройки за съгласие ще бъдат актуализирани предварително.',
   },
 ];
 
 export default function PrivacyPolicy() {
   const { lang, t } = useLanguage();
   const visibleSections = lang === 'bg' ? sectionsBg : sections;
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible[0]) {
+        setActiveIndex(Number((visible[0].target as HTMLElement).dataset.policyIndex));
+      }
+    }, { rootMargin: '-18% 0px -65% 0px' });
+
+    document.querySelectorAll<HTMLElement>('[data-policy-index]').forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [lang]);
+
+  const contentLabel = lang === 'bg' ? 'Съдържание' : 'On this page';
+  const companyName = '„В енд А Проджектс“ ООД';
 
   return (
     <>
@@ -111,50 +134,66 @@ export default function PrivacyPolicy() {
         title={t('footer.privacy')}
         description={t('legal.privacyDescription')}
         image={ASSETS.heroArchitecture}
+        canonicalPath={ROUTES.privacyPolicy}
       />
 
-      <PageHero
-        eyebrow={t('legal.eyebrow')}
-        title={t('footer.privacy')}
-        lead={t('legal.privacyLead')}
-      />
+      <header className={styles.hero} id="privacy-top">
+        <div className="container">
+          <div className={styles.heroContent}>
+            <span className={styles.heroEyebrow}><ShieldCheck size={18} aria-hidden="true" /> {t('legal.eyebrow')}</span>
+            <h1>{t('footer.privacy')}</h1>
+            <p>{t('legal.privacyLead')}</p>
+            <div className={styles.heroMeta}>
+              <span>{t('legal.lastUpdated')}: {lang === 'bg' ? '14 октомври 2026 г.' : '14 October 2026'}</span>
+              <a href="#privacy-content">{contentLabel} <ArrowDown size={17} aria-hidden="true" /></a>
+            </div>
+          </div>
+        </div>
+      </header>
 
-      <section className={styles.legalSection}>
+      <section className={styles.legalSection} id="privacy-content">
         <div className="container">
           <div className={styles.legalShell}>
-            <aside className={styles.summary} aria-label={t('legal.privacySummary')}>
-              <span className={styles.summaryIcon}>
-                <ShieldCheck size={26} strokeWidth={1.6} aria-hidden="true" />
-              </span>
-              <h2>{t('legal.privacyAtGlance')}</h2>
-              <p>{t('legal.privacyAtGlanceText')}</p>
-              <div className={styles.summaryMeta}>
-                <div>
-                  <span>{t('legal.lastUpdated')}</span>
-                  <strong>July 1, 2026</strong>
-                </div>
-                <div>
-                  <span>{t('legal.contact')}</span>
-                  <button
-                    type="button"
-                    className={styles.summaryAction}
-                    onClick={openConsultationModal}
-                  >
-                    <Mail size={14} aria-hidden="true" /> {CONTACT.email}
-                  </button>
-                </div>
+            <aside className={styles.summary} aria-label={contentLabel}>
+              <div className={styles.sidebarHeader}>
+                <span>{contentLabel}</span>
+                <small>{String(activeIndex + 1).padStart(2, '0')} / {String(visibleSections.length).padStart(2, '0')}</small>
               </div>
+              <div className={styles.progressTrack} aria-hidden="true"><span style={{ width: `${((activeIndex + 1) / visibleSections.length) * 100}%` }} /></div>
+              <nav className={styles.sectionNav} aria-label={contentLabel}>
+                {visibleSections.map((section, index) => (
+                  <a
+                    key={section.title}
+                    href={`#policy-section-${index + 1}`}
+                    className={activeIndex === index ? styles.activeLink : undefined}
+                    aria-current={activeIndex === index ? 'location' : undefined}
+                    onClick={() => setActiveIndex(index)}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>{section.title}
+                  </a>
+                ))}
+              </nav>
+              <a className={styles.sidebarEmail} href={`mailto:${CONTACT.email}`}><Mail size={16} aria-hidden="true" />{CONTACT.email}</a>
             </aside>
 
             <article className={styles.document}>
               <div className={styles.documentIntro}>
-                <p>
-                  {t('legal.privacyIntro')}
-                </p>
+                <span className={styles.introEyebrow}>{lang === 'bg' ? 'ПОВЕРИТЕЛНОСТ НАКРАТКО' : 'PRIVACY AT A GLANCE'}</span>
+                <p>{t('legal.privacyIntro')}</p>
+                <div className={styles.companyCard}>
+                  <div className={styles.companyTitle}><Building2 size={22} aria-hidden="true" /><span>{lang === 'bg' ? 'Администратор на личните данни' : 'Data controller'}</span></div>
+                  <strong>{companyName}</strong>
+                  <dl>
+                    <div><dt>{lang === 'bg' ? 'ЕИК' : 'Company number'}</dt><dd>208026885</dd></div>
+                    <div><dt>{lang === 'bg' ? 'Седалище и адрес' : 'Registered address'}</dt><dd>{lang === 'bg' ? 'БЪЛГАРИЯ, гр. София (1000), р-н Възраждане, ж.к. „Сердика“, бл. 18, вх. А, ап. 10' : '18 Serdika residential complex, entrance A, apartment 10, Vazrazhdane district, 1000 Sofia, Bulgaria'}</dd></div>
+                    <div><dt>{lang === 'bg' ? 'Контакт' : 'Contact'}</dt><dd><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></dd></div>
+                  </dl>
+                </div>
               </div>
 
-              {visibleSections.map((section) => (
-                <section className={styles.sectionBlock} key={section.title}>
+              {visibleSections.map((section, index) => (
+                <section className={styles.sectionBlock} key={section.title} id={`policy-section-${index + 1}`} data-policy-index={index}>
+                  <span className={styles.sectionNumber}>{String(index + 1).padStart(2, '0')} / {String(visibleSections.length).padStart(2, '0')}</span>
                   <h2>{section.title}</h2>
                   <div>
                     {section.body ? <p>{section.body}</p> : null}
@@ -165,16 +204,26 @@ export default function PrivacyPolicy() {
                         ))}
                       </ul>
                     ) : null}
+                    {section.externalLink ? (
+                      <a className={styles.externalLink} href={section.externalLink.href} target="_blank" rel="noreferrer">
+                        {section.externalLink.label} <ArrowUpRight size={16} aria-hidden="true" />
+                      </a>
+                    ) : null}
                   </div>
                 </section>
               ))}
+              <div className={styles.contactCard}>
+                <div className={styles.contactIcon}><Mail size={24} aria-hidden="true" /></div>
+                <div>
+                  <h2>{lang === 'bg' ? 'Въпрос за личните ви данни?' : 'A question about your data?'}</h2>
+                  <p>{lang === 'bg' ? 'Пишете ни директно и ще разгледаме искането ви.' : 'Email us directly and we will review your request.'}</p>
+                </div>
+                <a href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(lang === 'bg' ? 'Въпрос относно личните данни' : 'Privacy enquiry')}`}>
+                  {lang === 'bg' ? 'Пишете ни' : 'Email us'} <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              </div>
             </article>
           </div>
-
-          <nav className={styles.legalNav} aria-label="Legal pages">
-            <Link to={ROUTES.privacyPolicy}>{t('footer.privacy')}</Link>
-            <Link to={ROUTES.termsConditions}>{t('footer.terms')}</Link>
-          </nav>
         </div>
       </section>
     </>
