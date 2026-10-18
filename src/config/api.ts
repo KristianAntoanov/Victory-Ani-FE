@@ -1,4 +1,7 @@
 export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').replace(/\/+$/, '');
+const NOTIFICATION_ENDPOINT = API_BASE_URL.endsWith('/api')
+  ? '/Notification/Send'
+  : '/api/Notification/Send';
 
 export const API_ENDPOINTS = {
   identityLogin: '/Identity/Login',
@@ -18,6 +21,6 @@ export const API_ENDPOINTS = {
   projectsChangeStatus: (id: string, isActive: boolean) =>
     `/Projects/ChangeStatus?id=${encodeURIComponent(id)}&isActive=${String(isActive)}`,
   projectsDelete: (id: string) => `/Projects/Delete?id=${encodeURIComponent(id)}`,
-  contact: '/contact-submissions',
+  notificationSend: NOTIFICATION_ENDPOINT,
   newsletter: '/newsletter',
 } as const;

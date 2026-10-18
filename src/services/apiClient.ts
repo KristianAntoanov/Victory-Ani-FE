@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/config/api';
 import { authSessionService } from '@/services/authSessionService';
 
-type RequestBody = BodyInit | Record<string, unknown> | unknown[] | null | undefined;
+type RequestBody = BodyInit | object | null | undefined;
 
 interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: RequestBody;
@@ -49,6 +49,10 @@ async function parseResponse(response: Response): Promise<unknown> {
 }
 
 function getErrorMessage(payload: unknown, status: number): string {
+  if (typeof payload === 'string' && payload.trim()) {
+    return payload;
+  }
+
   if (typeof payload !== 'object' || payload === null) {
     return `API request failed with status ${status}`;
   }

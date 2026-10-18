@@ -142,6 +142,23 @@ export interface ContactSubmission {
 
 export type ContactSubmissionInput = Omit<ContactSubmission, 'id' | 'createdAt'>;
 
+export type InterestedService =
+  | 'EU Programmes'
+  | 'Project Writing'
+  | 'Management Services'
+  | 'Partner Search'
+  | 'General Enquiry';
+
+export interface SendNotificationRequest {
+  fullName: string;
+  email: string;
+  organisation: string;
+  phone?: string | null;
+  interestedService: InterestedService;
+  message: string;
+  privacyConsent: boolean;
+}
+
 export interface AdminSession {
   email: string;
   token?: string;
