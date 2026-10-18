@@ -21,7 +21,7 @@ Leave `VITE_API_BASE_URL` empty only if the API is served from the same origin a
 
 ## Backend Endpoints
 
-The frontend routes all HTTP calls through `src/config/api.ts`. Update that file if your C# controllers use different routes.
+The frontend routes all HTTP calls through `src/config/api.ts`. Set `VITE_API_BASE_URL` to either the API origin or an origin that already includes `/api`; the notification route resolves to `/api/Notification/Send` in both cases.
 
 Current expected endpoints:
 
@@ -37,7 +37,7 @@ GET    /api/projects/{id}
 POST   /api/projects
 PUT    /api/projects/{id}
 DELETE /api/projects/{id}
-POST   /api/contact-submissions
+POST   /api/Notification/Send
 POST   /api/newsletter
 ```
 
@@ -49,6 +49,7 @@ Admin login expects `/api/auth/login` to return JSON with `token`, `accessToken`
 npm run build
 npm run preview
 npm run lint
+npm run test
 ```
 
 ## Structure
