@@ -356,20 +356,25 @@
   font-size: 0.9rem;
 }
 
-.contactCard a {
+.contactCard a,
+.contactCard button {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
   padding: 0.7rem 1rem;
+  border: 0;
   border-radius: var(--radius-sm);
   background: var(--color-white);
   color: var(--color-green);
+  font: inherit;
   font-size: 0.83rem;
   font-weight: 800;
   white-space: nowrap;
+  cursor: pointer;
 }
 
-.contactCard a:hover {
+.contactCard a:hover,
+.contactCard button:hover {
   background: var(--color-cream-2);
 }
 
@@ -405,7 +410,8 @@
     grid-template-columns: 1fr;
   }
 
-  .contactCard a {
+  .contactCard a,
+  .contactCard button {
     justify-self: start;
   }
 }
