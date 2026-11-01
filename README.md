@@ -2,7 +2,14 @@
 
 React + Vite + TypeScript frontend for V&A Projects, prepared to work with an external C# Web API.
 
-## Setup
+## Temporary development page
+
+The temporary Bulgarian development page is enabled in `src/config/maintenance.ts`.
+It covers every URL, including admin routes, without starting the regular app providers.
+To restore the full website, change `MAINTENANCE_MODE` to `false`, run
+`npm run build`, and deploy again. Existing pages and routes are preserved.
+
+## Local setup
 
 ```bash
 npm install
