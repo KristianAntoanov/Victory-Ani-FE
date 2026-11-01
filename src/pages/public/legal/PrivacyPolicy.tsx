@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Building2, Mail, ShieldCheck } from 'lucide-re
 import Seo from '@/components/common/Seo';
 import { ASSETS, CONTACT, ROUTES } from '@/constants';
 import { useLanguage } from '@/context/LanguageContext';
+import { openConsultationModal } from '@/utils/consultationModal';
 import styles from './Legal.module.css';
 
 interface LegalSection {
@@ -18,7 +19,7 @@ const sections: LegalSection[] = [
     body: 'When you contact us through the website, we receive the information you choose to provide.',
     items: [
       'The Contact form asks for your name, email address, organisation, service of interest and message. A phone number is optional.',
-      'The consultation dialog prepares an email in your email application. It is sent only if you confirm it there.',
+      'The consultation dialog sends your enquiry through the website after you confirm the form and privacy consent.',
       'The website and hosting provider may process technical request data, such as IP address and browser information, to deliver and secure the website.',
     ],
   },
@@ -65,7 +66,7 @@ const sectionsBg: LegalSection[] = [
     body: 'Когато се свържете с нас през сайта, получаваме информацията, която решите да ни предоставите.',
     items: [
       'Формата „Контакт“ изисква име, имейл, организация, интересуваща ви услуга и съобщение. Телефонът е по избор.',
-      'Прозорецът „Запазете консултация“ подготвя имейл във вашата пощенска програма. Той се изпраща само ако го потвърдите там.',
+      'Прозорецът „Запазете консултация“ изпраща запитването през сайта след потвърждение на формата и съгласието за поверителност.',
       'Сайтът и доставчикът на хостинг могат да обработват технически данни за заявката, като IP адрес и данни за браузъра, за да доставят и защитават сайта.',
     ],
   },
@@ -218,9 +219,9 @@ export default function PrivacyPolicy() {
                   <h2>{lang === 'bg' ? 'Въпрос за личните ви данни?' : 'A question about your data?'}</h2>
                   <p>{lang === 'bg' ? 'Пишете ни директно и ще разгледаме искането ви.' : 'Email us directly and we will review your request.'}</p>
                 </div>
-                <a href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(lang === 'bg' ? 'Въпрос относно личните данни' : 'Privacy enquiry')}`}>
+                <button type="button" onClick={openConsultationModal} aria-haspopup="dialog">
                   {lang === 'bg' ? 'Пишете ни' : 'Email us'} <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
+                </button>
               </div>
             </article>
           </div>

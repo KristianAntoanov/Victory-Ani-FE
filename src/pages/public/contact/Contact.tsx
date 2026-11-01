@@ -1,81 +1,58 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Mail, Phone, MapPin, CheckCircle2 } from 'lucide-react';
 import Seo from '@/components/common/Seo';
 import { CONTACT, ROUTES } from '@/constants';
-import { contactService } from '@/services/contactService';
+import { sendNotification, SERVER_ERROR_MESSAGE } from '@/services/notificationService';
 import { useToast } from '@/context/ToastContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { openConsultationModal } from '@/utils/consultationModal';
-import type { ContactSubmissionInput } from '@/types';
+import {
+  createSubmissionGuard,
+  INTERESTED_SERVICE_OPTIONS,
+  makeNotificationFormSchema,
+  toSendNotificationRequest,
+  type NotificationFormValues,
+} from '@/utils/notificationForm';
 import styles from './Contact.module.css';
-
-const SERVICE_KEYS = [
-  'footer.svcProgrammes',
-  'footer.svcWriting',
-  'footer.svcManagement',
-  'footer.svcPartner',
-  'contact.svcGeneral',
-];
-
-const makeSchema = (t: (key: string) => string) =>
-  z.object({
-    fullName: z.string().min(1, t('validation.nameRequired')),
-    email: z.string().min(1, t('validation.emailRequired')).email(t('validation.email')),
-    organisation: z.string().min(1, t('validation.orgRequired')),
-    phone: z.string().optional().or(z.literal('')),
-    service: z.string().min(1, t('validation.serviceRequired')),
-    message: z.string().min(10, t('validation.messageMin')),
-    privacy: z.literal(true, {
-      errorMap: () => ({ message: t('validation.privacy') }),
-    }),
-  });
-type FormValues = z.infer<ReturnType<typeof makeSchema>>;
 
 export default function Contact() {
   const toast = useToast();
   const { t } = useLanguage();
-  const localizedSchema = useMemo(() => makeSchema(t), [t]);
+  const localizedSchema = useMemo(() => makeNotificationFormSchema(t), [t]);
   const [submitted, setSubmitted] = useState(false);
+  const submissionGuard = useRef(createSubmissionGuard());
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({
+  } = useForm<NotificationFormValues>({
     resolver: zodResolver(localizedSchema),
     defaultValues: {
       fullName: '',
       email: '',
       organisation: '',
       phone: '',
-      service: '',
+      interestedService: undefined,
       message: '',
-      privacy: false as unknown as true,
+      privacyConsent: false as unknown as true,
     },
   });
 
-  const onSubmit = async (values: FormValues) => {
-    try {
-      const submission: ContactSubmissionInput = {
-        fullName: values.fullName,
-        email: values.email,
-        organisation: values.organisation,
-        phone: values.phone ?? '',
-        service: values.service,
-        message: values.message,
-      };
-      await contactService.submit(submission);
-      setSubmitted(true);
-      reset();
-      toast.success(t('contact.sent'));
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : t('contact.submitError'));
-    }
-  };
+  const onSubmit = (values: NotificationFormValues) =>
+    submissionGuard.current.run(async () => {
+      try {
+        await sendNotification(toSendNotificationRequest(values));
+        setSubmitted(true);
+        reset();
+        toast.success(t('contact.sent'));
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : SERVER_ERROR_MESSAGE);
+      }
+    });
 
   return (
     <>
@@ -177,21 +154,28 @@ export default function Contact() {
                       <label htmlFor="c-phone">{t('contact.phone')}</label>
                       <input id="c-phone" type="tel" {...register('phone')} data-testid="contact-phone" />
                     </div>
-                    <div className={`form-field form-field--full${errors.service ? ' has-error' : ''}`}>
+                    <div className={`form-field form-field--full${errors.interestedService ? ' has-error' : ''}`}>
                       <label htmlFor="c-service">
                         {t('contact.interestedService')} <span className="req">*</span>
                       </label>
-                      <select id="c-service" {...register('service')} data-testid="contact-service" defaultValue="">
+                      <select
+                        id="c-service"
+                        {...register('interestedService')}
+                        data-testid="contact-service"
+                        defaultValue=""
+                      >
                         <option value="" disabled>
                           {t('contact.selectService')}
                         </option>
-                        {SERVICE_KEYS.map((key) => (
-                          <option key={key} value={t(key)}>
-                            {t(key)}
+                        {INTERESTED_SERVICE_OPTIONS.map(({ value, labelKey }) => (
+                          <option key={value} value={value}>
+                            {t(labelKey)}
                           </option>
                         ))}
                       </select>
-                      {errors.service ? <p className="field-error">{errors.service.message}</p> : null}
+                      {errors.interestedService ? (
+                        <p className="field-error">{errors.interestedService.message}</p>
+                      ) : null}
                     </div>
                     <div className={`form-field form-field--full${errors.message ? ' has-error' : ''}`}>
                       <label htmlFor="c-msg">
@@ -200,15 +184,21 @@ export default function Contact() {
                       <textarea id="c-msg" {...register('message')} data-testid="contact-message" />
                       {errors.message ? <p className="field-error">{errors.message.message}</p> : null}
                     </div>
-                    <div className={`form-field form-field--full${errors.privacy ? ' has-error' : ''}`}>
+                    <div className={`form-field form-field--full${errors.privacyConsent ? ' has-error' : ''}`}>
                       <label className="checkbox-field">
-                        <input type="checkbox" {...register('privacy')} data-testid="contact-privacy" />
+                        <input
+                          type="checkbox"
+                          {...register('privacyConsent')}
+                          data-testid="contact-privacy"
+                        />
                         <span>
                           {t('contact.privacyLabel')} <span className="req">*</span>
                         </span>
                       </label>
                       <Link className="form-privacy-link" to={ROUTES.privacyPolicy}>{t('contact.privacyLink')}</Link>
-                      {errors.privacy ? <p className="field-error">{errors.privacy.message}</p> : null}
+                      {errors.privacyConsent ? (
+                        <p className="field-error">{errors.privacyConsent.message}</p>
+                      ) : null}
                     </div>
                   </div>
 
