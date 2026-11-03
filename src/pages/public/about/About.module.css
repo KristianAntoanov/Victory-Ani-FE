@@ -356,6 +356,7 @@
   gap: 0.65rem;
   width: 100%;
   min-height: 66px;
+  height: 100%;
   padding: 0.62rem 0.72rem;
   border-color: rgba(122, 0, 70, 0.38);
   background: rgba(122, 0, 70, 0.07);
@@ -406,7 +407,8 @@
   color: inherit;
   font-family: var(--font-serif);
   font-size: clamp(1.08rem, 1.2vw, 1.28rem);
-  line-height: 1;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
 }
 
 .processTextPanel {

@@ -32,6 +32,7 @@ interface ProgrammeDetail {
   emailCta: Localized;
   icon: LucideIcon;
   focus: LocalizedList;
+  focusTitle?: Localized;
   intro: Localized;
   supportTitle: Localized;
   support: Localized;
@@ -43,8 +44,8 @@ const programmes: ProgrammeDetail[] = [
     title: 'Erasmus+',
     eyebrow: { en: 'Education, training, youth and sport', bg: 'Образование, обучение, младеж и спорт' },
     lead: {
-      en: 'Erasmus+ supports learning mobility, international cooperation, organisational development, innovation and the exchange of good practices across Europe and beyond.',
-      bg: 'Erasmus+ подкрепя учебната мобилност, международното сътрудничество, организационното развитие, иновациите и обмена на добри практики в Европа и извън нея.',
+      en: "Erasmus+ promotes learning mobility, international cooperation and the exchange of good practices, supporting organisational development, innovation and skills development across Europe and beyond.",
+      bg: "Програма „Еразъм+“ насърчава образователната мобилност, международното сътрудничество и обмена на добри практики, като подкрепя развитието на организациите, внедряването на иновации и усъвършенстването на уменията в Европа и извън нея.",
     },
     visualCue: {
       en: 'Education, mobility, teachers, learners, European cities',
@@ -54,30 +55,20 @@ const programmes: ProgrammeDetail[] = [
     emailCta: { en: 'Plan an Erasmus+ project', bg: 'Планирайте Erasmus+ проект' },
     icon: GraduationCap,
     focus: {
-      en: [
-        'KA1 mobility projects and Erasmus+ accreditation',
-        'KA2 cooperation partnerships',
-        'Capacity Building projects',
-        'Centres of Vocational Excellence',
-      ],
-      bg: [
-        'KA1 проекти за мобилност и Erasmus+ акредитация',
-        'KA2 партньорства за сътрудничество',
-        'Проекти за изграждане на капацитет',
-        'Центрове за професионално съвършенство',
-      ],
+      en: ["Key Action 1 (KA1): Learning Mobility of Individuals and Erasmus Accreditation", "Key Action 2 (KA2): Cooperation among Organisations and Institutions", "Capacity Building in higher education, vocational education and training, youth and sport", "Partnerships for Excellence, including Centres of Vocational Excellence (CoVE)"],
+      bg: ["Ключова дейност 1 (KA1): Образователна мобилност и акредитация", "Ключова дейност 2 (KA2): Партньорства за сътрудничество", "Международни проекти за изграждане на капацитет в областта на образованието и обучението", "Центрове за високи постижения в областта на професионалното образование и обучение", "Партньорства за високи постижения"],
     },
     intro: {
-      en: 'The programme offers opportunities to schools, vocational education and training providers, universities, adult education organisations, youth organisations, sports bodies, public institutions and other organisations active in learning and skills development. Its current priorities place particular importance on inclusion and diversity, digital transformation, environmental responsibility and participation in democratic life.',
-      bg: 'Програмата предлага възможности за училища, доставчици на професионално образование и обучение, университети, организации за образование на възрастни, младежки организации, спортни структури, публични институции и други организации, активни в ученето и развитието на умения. Актуалните приоритети поставят особен акцент върху приобщаването и многообразието, дигиталната трансформация, екологичната отговорност и участието в демократичния живот.',
+      en: "The programme provides funding opportunities for schools, vocational education and training providers, higher education institutions, adult education organisations, youth and sports organisations, public institutions and other organisations involved in education, training and lifelong learning.\n\nIts four key priorities are inclusion and diversity, digital transformation, environment and the fight against climate change, and participation in democratic life.",
+      bg: "Възможностите за финансиране са насочени към училища, институции за професионално образование и обучение, университети, организации за обучение на възрастни, младежки и спортни организации, публични институции и други участници в сферата на образованието и обучението.\n\nСред основните ѝ приоритети са приобщаването и многообразието, цифровата трансформация, околната среда и борбата с изменението на климата, както и участието в демократичния живот, общите ценности и гражданската ангажираност.",
     },
     supportTitle: {
-      en: 'How V&A Projects supports your Erasmus+ application',
-      bg: 'Как V&A Projects подкрепя вашата Erasmus+ кандидатура',
+      en: "How V&A Projects supports your Erasmus+ application",
+      bg: "Как V&A Projects може да подпомогне вашата Erasmus+ кандидатура?",
     },
     support: {
-      en: 'We examine the organisation\'s needs, target groups and international development goals, then transform these priorities into clear objectives, suitable mobility or cooperation activities and measurable results. After approval, we can assist with project setup, partner communication, mobility documentation, implementation monitoring, dissemination, final reporting, consortium formation, work-package development, quality control and partner coordination.',
-      bg: 'Преглеждаме нуждите на организацията, целевите групи и целите за международно развитие, след което превръщаме тези приоритети в ясни цели, подходящи мобилности или дейности за сътрудничество и измерими резултати. След одобрение можем да съдействаме със стартиране на проекта, комуникация с партньори, документация за мобилности, мониторинг на изпълнението, разпространение, финално отчитане, формиране на консорциум, разработване на работни пакети, контрол на качеството и партньорска координация.',
+      en: "We assess your organisation’s needs, priorities and international development goals, turning them into well-structured project proposals with clear objectives, relevant mobility or cooperation activities and measurable results. We also support the development of international partnerships and the preparation of work packages and project activities. Once your project is approved, we provide support with implementation and coordination, partner communication, mobility documentation, progress monitoring, quality assurance, dissemination of results and final reporting.",
+      bg: "Анализираме потребностите на вашата организация, определяме приоритетите и целите за международно развитие и ги превръщаме в добре обосновани проектни предложения с конкретни дейности и измерими резултати. Съдействаме при планирането на образователни мобилности, изграждането на международни партньорства и разработването на проекти за сътрудничество. След одобрението предоставяме подкрепа при организацията и управлението на дейностите, координацията между партньорите, подготовката на документацията за мобилностите, мониторинга и осигуряването на качество, разпространението на резултатите и изготвянето на окончателния отчет.",
     },
   },
   {
@@ -85,8 +76,8 @@ const programmes: ProgrammeDetail[] = [
     title: 'Horizon Europe',
     eyebrow: { en: 'Research and innovation', bg: 'Наука и иновации' },
     lead: {
-      en: 'Horizon Europe supports scientific excellence, technological development, innovation and international cooperation in areas that respond to major European challenges.',
-      bg: 'Horizon Europe подкрепя научното съвършенство, технологичното развитие, иновациите и международното сътрудничество в области, които отговарят на големи европейски предизвикателства.',
+      en: "Horizon Europe is the EU’s key funding programme for research and innovation, supporting scientific excellence, technological advancement and the development of innovative solutions to major global challenges.",
+      bg: "„Хоризонт Европа“ е водещата програма на Европейския съюз за научни изследвания и иновации. Тя насърчава научните постижения, технологичния напредък и международното сътрудничество, като подкрепя разработването на иновативни решения за справяне с основните обществени, икономически и екологични предизвикателства.",
     },
     visualCue: {
       en: 'Nature, research, innovation and European connection',
@@ -96,31 +87,22 @@ const programmes: ProgrammeDetail[] = [
       'https://research-and-innovation.ec.europa.eu/funding/funding-opportunities/funding-programmes-and-open-calls/horizon-europe_en',
     emailCta: { en: 'Discuss a Horizon Europe idea', bg: 'Обсъдете идея за Horizon Europe' },
     icon: Atom,
+    focusTitle: { en: "Main thematic areas", bg: "Основни тематични направления" },
     focus: {
-      en: [
-        'Climate, energy and transport',
-        'Food, agriculture and bioeconomy',
-        'Health, digital technologies and industry',
-        'Culture, security, skills and social innovation',
-      ],
-      bg: [
-        'Климат, енергия и транспорт',
-        'Храни, земеделие и биоикономика',
-        'Здраве, дигитални технологии и индустрия',
-        'Култура, сигурност, умения и социални иновации',
-      ],
+      en: ["Cluster 1: Health", "Cluster 2: Culture, Creativity and Inclusive Society", "Cluster 3: Civil Security for Society", "Cluster 4: Digital, Industry and Space", "Cluster 5: Climate, Energy and Mobility", "Cluster 6: Food, Bioeconomy, Natural Resources, Agriculture and Environment"],
+      bg: ["Клъстер 1: Здравеопазване", "Клъстер 2: Култура, творчество и приобщаващо общество", "Клъстер 3: Гражданска сигурност за обществото", "Клъстер 4: Цифрова сфера, промишленост и космическо пространство", "Клъстер 5: Климат, енергия и мобилност", "Клъстер 6: Храни, биоикономика, природни ресурси, селско стопанство и околна среда"],
     },
     intro: {
-      en: 'The programme funds projects involving universities, research organisations, businesses, public authorities, NGOs, end users and other specialist organisations. Many Horizon Europe calls require multidisciplinary consortia that bring together research, technology, policy, business and societal expertise from several countries.',
-      bg: 'Програмата финансира проекти с участието на университети, научни организации, бизнеси, публични власти, неправителствени организации, крайни потребители и други специализирани организации. Много покани по Horizon Europe изискват мултидисциплинарни консорциуми, които обединяват научна, технологична, политическа, бизнес и обществена експертиза от няколко държави.',
+      en: "The programme promotes international collaboration, strengthens European competitiveness and contributes to a more sustainable, resilient and prosperous future. It offers funding opportunities for universities, research institutions, businesses, public authorities, non-governmental organisations and other stakeholders engaged in research and innovation. Many funding calls require international, multidisciplinary consortia, bringing together complementary expertise to advance scientific discoveries, accelerate innovation and translate research into practical solutions with lasting benefits for society.",
+      bg: "Програмата предоставя възможности за финансиране на университети, научноизследователски институти, предприятия, публични институции, неправителствени организации и други участници в областта на науката и иновациите. Много от поканите изискват международни интердисциплинарни консорциуми, които обединяват експерти от различни държави и сфери на дейност, включително науката, технологиите, бизнеса, публичното управление и гражданското общество.",
     },
     supportTitle: {
-      en: 'How V&A Projects supports Horizon Europe partnerships',
-      bg: 'Как V&A Projects подкрепя партньорства по Horizon Europe',
+      en: "How can V&A Projects support your Horizon Europe application?",
+      bg: "Как V&A Projects може да подкрепи вашата проектна идея?",
     },
     support: {
-      en: 'Complex proposals require a clear relationship between the challenge, proposed solution, consortium expertise, work plan and expected European value. We support coordinators in maintaining this consistency, coordinating partner input and preparing or reviewing the application narrative. We also help consortium members define their role, tasks, resources and expected contribution, and after approval can support setup, coordination, quality assurance, risk monitoring, technical reporting, communication, dissemination and exploitation.',
-      bg: 'Сложните предложения изискват ясна връзка между предизвикателството, предложеното решение, експертизата на консорциума, работния план и очакваната европейска стойност. Подкрепяме координаторите да поддържат тази последователност, да координират приноса на партньорите и да подготвят или преглеждат проектния разказ. Помагаме и на партньорите да дефинират своята роля, задачи, ресурси и очакван принос, а след одобрение можем да съдействаме със стартиране, координация, осигуряване на качество, мониторинг на рискове, техническо отчитане, комуникация, разпространение и използване на резултатите.',
+      en: "Developing a competitive Horizon Europe proposal requires a strong scientific concept, a clear methodology, a well-structured work plan and a consortium with the right expertise. V&A Projects supports project coordinators throughout the proposal development process, from preparing and reviewing application content to coordinating partner contributions, defining responsibilities and resources and demonstrating the project's expected impact. Once funding is secured, we provide specialised support with project management, consortium coordination, quality assurance, risk management, technical reporting, communication, dissemination and exploitation of results.\n\nPlanning a Horizon Europe proposal or looking for an experienced consortium partner? Get in touch to explore opportunities for collaboration.",
+      bg: "Разработването на успешно проектно предложение по „Хоризонт Европа“ изисква ясна концепция, научна обосновка, работен план и партньорство с необходимата експертиза. V&A Projects подпомага координаторите при подготовката на проектните предложения, координацията между партньорите, разпределението на задачите и ресурсите и формулирането на очакваните резултати и въздействие. След одобрението на проекта предоставяме специализирана подкрепа при управлението и координацията на дейностите, осигуряването на качество, мониторинга и управлението на рисковете, техническото отчитане, комуникацията, разпространението и използването на резултатите.\n\nПланирате проект по „Хоризонт Европа“ или търсите опитен партньор за вашия консорциум? Свържете се с нас, за да обсъдим възможностите за сътрудничество.",
     },
   },
   {
@@ -128,8 +110,8 @@ const programmes: ProgrammeDetail[] = [
     title: 'CERV',
     eyebrow: { en: 'Citizens, Equality, Rights and Values', bg: 'Граждани, равенство, права и ценности' },
     lead: {
-      en: 'CERV supports open, equal, inclusive and democratic societies based on the rule of law and the fundamental values of the European Union.',
-      bg: 'CERV подкрепя отворени, равни, приобщаващи и демократични общества, основани на върховенството на правото и основните ценности на Европейския съюз.',
+      en: "The Citizens, Equality, Rights and Values (CERV) programme promotes and protects the fundamental rights and values of the European Union. It supports the development of open, democratic, equal and inclusive societies founded on the rule of law, while encouraging civic participation, equality, non-discrimination and the protection of human rights.",
+      bg: "Програмата „Граждани, равенство, права и ценности“ (CERV) защитава и насърчава основните права и ценности на Европейския съюз, като подкрепя развитието на демократични, справедливи и приобщаващи общества, основани на принципите на правовата държава. Тя насърчава гражданското участие, равенството и недискриминацията, защитата на човешките права и активната роля на гражданското общество.",
     },
     visualCue: {
       en: 'Human rights, civic spaces, European symbols',
@@ -139,31 +121,22 @@ const programmes: ProgrammeDetail[] = [
       'https://commission.europa.eu/funding-and-tenders/find-funding/eu-funding-programmes/citizens-equality-rights-and-values-programme/citizens-equality-rights-and-values-programme-overview_en',
     emailCta: { en: 'Explore CERV support', bg: 'Обсъдете подкрепа по CERV' },
     icon: Scale,
+    focusTitle: { en: "Main CERV strands", bg: "Основни направления на CERV" },
     focus: {
-      en: [
-        'Rights protection and equality',
-        'Civil society and democratic participation',
-        'European remembrance and shared history',
-        'Prevention of violence',
-      ],
-      bg: [
-        'Защита на права и равенство',
-        'Гражданско общество и демократично участие',
-        'Европейска памет и споделена история',
-        'Превенция на насилието',
-      ],
+      en: ["Protection and promotion of EU values", "Human rights protection, equality and non-discrimination", "Citizens’ engagement and participation in democratic life", "Daphne: Preventing and combating violence, including violence against women and children"],
+      bg: ["Защита и утвърждаване на основните ценности на ЕС", "Защита на правата на човека, равенство и борба с дискриминацията", "Гражданска ангажираност и участие в демократичния живот", "„Дафне“ (Daphne): Превенция и борба с насилието, включително насилието срещу жени и деца"],
     },
     intro: {
-      en: 'The programme is particularly relevant to NGOs, civil society organisations, municipalities, public institutions, universities, schools, equality bodies, professional networks and organisations working with communities and groups whose rights or participation may be at risk.',
-      bg: 'Програмата е особено подходяща за неправителствени организации, организации на гражданското общество, общини, публични институции, университети, училища, органи по равенство, професионални мрежи и организации, работещи с общности и групи, чиито права или участие могат да бъдат изложени на риск.',
+      en: "The programme offers funding opportunities for civil society organisations, NGOs, local and public authorities, universities, educational institutions, equality bodies and other organisations committed to promoting European values and fundamental rights. Particular emphasis is placed on strengthening civil society, protecting vulnerable groups, promoting equal opportunities and encouraging active participation in democratic life.",
+      bg: "Възможностите за финансиране са насочени предимно към неправителствени организации и организации на гражданското общество, но обхващат също общини, публични институции, университети, училища, органи за защита от дискриминация и други организации, работещи за утвърждаване на европейските ценности. Особено внимание се отделя на инициативи в подкрепа на уязвими групи, равните възможности и участието на гражданите в демократичния живот.",
     },
     supportTitle: {
-      en: 'How V&A Projects supports CERV applicants',
-      bg: 'Как V&A Projects подкрепя кандидати по CERV',
+      en: "How can V&A Projects support your CERV application?",
+      bg: "Как V&A Projects може да подкрепи вашата кандидатура?",
     },
     support: {
-      en: 'CERV proposals require a strong understanding of the social or rights-related problem, the people affected and the practical change the project intends to achieve. We help applicants define needs, target groups, objectives, activities and expected results. We can support partner identification, transnational cooperation, proposal writing, budgeting, risk planning, safeguarding, ethics, data protection, monitoring indicators, project management, stakeholder engagement, communication campaigns, policy dialogue, event planning and evaluation of social results.',
-      bg: 'Предложенията по CERV изискват силно разбиране на социалния или правозащитен проблем, засегнатите хора и практическата промяна, която проектът цели да постигне. Помагаме на кандидатите да дефинират нужди, целеви групи, цели, дейности и очаквани резултати. Можем да подкрепим идентифициране на партньори, транснационално сътрудничество, писане на предложение, бюджетиране, планиране на рискове, защита на участници, етика, защита на данните, индикатори за мониторинг, управление на проекта, ангажиране на заинтересовани страни, комуникационни кампании, политически диалог, планиране на събития и оценка на социалните резултати.',
+      en: "Whether you have an initial idea or are preparing a CERV funding application, V&A Projects can support you at every stage. We help organisations develop strong project concepts, identify suitable funding opportunities, build international partnerships and prepare competitive proposals with clear objectives, well-planned activities and measurable results.\n\nOnce your project is approved, we can assist with project management, partner coordination, quality assurance, ethics and safeguarding, monitoring and evaluation, communication campaigns, stakeholder engagement and reporting.\n\nHave a CERV project in mind or looking for an experienced partner? Get in touch to discuss your idea and explore how we can work together.",
+      bg: "Разработването на успешно проектно предложение по CERV изисква задълбочено разбиране на обществените проблеми, потребностите на целевите групи и възможностите за постигане на реална промяна. V&A Projects подпомага организациите при формулирането на ясни цели, планирането на дейности и очаквани резултати, изграждането на международни партньорства и подготовката на конкурентоспособни предложения за финансиране.\n\nСлед одобрението предоставяме експертна подкрепа при управлението и координацията на проекта, осигуряването на качество, спазването на етичните изисквания и защитата на участниците. Съдействаме също при организирането на информационни кампании, обществени дискусии и инициативи за гражданско участие, както и при мониторинга и оценката на постигнатите резултати и общественото въздействие.\n\nИмате идея за проект по CERV или търсите партньор с експертиза в областта на човешките права и гражданското участие? Свържете се с нас, за да обсъдим възможностите за сътрудничество.",
     },
   },
   {
@@ -301,7 +274,7 @@ export default function Programmes() {
               </div>
 
               <p>{loc(selected.lead, lang)}</p>
-              <p>{loc(selected.intro, lang)}</p>
+              {loc(selected.intro, lang).split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </article>
           </div>
         </div>
@@ -321,7 +294,7 @@ export default function Programmes() {
                         className={`${styles.mobileCopy} ${expandedCopy.includes(supportCopyId) ? styles.mobileCopyExpanded : ''}`.trim()}
                         id={`programme-support-${selected.id}`}
                       >
-                        <p>{loc(selected.support, lang)}</p>
+                        {loc(selected.support, lang).split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                       </div>
                       <button
                         type="button"
@@ -347,7 +320,7 @@ export default function Programmes() {
                 </div>
 
                 <div className={styles.focusPanel}>
-                  <span className="eyebrow">{t('programmes.relevantFor')}</span>
+                  <span className="eyebrow">{selected.focusTitle ? loc(selected.focusTitle, lang) : t('programmes.relevantFor')}</span>
                   <ul>
                     {locList(selected.focus, lang).map((item) => (
                       <li key={item}>{item}</li>
