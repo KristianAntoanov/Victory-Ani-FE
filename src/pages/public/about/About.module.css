@@ -608,6 +608,10 @@
   .founderDetails {
     max-height: 9.5rem;
   }
+
+  .founderDetailsExpanded {
+    max-height: 80rem;
+  }
 }
 
 @media (max-width: 520px) {
