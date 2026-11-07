@@ -1158,7 +1158,12 @@ ul {
 }
 
 .consult-modal__close {
+  touch-action: manipulation;
   transition: background var(--t-base), color var(--t-base), border-color var(--t-base);
+}
+
+.consult-modal__close svg {
+  pointer-events: none;
 }
 
 .consult-modal__close:hover {
@@ -2771,5 +2776,23 @@ ul {
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+}
+
+/* Keep mobile form controls readable without focus zoom and nested scrolling. */
+@media (max-width: 640px) {
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  .consult-modal-overlay {
+    overflow: hidden;
+  }
+
+  .consult-modal {
+    max-height: calc(100dvh - 1.5rem);
+    overscroll-behavior-y: contain;
   }
 }

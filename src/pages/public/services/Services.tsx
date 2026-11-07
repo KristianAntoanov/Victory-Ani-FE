@@ -47,13 +47,13 @@ const services: ServiceDetail[] = [
     id: 'proposal-development',
     title: { en: 'Proposal development', bg: 'Разработване на проектни предложения' },
     subtitle: {
-      en: 'From first idea to submission-ready proposal',
+      en: "From initial concept to a compelling, submission-ready application.",
       bg: 'От първата идея до готово за подаване предложение',
     },
     icon: PenLine,
     intro: {
-      en: 'A competitive EU proposal must combine a strong idea with clear objectives, credible activities, measurable results and a consortium capable of delivering the work. V&A Projects transforms early-stage concepts into complete, submission-ready proposals and manages the development process through the relevant European funding portal.',
-      bg: 'Конкурентното европейско проектно предложение трябва да съчетава силна идея с ясни цели, убедителни дейности, измерими резултати и консорциум, способен да изпълни работата. V&A Projects превръща ранните концепции в цялостни предложения, готови за подаване, и управлява процеса на разработване през съответния европейски портал за финансиране.',
+      en: "A successful EU funding application requires more than a strong idea. It requires clearly defined objectives, planned activities, measurable results and a capable consortium. V&A Projects provides expert support throughout the entire proposal development process, from the initial concept to final submission.",
+      bg: "Успешното кандидатстване за европейско финансиране изисква не само добра идея, но и ясно формулирани цели, добре планирани дейности, измерими резултати и надеждни партньори. V&A Projects предоставя експертна подкрепа през целия процес на разработване на проектното предложение, от първоначалната концепция до окончателното му подаване.",
     },
     result: {
       en: 'The result is a competitive and credible proposal in which every section supports the same project logic and responds directly to the evaluation requirements.',
@@ -61,50 +61,50 @@ const services: ServiceDetail[] = [
     },
     support: [
       {
-        title: { en: 'Call analysis and concept design', bg: 'Анализ на поканата и дизайн на концепцията' },
+        title: { en: 'Call analysis and concept design', bg: "Анализ на възможностите за финансиране" },
         text: {
-          en: 'We examine programme requirements, expected outcomes, eligibility conditions and evaluation criteria, then refine the idea into a clear project direction.',
-          bg: 'Преглеждаме изискванията на програмата, очакваните резултати, условията за допустимост и критериите за оценка, след което оформяме идеята в ясна проектна посока.',
+          en: "We examine programme requirements, expected outcomes, eligibility conditions and evaluation criteria to identify the most effective approach to developing your project idea.",
+          bg: "Проучваме условията на конкретната покана, изискванията за допустимост и критериите за оценка, за да определим най-подходящия подход за разработване на вашата проектна идея.",
         },
         icon: FileSearch,
       },
       {
-        title: { en: 'Project development', bg: 'Разработване на проекта' },
+        title: { en: 'Project development', bg: "Разработване на проектно предложение" },
         text: {
-          en: 'We formulate objectives, target groups, activities, work packages, tasks, deliverables, milestones, indicators and evaluator-focused content.',
-          bg: 'Формулираме цели, целеви групи, дейности, работни пакети, задачи, продукти, етапи, индикатори и съдържание, насочено към оценителите.',
+          en: "We define project objectives, target groups and expected results, work packages and activities and establish deliverables, milestones and performance indicators.",
+          bg: "Формулираме целите и очакваните резултати, определяме целевите групи и планираме дейностите, работните пакети, сроковете, индикаторите и необходимите ресурси. Подготвяме проектното предложение в съответствие с изискванията на програмата.",
         },
         icon: Target,
       },
       {
-        title: { en: 'Strategic consortium building', bg: 'Стратегическо изграждане на консорциум' },
+        title: { en: 'Strategic consortium building', bg: "Изграждане на международни партньорства" },
         text: {
-          en: 'We identify the expertise, geography and organisational profiles needed, support partner search and collect consortium information.',
-          bg: 'Определяме нужната експертиза, географско покритие и организационни профили, подкрепяме търсенето на партньори и събираме информация за консорциума.',
+          en: "We identify the expertise, geographical representation and organisational profiles needed and build strong international consortia.",
+          bg: "Съдействаме при подбора на подходящи партньори с необходимия опит и експертиза. Подкрепяме формирането на консорциум с ясно разпределени роли, отговорности и принос към изпълнението на проекта.",
         },
         icon: Network,
       },
       {
-        title: { en: 'Impact and risk planning', bg: 'Планиране на въздействие и рискове' },
+        title: { en: "Impact, sustainability and risk management", bg: "Планиране на въздействието, устойчивостта и управлението на риска" },
         text: {
-          en: 'We define expected change, measurable benefits, sustainability, wider use and suitable responses to operational and partnership risks.',
-          bg: 'Дефинираме очакваната промяна, измеримите ползи, устойчивостта, по-широкото използване и подходящите реакции при оперативни и партньорски рискове.',
+          en: "We develop strategies to maximise project impact, expected benefits and long-term use of results, and identify responses to operational and partnership risks.",
+          bg: "Разработваме подход за оценка на очакваните ползи и дългосрочните резултати, планираме тяхното разпространение и последващо използване и определяме мерки за предотвратяване и управление на потенциалните рискове.",
         },
         icon: BarChart3,
       },
       {
         title: { en: 'Budget preparation', bg: 'Подготовка на бюджет' },
         text: {
-          en: 'We develop a realistic budget that reflects planned work, funding rules and partner responsibilities.',
-          bg: 'Разработваме реалистичен бюджет, който отразява планираната работа, правилата за финансиране и отговорностите на партньорите.',
+          en: "We develop a realistic budget that reflects project activities, funding rules, resource requirements and partner responsibilities.",
+          bg: "Разработваме реалистичен бюджет, съобразен с планираните дейности, правилата за финансиране и разпределението на ресурсите между партньорите.",
         },
         icon: PieChart,
       },
       {
-        title: { en: 'Portal submission', bg: 'Подаване през портала' },
+        title: { en: 'Portal submission', bg: "Подаване чрез електронната платформа" },
         text: {
-          en: 'We support preparation and final submission through the official EU funding platform.',
-          bg: 'Подкрепяме подготовката и финалното подаване през официалната платформа на ЕС за финансиране.',
+          en: "We coordinate the preparation of supporting documents and the final submission through the relevant EU funding platform.",
+          bg: "Координираме подготовката на необходимите документи, проверяваме съответствието с изискванията на поканата и съдействаме за окончателното подаване на кандидатурата чрез съответната електронна платформа.",
         },
         icon: UploadCloud,
       },
@@ -112,12 +112,12 @@ const services: ServiceDetail[] = [
   },
   {
     id: 'proposal-review',
-    title: { en: 'Proposal consultation and review', bg: 'Консултация и преглед на предложения' },
-    subtitle: { en: 'Expert review before submission', bg: 'Експертен преглед преди подаване' },
+    title: { en: "Expert proposal review", bg: "Консултации и експертна оценка" },
+    subtitle: { en: "Independent assessment and practical recommendations to strengthen your application.", bg: "Професионален преглед на проектни предложения и препоръки за подобряването им преди подаване." },
     icon: FileCheck2,
     intro: {
-      en: 'Organisations that prepare proposals internally can benefit from an independent expert review before submission. We assess draft applications from the position of an evaluator and identify weaknesses that may reduce the score or create uncertainty during assessment.',
-      bg: 'Организациите, които подготвят предложения вътрешно, могат да спечелят от независим експертен преглед преди подаване. Оценяваме проектните кандидатури от позицията на оценител и откриваме слабости, които могат да намалят оценката или да създадат неяснота при оценяването.',
+      en: "Even a well-developed project proposal can contain weaknesses that affect its evaluation. V&A Projects provides independent expert reviews of EU funding applications, assessing draft proposals against programme requirements and official evaluation criteria. We identify gaps and areas for improvement, offering recommendations to strengthen the quality and competitiveness of your application.",
+      bg: "Дори добре разработено проектно предложение може да съдържа пропуски, които да повлияят на оценката му. V&A Projects предлага независим експертен преглед на кандидатури, като анализира тяхното съдържание спрямо изискванията на програмата и критериите за оценка. Идентифицираме слабите места и предоставяме конкретни препоръки за повишаване на качеството и конкурентоспособността на предложението.",
     },
     result: {
       en: 'Clients receive direct, practical and prioritised recommendations, with a clear understanding of what must be strengthened, why it matters and how the proposal can be improved.',
@@ -125,17 +125,17 @@ const services: ServiceDetail[] = [
     },
     support: [
       {
-        title: { en: 'Evaluation criteria review', bg: 'Преглед спрямо критериите за оценка' },
+        title: { en: 'Evaluation criteria review', bg: "Преглед по критериите за оценка" },
         text: {
           en: 'We assess the proposal against the official award criteria and expected scoring requirements.',
-          bg: 'Оценяваме предложението спрямо официалните критерии за присъждане и очакваните изисквания за точкуване.',
+          bg: "Анализираме проектното предложение от гледна точка на оценителите, като проверяваме доколко съдържанието отговаря на отделните критерии и изисквания.",
         },
         icon: ClipboardCheck,
       },
       {
-        title: { en: 'Call compliance check', bg: 'Проверка за съответствие с поканата' },
+        title: { en: "Funding call compliance", bg: "Проверка за съответствие с програмата" },
         text: {
-          en: 'We verify whether the application responds to the topic, scope, expected outcomes and eligibility conditions.',
+          en: "We verify whether your application addresses the programme priorities, topic requirements, expected outcomes and eligibility conditions.",
           bg: 'Проверяваме дали кандидатурата отговаря на темата, обхвата, очакваните резултати и условията за допустимост.',
         },
         icon: CheckCircle2,
@@ -144,31 +144,31 @@ const services: ServiceDetail[] = [
         title: { en: 'Project logic assessment', bg: 'Оценка на проектната логика' },
         text: {
           en: 'We examine whether needs, objectives, activities, outputs and results are clearly connected.',
-          bg: 'Преглеждаме дали нуждите, целите, дейностите, продуктите и резултатите са ясно свързани.',
+          bg: "Анализираме връзката между установените потребности, цели, дейности и очакваните резултати, за да установим евентуални несъответствия.",
         },
         icon: Target,
       },
       {
-        title: { en: 'Content assessment', bg: 'Оценка на съдържанието' },
+        title: { en: "Content and quality assessment", bg: "Оценка на качеството на съдържанието" },
         text: {
           en: 'We review concept quality, methodology, innovation, technical approach, impact, indicators, dissemination, sustainability, work plan and resources.',
-          bg: 'Преглеждаме качеството на концепцията, методологията, иновацията, техническия подход, въздействието, индикаторите, разпространението, устойчивостта, работния план и ресурсите.',
+          bg: "Преглеждаме методологията, иновативните елементи, работния план, предвиденото въздействие, устойчивостта и необходимите ресурси.",
         },
         icon: FileSearch,
       },
       {
         title: { en: 'Gap identification', bg: 'Идентифициране на пропуски' },
         text: {
-          en: 'We highlight missing evidence, weak arguments, unclear responsibilities and unsupported claims.',
-          bg: 'Открояваме липсващи доказателства, слаби аргументи, неясни отговорности и неподкрепени твърдения.',
+          en: "We highlight missing evidence, weak arguments, unclear responsibilities and unsupported claims that could weaken your application.",
+          bg: "Откриваме неясноти, недостатъчно обосновани твърдения, липсваща информация и несъответствия, които могат да повлияят на крайната оценка.",
         },
         icon: ListChecks,
       },
       {
-        title: { en: 'Strategic recommendations', bg: 'Стратегически препоръки' },
+        title: { en: 'Strategic recommendations', bg: "Конкретни препоръки за подобрение" },
         text: {
-          en: 'We provide detailed observations, discuss main weaknesses and help prioritise revisions.',
-          bg: 'Предоставяме подробни наблюдения, обсъждаме основните слабости и помагаме за приоритизиране на редакциите.',
+          en: "We provide detailed feedback and recommendations, helping you strengthen your proposal before submission.",
+          bg: "Предоставяме подробна обратна връзка с практически насоки за отстраняване на установените слабости и повишаване на качеството на проектното предложение.",
         },
         icon: Gauge,
       },
@@ -178,16 +178,16 @@ const services: ServiceDetail[] = [
     id: 'quality-assurance',
     title: {
       en: 'Quality assurance, ethics and data management',
-      bg: 'Осигуряване на качество, етика и управление на данни',
+      bg: "Стандарти за качество, етика и поверителност при управлението на данни",
     },
     subtitle: {
-      en: 'Clear standards that guide your project to success',
-      bg: 'Ясни стандарти, които водят проекта към успех',
+      en: "Quality standards that guide your project to success",
+      bg: "Прилагане на стандарти за качество, спазване на етичните принципи и отговорно управление на данните",
     },
     icon: ShieldCheck,
     intro: {
-      en: 'V&A Projects can join your consortium, develop and implement quality assurance systems, ethical procedures and data management practices that help European partnerships maintain high standards, protect participants and manage project information responsibly throughout implementation.',
-      bg: 'V&A Projects може да се включи във вашия консорциум, да разработи и приложи системи за осигуряване на качество, етични процедури и практики за управление на данни, които помагат на европейските партньорства да поддържат високи стандарти, да защитават участниците и да управляват проектната информация отговорно през цялото изпълнение.',
+      en: "V&A Projects provides specialised expertise in quality assurance, ethics and data management for EU-funded projects. As a consortium partner, we develop and implement quality assurance procedures, ethical guidelines and data management practices that ensure consistent standards, safeguard participants and support the responsible handling of project information throughout implementation.",
+      bg: "V&A Projects предоставя специализирана експертна подкрепа в областта на прилагането на стандарти за качество, спазването на етичните изисквания и управлението на данни в европейски проекти. Разработваме и прилагаме процедури за мониторинг и оценка, проследяваме изпълнението на заложените цели и подпомагаме партньорите в поддържането на високи стандарти през целия цикъл на проекта.",
     },
     result: {
       en: 'This service gives coordinators and partners a clear system for monitoring performance, protecting quality and maintaining readiness for reporting, reviews and audits.',
@@ -197,37 +197,37 @@ const services: ServiceDetail[] = [
       {
         title: { en: 'Quality standards', bg: 'Стандарти за качество' },
         text: {
-          en: 'We establish criteria for activities, deliverables, outputs and internal processes, aligned with grant requirements and EU visibility obligations.',
-          bg: 'Създаваме критерии за дейности, продукти, резултати и вътрешни процеси, съобразени с изискванията на гранта и задълженията за видимост на ЕС.',
+          en: "We establish quality criteria for activities, deliverables, outputs and internal processes, aligned with grant requirements and EU visibility obligations.",
+          bg: "Разработваме критерии за дейности, продукти, резултати и вътрешни процеси, съобразени с изискванията на гранта и задълженията за видимост на ЕС.",
         },
         icon: ShieldCheck,
       },
       {
-        title: { en: 'Quality assurance planning', bg: 'Планиране на осигуряването на качество' },
+        title: { en: 'Quality assurance planning', bg: "Планиране и контрол на осигуряването на качество" },
         text: {
-          en: 'We define quality responsibilities, review procedures, decision-making processes and measurable indicators.',
-          bg: 'Дефинираме отговорности за качеството, процедури за преглед, процеси за вземане на решения и измерими индикатори.',
+          en: "We develop Quality Assurance Plans that define responsibilities, review and approval procedures, decision-making processes and measurable performance indicators.",
+          bg: "Изготвяме планове за осигуряване на качеството с конкретни отговорности, процедури за преглед и измерими показатели за изпълнение.",
         },
         icon: ClipboardCheck,
       },
       {
         title: { en: 'Continuous monitoring and reporting', bg: 'Непрекъснат мониторинг и отчитане' },
         text: {
-          en: 'We create tools for following progress, deadlines, milestones and targets, including surveys, templates and partner questionnaires.',
-          bg: 'Създаваме инструменти за проследяване на напредъка, сроковете, етапите и целите, включително анкети, шаблони и партньорски въпросници.',
+          en: "We design monitoring and evaluation tools to track project progress and assess performance against milestones and targets.",
+          bg: "Разработваме инструменти за проследяване на напредъка и оценка на резултатите, включително анкети, въпросници, оценъчни формуляри и отчети.",
         },
         icon: BarChart3,
       },
       {
-        title: { en: 'Ethics compliance', bg: 'Етично съответствие' },
+        title: { en: "Ethical compliance", bg: "Спазване на етичните изисквания" },
         text: {
-          en: 'We develop ethics procedures and support compliance with relevant EU requirements concerning research integrity, informed consent, participant protection and vulnerable groups.',
-          bg: 'Разработваме етични процедури и подкрепяме съответствието с релевантните изисквания на ЕС относно изследователската почтеност, информираното съгласие, защитата на участниците и уязвимите групи.',
+          en: "We develop ethical guidelines and procedures to support compliance with EU requirements on research integrity, informed consent, participant protection, confidentiality and the ethical involvement of vulnerable groups.",
+          bg: "Разработваме етични процедури в съответствие с изискванията на ЕС относно изследователската почтеност, информираното съгласие, защитата на участниците и уязвимите групи.",
         },
         icon: CheckCircle2,
       },
       {
-        title: { en: 'Data management and GDPR compliance', bg: 'Управление на данни и GDPR съответствие' },
+        title: { en: 'Data management and GDPR compliance', bg: "Управление и защита на данните" },
         text: {
           en: 'We support the preparation of Data Management Plans (DMPs) and procedures for data collection, storage, access, sharing, retention and protection in accordance with GDPR and programme requirements.',
           bg: 'Подкрепяме подготовката на планове за управление на данни (DMP) и процедури за събиране, съхранение, достъп, споделяне, запазване и защита на данни в съответствие с GDPR и изискванията на програмата.',
@@ -235,10 +235,10 @@ const services: ServiceDetail[] = [
         icon: FileCheck2,
       },
       {
-        title: { en: 'Risk identification and mitigation', bg: 'Идентифициране и ограничаване на рискове' },
+        title: { en: 'Risk identification and mitigation', bg: "Оценка и управление на рискове" },
         text: {
           en: 'We assess operational, financial, technical, legal, ethical and partnership risks, then define preventive and response actions.',
-          bg: 'Оценяваме оперативни, финансови, технически, правни, етични и партньорски рискове, след което дефинираме превантивни и реактивни действия.',
+          bg: "Идентифицираме потенциалните рискове и разработваме мерки за тяхното предотвратяване и ограничаване.",
         },
         icon: Gauge,
       },
@@ -248,13 +248,13 @@ const services: ServiceDetail[] = [
     id: 'project-management',
     title: { en: 'Project management and implementation', bg: 'Управление и изпълнение на проекти' },
     subtitle: {
-      en: 'From approval to meaningful results and lasting impact',
-      bg: 'От одобрението до значими резултати и трайно въздействие',
+      en: "Effective coordination, efficient implementation and successful project delivery.",
+      bg: "Професионална подкрепа от одобрението на проекта до постигането на значими и устойчиви резултати.",
     },
     icon: Users,
     intro: {
-      en: 'Approval is only the beginning of a successful EU-funded project. Once funding has been awarded, the partnership must coordinate activities, manage deadlines, maintain documentation, communicate effectively and meet technical and financial obligations.',
-      bg: 'Одобрението е само началото на успешния проект, финансиран от ЕС. След отпускане на финансирането партньорството трябва да координира дейности, да управлява срокове, да поддържа документация, да комуникира ефективно и да изпълнява технически и финансови задължения.',
+      en: "Successful project implementation requires coordination, planning, timely delivery and careful administrative and financial management. V&A Projects provides professional support throughout the project lifecycle, helping consortia coordinate activities, manage resources, fulfil contractual obligations and achieve their objectives.",
+      bg: "Успешното изпълнение изисква ефективна координация, добро планиране, спазване на сроковете и прецизно административно и финансово управление. V&A Projects предоставя професионална подкрепа през всички етапи на реализацията, като подпомага координацията между партньорите, проследяването на напредъка, изпълнението на договорните задължения и постигането на заложените резултати.",
     },
     result: {
       en: 'Our role is to provide the discipline, coordination and practical support needed to keep the project on schedule and in line with its contractual commitments.',
@@ -262,50 +262,50 @@ const services: ServiceDetail[] = [
     },
     support: [
       {
-        title: { en: 'Project setup', bg: 'Стартиране на проекта' },
+        title: { en: "Project setup and organisation", bg: 'Стартиране на проекта' },
         text: {
-          en: 'We establish management procedures, communication channels, templates, responsibilities and reporting arrangements.',
-          bg: 'Създаваме управленски процедури, комуникационни канали, шаблони, отговорности и механизми за отчитане.',
+          en: "We establish effective project management structures, defining procedures, partner responsibilities, communication channels and monitoring and reporting arrangements.",
+          bg: "Изграждаме ефективна организация на работа, като определяме управленските процедури, отговорностите, начините за комуникация и механизмите за проследяване и отчитане.",
         },
         icon: Rocket,
       },
       {
-        title: { en: 'Grant agreement preparation', bg: 'Подготовка на грантовото споразумение' },
+        title: { en: 'Grant agreement preparation', bg: "Подготовка на договора за финансиране" },
         text: {
-          en: 'We support the collection and organisation of information required during the contracting stage.',
-          bg: 'Подкрепяме събирането и организирането на информацията, необходима на етапа на договаряне.',
+          en: "We support the collection and organisation of documentation required during the grant agreement preparation stage.",
+          bg: "Съдействаме при подготовката на необходимата документация, координацията с партньорите и сключването на споразумение за финансиране.",
         },
         icon: FileCheck2,
       },
       {
-        title: { en: 'Consortium coordination', bg: 'Координация на консорциума' },
+        title: { en: 'Consortium coordination', bg: "Координация на партньорството" },
         text: {
-          en: 'We facilitate partner communication, distribute responsibilities, monitor contributions and support meetings, minutes and follow-up.',
-          bg: 'Улесняваме комуникацията между партньорите, разпределяме отговорности, следим приноса и подкрепяме срещи, протоколи и последващи действия.',
+          en: "We facilitate communication and collaboration among partners, coordinate responsibilities, monitor contributions and organise project meetings, documentation and follow-up activities.",
+          bg: "Поддържаме активна комуникация между партньорите, координираме изпълнението на ангажиментите им и организираме работни срещи, обсъждания и последващи действия.",
         },
         icon: Handshake,
       },
       {
-        title: { en: 'Day-to-day management', bg: 'Ежедневно управление' },
+        title: { en: "Operational management", bg: "Оперативно управление" },
         text: {
-          en: 'We follow activities, deadlines, documents, decisions, partner obligations, work packages, tasks, deliverables and dependencies.',
-          bg: 'Проследяваме дейности, срокове, документи, решения, партньорски задължения, работни пакети, задачи, продукти и зависимости.',
+          en: "We oversee day-to-day project activities, coordinate work packages and tasks, manage documentation and support effective decision-making and the fulfilment of partner obligations.",
+          bg: "Координираме ежедневното изпълнение на проекта, следим дейностите и работните пакети, организираме документацията и подпомагаме своевременното вземане на решения.",
         },
         icon: ListChecks,
       },
       {
-        title: { en: 'Timetable control', bg: 'Контрол на графика' },
+        title: { en: "Progress monitoring and timeline management", bg: "Проследяване на напредъка и сроковете" },
         text: {
-          en: 'We track progress against the approved schedule and identify delays at an early stage.',
-          bg: 'Проследяваме напредъка спрямо одобрения график и откриваме забавяния на ранен етап.',
+          en: "We monitor progress against the approved work plan, track milestones and deadlines and identify potential delays to ensure timely project delivery.",
+          bg: "Следим изпълнението спрямо одобрения работен план, контролираме спазването на сроковете и идентифицираме своевременно възможни забавяния и отклонения.",
         },
         icon: Gauge,
       },
       {
-        title: { en: 'Deliverables and reporting', bg: 'Продукти и отчитане' },
+        title: { en: 'Deliverables and reporting', bg: "Управление на резултатите и отчитане" },
         text: {
           en: 'We coordinate deliverable review and submission, verify milestones and support periodic and final narrative and financial reporting.',
-          bg: 'Координираме прегледа и подаването на продукти, проверяваме етапи и подкрепяме периодичното и финално техническо и финансово отчитане.',
+          bg: "Координираме подготовката и прегледа на проектните резултати, проследяваме изпълнението на ключовите етапи и съдействаме при изготвянето на междинни и окончателни отчети.",
         },
         icon: ClipboardCheck,
       },

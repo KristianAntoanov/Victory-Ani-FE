@@ -19,46 +19,28 @@ interface ProcessStep {
 
 const processSteps: ProcessStep[] = [
   {
-    title: { en: 'Listen', bg: 'Изслушваме' },
-    text: {
-      en: 'We begin with your idea, your organisation and the needs of the people you want to support.',
-      bg: 'Започваме с вашата идея, вашата организация и нуждите на хората, които искате да подкрепите.',
-    },
+    title: { en: "Listen", bg: "Изслушваме" },
+    text: { en: "We start by understanding your idea, learning about your organisation and identifying the needs of the people you aim to support.", bg: "В основата на нашата работа стоят вашата идея, потребностите на вашата организация и хората, до които искате да достигнете." },
   },
   {
-    title: { en: 'Find', bg: 'Намираме' },
-    text: {
-      en: 'We identify the EU programme and funding call that offer the strongest match for your ambitions.',
-      bg: 'Идентифицираме европейската програма и покана за финансиране, които най-добре съответстват на вашите амбиции.',
-    },
+    title: { en: "Identify", bg: "Избираме" },
+    text: { en: "We explore EU funding opportunities to identify the programme and call that best match your organisation’s goals, needs and ambitions.", bg: "Проучваме възможностите за европейско финансиране и избираме най-подходящата програма и покана за кандидатстване според целите и потребностите на вашата организация." },
   },
   {
-    title: { en: 'Shape', bg: 'Оформяме' },
-    text: {
-      en: 'We develop the project concept, objectives, activities, results and project logic.',
-      bg: 'Разработваме проектната концепция, целите, дейностите, резултатите и логиката на проекта.',
-    },
+    title: { en: "Develop the concept", bg: "Разработваме" },
+    text: { en: "We turn your idea into a clear project concept with specific objectives, activities and expected results.", bg: "Превръщаме вашата идея в ясна и добре обоснована проектна концепция, като определяме целите, планираме дейностите и очертаваме очакваните резултати." },
   },
   {
-    title: { en: 'Connect', bg: 'Свързваме' },
-    text: {
-      en: 'We build a balanced partnership with the right expertise, roles and geographical coverage.',
-      bg: 'Изграждаме балансирано партньорство с правилната експертиза, роли и географско покритие.',
-    },
+    title: { en: "Build partnerships", bg: "Създаваме партньорства" },
+    text: { en: "We select suitable partners based on their experience and expertise, define their roles and responsibilities and build a balanced international partnership for successful project implementation.", bg: "Подбираме подходящите партньори според техния опит и експертиза, определяме ролите и отговорностите им и изграждаме балансирано международно партньорство за успешното изпълнение на проекта." },
   },
   {
-    title: { en: 'Build', bg: 'Изграждаме' },
-    text: {
-      en: 'We prepare the proposal, work plan, budget and supporting documents with care and precision.',
-      bg: 'Подготвяме предложението, работния план, бюджета и придружаващите документи с внимание и прецизност.',
-    },
+    title: { en: "Prepare the proposal", bg: "Подготвяме проектно предложение" },
+    text: { en: "We prepare the proposal, work plan, budget and supporting documents with care and precision in compliance with the funding requirements.", bg: "Разработваме цялостното проектно предложение, работния план, бюджета и необходимата документация, като обръщаме внимание на всеки детайл и изискванията на програмата за финансиране." },
   },
   {
-    title: { en: 'Deliver', bg: 'Реализираме' },
-    text: {
-      en: 'We support implementation, coordination, communication, quality assurance and reporting after approval.',
-      bg: 'Подкрепяме изпълнението, координацията, комуникацията, осигуряването на качество и отчитането след одобрение.',
-    },
+    title: { en: "Manage implementation", bg: "Управляваме изпълнението" },
+    text: { en: "We support implementation, coordination, communication, quality assurance and reporting after approval.", bg: "След одобрението на проекта продължаваме да ви подкрепяме при изпълнението на дейностите, координацията между партньорите, комуникацията, осигуряването на качество и подготовката на необходимите отчети." },
   },
 ];
 
@@ -70,7 +52,7 @@ export default function About() {
   const programmes = getProgrammes(lang);
   const selectedProcessStep = processSteps[activeProcessStep];
   const founders = getTeamMembers(lang).filter((member) =>
-    ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
+    member.id === 'viktor-georgiev',
   );
 
   const toggleFounder = (founderId: string) => {
@@ -152,10 +134,13 @@ export default function About() {
 
       <section className={styles.foundersSection} aria-labelledby="founders-heading">
         <div className="container">
-          <h2 id="founders-heading" className="visually-hidden">{t('about.founders')}</h2>
+          <h2 id="founders-heading" className={styles.founderHeading}>{t('about.founder')}</h2>
           <div className={styles.foundersGrid}>
             {founders.map((founder) => (
-              <article className={styles.founderCard} key={founder.id}>
+              <article
+                className={`${styles.founderCard} ${expandedFounders.includes(founder.id) ? '' : styles.founderCardCollapsed}`.trim()}
+                key={founder.id}
+              >
                 <figure className={styles.founderImage}>
                   <img
                     src={founder.image}
