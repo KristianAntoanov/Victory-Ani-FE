@@ -40,6 +40,8 @@ const teamMembers: TeamMemberRecord[] = [
     linkedin: 'https://www.linkedin.com/company/v-a-projects/?viewAsMember=true',
     quote: VIKTOR_GEORGIEV_QUOTE,
   },
+  // Temporarily hidden at Ana’s request. Keep the profile for easy restoration.
+  /*
   {
     id: 'ana-antonova-georgieva',
     name: { en: 'Dr. Ana Antonova-Georgieva', bg: 'д-р Ана Антонова-Георгиева' },
@@ -50,6 +52,7 @@ const teamMembers: TeamMemberRecord[] = [
     linkedin: 'https://www.linkedin.com/company/v-a-projects/?viewAsMember=true',
     quote: ANA_ANTONOVA_GEORGIEVA_QUOTE,
   },
+  */
 ];
 
 export function getTeamMembers(lang: Lang = 'en'): TeamMember[] {

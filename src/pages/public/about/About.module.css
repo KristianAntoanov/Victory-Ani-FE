@@ -178,9 +178,16 @@
   padding-block: clamp(1.25rem, 3vw, 2.6rem);
 }
 
+.founderHeading {
+  max-width: 1040px;
+  margin: 0 auto clamp(1rem, 2vw, 1.6rem);
+  color: var(--color-green);
+  font-size: clamp(2.25rem, 3.5vw, 3.9rem);
+}
+
 .foundersGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: clamp(0.9rem, 1.5vw, 1.35rem);
   max-width: 1040px;
   margin-inline: auto;
@@ -215,6 +222,7 @@
 .founderContent {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   padding: clamp(0.95rem, 1.45vw, 1.35rem);
 }
 
@@ -282,7 +290,7 @@
 }
 
 .founderDetailsExpanded {
-  max-height: 80rem;
+  max-height: none;
 }
 
 .founderDetailsExpanded::after {
@@ -437,6 +445,39 @@
   }
 }
 
+@media (min-width: 701px) {
+  .founderCard {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+    align-items: start;
+  }
+
+  .founderImage {
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  /* Match the collapsed card height to the square photo in its 36% column. */
+  .founderCardCollapsed {
+    aspect-ratio: 25 / 9;
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .founderCardCollapsed .founderContent {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .founderCardCollapsed .founderDetails {
+    min-height: 0;
+  }
+
+  .founderCardCollapsed .founderContent header,
+  .founderCardCollapsed .founderToggle {
+    flex-shrink: 0;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero :global(.container),
   .introSection :global(.container),
@@ -457,10 +498,6 @@
 
   .foundersGrid {
     grid-template-columns: 1fr;
-  }
-
-  .founderCard {
-    display: flex;
   }
 
 }
@@ -612,7 +649,7 @@
   }
 
   .founderDetailsExpanded {
-    max-height: 80rem;
+    max-height: none;
   }
 }
 

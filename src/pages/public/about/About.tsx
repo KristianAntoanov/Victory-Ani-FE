@@ -52,7 +52,7 @@ export default function About() {
   const programmes = getProgrammes(lang);
   const selectedProcessStep = processSteps[activeProcessStep];
   const founders = getTeamMembers(lang).filter((member) =>
-    ['viktor-georgiev', 'ana-antonova-georgieva'].includes(member.id),
+    member.id === 'viktor-georgiev',
   );
 
   const toggleFounder = (founderId: string) => {
@@ -134,10 +134,13 @@ export default function About() {
 
       <section className={styles.foundersSection} aria-labelledby="founders-heading">
         <div className="container">
-          <h2 id="founders-heading" className="visually-hidden">{t('about.founders')}</h2>
+          <h2 id="founders-heading" className={styles.founderHeading}>{t('about.founder')}</h2>
           <div className={styles.foundersGrid}>
             {founders.map((founder) => (
-              <article className={styles.founderCard} key={founder.id}>
+              <article
+                className={`${styles.founderCard} ${expandedFounders.includes(founder.id) ? '' : styles.founderCardCollapsed}`.trim()}
+                key={founder.id}
+              >
                 <figure className={styles.founderImage}>
                   <img
                     src={founder.image}

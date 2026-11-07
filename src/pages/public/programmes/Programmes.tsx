@@ -98,7 +98,7 @@ const programmes: ProgrammeDetail[] = [
     },
     supportTitle: {
       en: "How can V&A Projects support your Horizon Europe application?",
-      bg: "Как V&A Projects може да подкрепи вашата проектна идея?",
+      bg: "Как V&A Projects може да подкрепи вашата проектна идея по Horizon Europe?",
     },
     support: {
       en: "Developing a competitive Horizon Europe proposal requires a strong scientific concept, a clear methodology, a well-structured work plan and a consortium with the right expertise. V&A Projects supports project coordinators throughout the proposal development process, from preparing and reviewing application content to coordinating partner contributions, defining responsibilities and resources and demonstrating the project's expected impact. Once funding is secured, we provide specialised support with project management, consortium coordination, quality assurance, risk management, technical reporting, communication, dissemination and exploitation of results.\n\nPlanning a Horizon Europe proposal or looking for an experienced consortium partner? Get in touch to explore opportunities for collaboration.",
@@ -132,7 +132,7 @@ const programmes: ProgrammeDetail[] = [
     },
     supportTitle: {
       en: "How can V&A Projects support your CERV application?",
-      bg: "Как V&A Projects може да подкрепи вашата кандидатура?",
+      bg: "Как V&A Projects може да подкрепи вашата кандидатура по CERV?",
     },
     support: {
       en: "Whether you have an initial idea or are preparing a CERV funding application, V&A Projects can support you at every stage. We help organisations develop strong project concepts, identify suitable funding opportunities, build international partnerships and prepare competitive proposals with clear objectives, well-planned activities and measurable results.\n\nOnce your project is approved, we can assist with project management, partner coordination, quality assurance, ethics and safeguarding, monitoring and evaluation, communication campaigns, stakeholder engagement and reporting.\n\nHave a CERV project in mind or looking for an experienced partner? Get in touch to discuss your idea and explore how we can work together.",
@@ -144,8 +144,8 @@ const programmes: ProgrammeDetail[] = [
     title: 'LIFE',
     eyebrow: { en: 'Environment and climate action', bg: 'Околна среда и действия за климата' },
     lead: {
-      en: 'LIFE supports projects that protect nature, improve environmental quality, respond to climate change and accelerate the transition towards a cleaner economy.',
-      bg: 'LIFE подкрепя проекти, които защитават природата, подобряват качеството на околната среда, отговарят на климатичните промени и ускоряват прехода към по-чиста икономика.',
+      en: 'LIFE is the European Union’s programme dedicated to the environment and climate action. It supports the protection and restoration of nature and biodiversity, the transition to a circular and resource-efficient economy, climate change mitigation and adaptation, and the shift towards clean energy.',
+      bg: 'LIFE е програмата на Европейския съюз, посветена на опазването на околната среда и действията в областта на климата. Тя подкрепя проекти за съхраняване на биологичното разнообразие, възстановяване на природните екосистеми, ефективно използване на ресурсите и преход към кръгова, енергийно ефективна и климатично неутрална икономика.',
     },
     visualCue: {
       en: 'Nature, landscapes, water, materials, plants and scientific illustrations',
@@ -154,31 +154,22 @@ const programmes: ProgrammeDetail[] = [
     officialUrl: 'https://cinea.ec.europa.eu/programmes/life_en',
     emailCta: { en: 'Explore LIFE support', bg: 'Обсъдете подкрепа по LIFE' },
     icon: Leaf,
+    focusTitle: { en: 'LIFE sub-programmes', bg: 'Основни направления на LIFE' },
     focus: {
-      en: [
-        'Nature protection and biodiversity',
-        'Environmental quality',
-        'Climate change response',
-        'Resource-efficient economy',
-      ],
-      bg: [
-        'Защита на природата и биоразнообразие',
-        'Качество на околната среда',
-        'Отговор на климатичните промени',
-        'Ресурсно ефективна икономика',
-      ],
+      en: ['Nature and Biodiversity', 'Circular Economy and Quality of Life', 'Climate Change Mitigation and Adaptation', 'Clean Energy Transition'],
+      bg: ['Опазване на природата и биологичното разнообразие', 'Кръгова икономика и качество на живот', 'Смекчаване на последиците от изменението на климата и приспособяване към това изменение', 'Преход към чиста енергия'],
     },
     intro: {
-      en: 'The programme is suitable for public authorities, municipalities, environmental organisations, universities, research bodies, businesses and partnerships developing practical environmental and climate solutions. LIFE places strong emphasis on implementation, demonstration, replication and measurable environmental results.',
-      bg: 'Програмата е подходяща за публични власти, общини, екологични организации, университети, научни структури, бизнеси и партньорства, които разработват практически екологични и климатични решения. LIFE поставя силен акцент върху изпълнението, демонстрацията, възпроизвеждането и измеримите екологични резултати.',
+      en: 'The programme provides funding opportunities for public authorities, municipalities, environmental organisations, research institutions, universities, businesses and other public and private organisations working towards the EU’s environmental, climate and energy objectives. LIFE supports practical solutions with measurable environmental and climate benefits, including pilot and demonstration projects, the application of best practices and the replication and wider uptake of successful approaches.',
+      bg: 'Програмата предоставя възможности за финансиране на общини, публични институции, природозащитни организации, университети, научноизследователски институти, предприятия и други организации, ангажирани с опазването на природата и устойчивото развитие. Особен акцент се поставя върху практическото прилагане на иновативни решения, демонстрирането на добри практики и разширяването на тяхното приложение, както и върху постигането на конкретни и измерими резултати за околната среда и климата.',
     },
     supportTitle: {
-      en: 'How V&A Projects supports LIFE applicants',
-      bg: 'Как V&A Projects подкрепя кандидати по LIFE',
+      en: 'How can V&A Projects support your LIFE application?',
+      bg: 'Как V&A Projects може да подкрепи вашата кандидатура по LIFE?',
     },
     support: {
-      en: 'We support applicants in defining the environmental problem, establishing baseline conditions and translating technical solutions into a clear implementation plan. Our services may include call analysis, concept development, consortium building, work planning, indicators, risk management, budgeting, proposal writing, replication activities, policy value, stakeholder participation, communication and long-term continuation of results. For funded projects, we offer management support, quality monitoring, partner coordination, technical reporting, dissemination and documentation of environmental results.',
-      bg: 'Подкрепяме кандидатите при дефиниране на екологичния проблем, установяване на базови условия и превръщане на техническите решения в ясен план за изпълнение. Услугите ни могат да включват анализ на поканата, развитие на концепция, изграждане на консорциум, работно планиране, индикатори, управление на рискове, бюджетиране, писане на предложение, дейности за възпроизвеждане, политическа стойност, участие на заинтересовани страни, комуникация и дългосрочно продължаване на резултатите. За финансирани проекти предлагаме управленска подкрепа, мониторинг на качеството, партньорска координация, техническо отчитане, разпространение и документиране на екологичните резултати.',
+      en: "V&A Projects supports organisations in developing competitive LIFE proposals focused on nature and biodiversity, the circular economy, climate change mitigation and adaptation, and the clean energy transition. Particular attention is given to demonstrating environmental benefits, replicating successful solutions and ensuring the long-term sustainability of project results.\n\nPlanning a LIFE project? Get in touch to discuss your idea and explore funding opportunities.",
+      bg: "Проектите по LIFE изискват комбинация от иновативна екологична идея и конкретни решения с доказуеми ползи за природата и климата. V&A Projects подпомага организациите при разработването на проектни предложения в областта на опазването на биологичното разнообразие, кръговата икономика, адаптацията към климатичните промени и прехода към чиста енергия. Особено внимание отделяме на доказването на екологичните ползи, възможностите за прилагане на решенията на други места и запазването на резултатите след приключването на финансирането.\n\nИмате идея за опазване на природата, устойчиво управление на ресурсите или действия в областта на климата? Свържете се с нас, за да обсъдим възможностите за финансиране по LIFE.",
     },
   },
 ];

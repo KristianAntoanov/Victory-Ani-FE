@@ -77,13 +77,18 @@ export default function ConsultationModal() {
   if (!open) return null;
 
   return (
-    <div className="consult-modal-overlay" role="presentation" onMouseDown={close}>
+    <div
+      className="consult-modal-overlay"
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) close();
+      }}
+    >
       <div
         className="consult-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="consult-modal-title"
-        onMouseDown={(event) => event.stopPropagation()}
       >
         <div className="consult-modal__head">
           <span className="consult-modal__icon">
@@ -97,6 +102,12 @@ export default function ConsultationModal() {
             type="button"
             className="consult-modal__close"
             aria-label={t('nav.closeMenu')}
+            onPointerDown={(event) => {
+              if (event.pointerType === 'mouse' || !event.isPrimary || event.button !== 0) return;
+              // Close before keyboard dismissal can move the button and cancel the tap's click.
+              event.preventDefault();
+              close();
+            }}
             onClick={close}
           >
             <X size={20} aria-hidden="true" />

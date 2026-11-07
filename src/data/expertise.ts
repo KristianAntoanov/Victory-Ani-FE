@@ -22,7 +22,7 @@ export const expertiseAreas: ExpertiseArea[] = [
       bg: 'Социални науки, права на човека и международно право',
     },
     text: {
-      en: 'Social sciences, human rights protection, equality, inclusion, democratic participation, international law and rights-based policy development.',
+      en: 'Social sciences, human rights protection, equality, inclusion, democratic participation, international law and policy development.',
       bg: 'Социални науки, защита на правата на човека, равенство и социално приобщаване, демократично участие, международно право и политики в областта на интеграцията.',
     },
     icon: Scale,
@@ -30,14 +30,14 @@ export const expertiseAreas: ExpertiseArea[] = [
   {
     title: { en: 'Maritime & blue economy', bg: 'Морско дело и синя икономика' },
     text: {
-      en: 'Maritime education, nautical science, marine innovation, blue growth, safety at sea, maritime sustainability and projects linked to the future of the maritime sector.',
+      en: 'Nautical science, marine innovation, blue growth, safety at sea, maritime sustainability and projects linked to the future of the maritime sector.',
       bg: 'Морско дело, морски технологии и иновации, безопасност на корабоплаването, устойчиво използване на морските ресурси и развитие на синята икономика.',
     },
     icon: Anchor,
   },
   {
     title: {
-      en: 'Engineering, AI & digital technologies',
+      en: 'AI & digital technologies',
       bg: 'Изкуствен интелект и цифрови технологии',
     },
     text: {
