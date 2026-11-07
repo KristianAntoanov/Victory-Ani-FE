@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { X, CalendarDays } from 'lucide-react';
 import Logo from '@/components/common/Logo';
 import LanguageToggle from '@/components/common/LanguageToggle';
@@ -16,9 +16,14 @@ const MENU_ANIMATION_MS = 260;
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const { t } = useLanguage();
+  const { pathname } = useLocation();
   const [visible, setVisible] = useState(open);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const currentPathnameRef = useRef(pathname);
+  const menuPathnameRef = useRef(pathname);
+
+  currentPathnameRef.current = pathname;
 
   useEffect(() => {
     if (open) {
@@ -33,6 +38,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   useEffect(() => {
     if (!visible || !open) return;
     const scrollY = window.scrollY;
+    menuPathnameRef.current = pathname;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -68,10 +74,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
-      window.scrollTo(0, scrollY);
+      if (currentPathnameRef.current === menuPathnameRef.current) {
+        window.scrollTo(0, scrollY);
+      }
       window.removeEventListener('keydown', onKey);
     };
-  }, [visible, open, onClose]);
+  }, [visible, open, onClose, pathname]);
 
   if (!visible) return null;
 
