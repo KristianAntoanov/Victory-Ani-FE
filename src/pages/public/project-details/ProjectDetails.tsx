@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import EmptyState from '@/components/common/EmptyState';
 import ErrorState from '@/components/common/ErrorState';
@@ -11,6 +11,20 @@ import { projectService } from '@/services/projectService';
 import type { Project } from '@/types';
 import { getProjectContent } from '@/utils/localizedContent';
 import styles from './ProjectDetails.module.css';
+
+const PROJECT_PREVIEW_STORAGE_PREFIX = 'va_project_preview_';
+
+function readPreviewProject(id: string, slug: string): Project | undefined {
+  const raw = window.localStorage.getItem(`${PROJECT_PREVIEW_STORAGE_PREFIX}${id}`);
+  if (!raw) return undefined;
+
+  try {
+    const preview = JSON.parse(raw) as Project;
+    return preview.id === id && preview.slug === slug ? preview : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 interface ContentListProps {
   title: string;
@@ -33,8 +47,10 @@ function ContentList({ title, items }: ContentListProps) {
 }
 
 export default function ProjectDetails() {
+  const { search } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const { lang, t } = useLanguage();
+  const previewId = new URLSearchParams(search).get('preview');
   const [project, setProject] = useState<Project | null | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
 
@@ -45,8 +61,9 @@ export default function ProjectDetails() {
     }
 
     let active = true;
-    projectService
-      .getProjectBySlug(slug)
+    const preview = previewId ? readPreviewProject(previewId, slug) : undefined;
+
+    (preview ? Promise.resolve(preview) : projectService.getProjectBySlug(slug))
       .then((loaded) => {
         if (active) setProject(loaded ?? null);
       })
@@ -59,7 +76,7 @@ export default function ProjectDetails() {
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [previewId, slug]);
 
   if (project === undefined) {
     return (

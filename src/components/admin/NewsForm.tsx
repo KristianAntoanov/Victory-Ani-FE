@@ -11,6 +11,8 @@ import { useToast } from '@/context/ToastContext';
 import type { NewsArticle, NewsArticleInput } from '@/types';
 import DatePicker from '@/components/common/DatePicker';
 
+const NEWS_PREVIEW_STORAGE_PREFIX = 'va_news_preview_';
+
 interface NewsFormProps {
   initial?: NewsArticle;
 }
@@ -38,6 +40,7 @@ export default function NewsForm({ initial }: NewsFormProps) {
     control,
     register,
     handleSubmit,
+    getValues,
     setValue,
     watch,
     formState: { errors, isSubmitting },
@@ -75,6 +78,34 @@ export default function NewsForm({ initial }: NewsFormProps) {
   const removeImage = () => {
     setValue('image', '', { shouldValidate: true });
     setImageError(null);
+  };
+
+  const handlePreview = () => {
+    if (!initial) return;
+
+    const values = getValues();
+    const previewArticle: NewsArticle = {
+      ...initial,
+      titleBg: values.titleBg,
+      titleEn: values.titleEn,
+      title: values.titleEn || values.titleBg,
+      publishDate: values.publishDate || initial.publishDate,
+      summaryBg: values.summaryBg,
+      summaryEn: values.summaryEn,
+      shortDescription: values.summaryEn || values.summaryBg,
+      contentBg: values.contentBg,
+      contentEn: values.contentEn,
+      content: values.contentEn || values.contentBg,
+      image: values.image ?? '',
+      imageAlt: values.titleEn || values.titleBg,
+      published: values.published,
+      updatedAt: new Date().toISOString(),
+    };
+
+    window.localStorage.setItem(
+      `${NEWS_PREVIEW_STORAGE_PREFIX}${initial.id}`,
+      JSON.stringify(previewArticle),
+    );
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -271,9 +302,10 @@ export default function NewsForm({ initial }: NewsFormProps) {
         </button>
         {initial ? (
           <a
-            href={ROUTES.newsDetails(initial.slug)}
+            href={`${ROUTES.newsDetails(initial.slug)}?preview=${encodeURIComponent(initial.id)}`}
             target="_blank"
             rel="noreferrer"
+            onClick={handlePreview}
             className="btn btn--secondary"
             data-testid="news-preview-link"
           >
