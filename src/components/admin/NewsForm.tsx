@@ -21,6 +21,7 @@ export default function NewsForm({ initial }: NewsFormProps) {
   const navigate = useNavigate();
   const toast = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
+  const previewIdRef = useRef(initial?.id ?? `draft-${Date.now()}`);
   const [imageError, setImageError] = useState<string | null>(null);
 
   const schema = z.object({
@@ -81,15 +82,18 @@ export default function NewsForm({ initial }: NewsFormProps) {
   };
 
   const handlePreview = () => {
-    if (!initial) return;
-
     const values = getValues();
+    const previewId = previewIdRef.current;
+    const previewSlug = initial?.slug ?? `preview-${previewId}`;
+    const now = new Date().toISOString();
     const previewArticle: NewsArticle = {
       ...initial,
+      id: previewId,
       titleBg: values.titleBg,
       titleEn: values.titleEn,
       title: values.titleEn || values.titleBg,
-      publishDate: values.publishDate || initial.publishDate,
+      slug: previewSlug,
+      publishDate: values.publishDate || initial?.publishDate || now.slice(0, 10),
       summaryBg: values.summaryBg,
       summaryEn: values.summaryEn,
       shortDescription: values.summaryEn || values.summaryBg,
@@ -98,12 +102,14 @@ export default function NewsForm({ initial }: NewsFormProps) {
       content: values.contentEn || values.contentBg,
       image: values.image ?? '',
       imageAlt: values.titleEn || values.titleBg,
+      author: initial?.author ?? 'V&A Projects',
       published: values.published,
-      updatedAt: new Date().toISOString(),
+      createdAt: initial?.createdAt ?? now,
+      updatedAt: now,
     };
 
     window.localStorage.setItem(
-      `${NEWS_PREVIEW_STORAGE_PREFIX}${initial.id}`,
+      `${NEWS_PREVIEW_STORAGE_PREFIX}${previewId}`,
       JSON.stringify(previewArticle),
     );
   };
@@ -300,18 +306,16 @@ export default function NewsForm({ initial }: NewsFormProps) {
         >
           Cancel
         </button>
-        {initial ? (
-          <a
-            href={`${ROUTES.newsDetails(initial.slug)}?preview=${encodeURIComponent(initial.id)}`}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handlePreview}
-            className="btn btn--secondary"
-            data-testid="news-preview-link"
-          >
-            <Eye size={16} /> <span>Preview</span>
-          </a>
-        ) : null}
+        <a
+          href={`${ROUTES.newsDetails(initial?.slug ?? `preview-${previewIdRef.current}`)}?preview=${encodeURIComponent(previewIdRef.current)}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={handlePreview}
+          className="btn btn--secondary"
+          data-testid="news-preview-link"
+        >
+          <Eye size={16} /> <span>Preview</span>
+        </a>
       </div>
     </form>
   );

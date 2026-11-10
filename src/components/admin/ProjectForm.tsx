@@ -45,6 +45,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   const navigate = useNavigate();
   const toast = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
+  const previewIdRef = useRef(initial?.id ?? `draft-${Date.now()}`);
   const [imageError, setImageError] = useState<string | null>(null);
 
   const {
@@ -96,12 +97,15 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   };
 
   const handlePreview = () => {
-    if (!initial) return;
-
     const values = getValues();
     const selectedProgramme = PROGRAMMES.find((item) => item.value === values.programme) ?? PROGRAMMES[0];
+    const previewId = previewIdRef.current;
+    const previewSlug = initial?.slug ?? `preview-${previewId}`;
+    const now = new Date().toISOString();
     const previewProject: Project = {
       ...initial,
+      id: previewId,
+      slug: previewSlug,
       titleBg: values.titleBg,
       titleEn: values.titleEn,
       title: values.titleEn || values.titleBg,
@@ -122,12 +126,14 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
       mainActivitiesBg: values.mainActivitiesBg,
       mainActivitiesEn: values.mainActivitiesEn,
       mainActivities: values.mainActivitiesEn || values.mainActivitiesBg,
+      isFeatured: initial?.isFeatured ?? false,
       isActive: values.isActive,
-      updatedOn: new Date().toISOString(),
+      createdOn: initial?.createdOn ?? now,
+      updatedOn: now,
     };
 
     window.localStorage.setItem(
-      `${PROJECT_PREVIEW_STORAGE_PREFIX}${initial.id}`,
+      `${PROJECT_PREVIEW_STORAGE_PREFIX}${previewId}`,
       JSON.stringify(previewProject),
     );
   };
@@ -306,17 +312,15 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
         <button type="button" className="btn btn--ghost" onClick={() => navigate(ROUTES.admin.projects)}>
           Cancel
         </button>
-        {initial ? (
-          <a
-            href={`${ROUTES.projectDetails(initial.slug)}?preview=${encodeURIComponent(initial.id)}`}
-            target="_blank"
-            rel="noreferrer"
-            onClick={handlePreview}
-            className="btn btn--secondary"
-          >
-            <Eye size={16} /> <span>Preview</span>
-          </a>
-        ) : null}
+        <a
+          href={`${ROUTES.projectDetails(initial?.slug ?? `preview-${previewIdRef.current}`)}?preview=${encodeURIComponent(previewIdRef.current)}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={handlePreview}
+          className="btn btn--secondary"
+        >
+          <Eye size={16} /> <span>Preview</span>
+        </a>
       </div>
     </form>
   );
