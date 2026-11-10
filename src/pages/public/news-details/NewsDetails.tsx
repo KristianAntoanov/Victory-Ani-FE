@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { CalendarDays, ChevronRight, Clipboard, Clock, UserRound } from 'lucide-react';
 import Seo from '@/components/common/Seo';
 import NewsCard from '@/components/common/NewsCard';
@@ -15,9 +15,25 @@ import { getNewsContent } from '@/utils/localizedContent';
 import type { NewsArticle } from '@/types';
 import styles from './NewsDetails.module.css';
 
+const NEWS_PREVIEW_STORAGE_PREFIX = 'va_news_preview_';
+
+function readPreviewArticle(id: string, slug: string): NewsArticle | undefined {
+  const raw = window.localStorage.getItem(`${NEWS_PREVIEW_STORAGE_PREFIX}${id}`);
+  if (!raw) return undefined;
+
+  try {
+    const preview = JSON.parse(raw) as NewsArticle;
+    return preview.id === id && preview.slug === slug ? preview : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export default function NewsDetails() {
+  const { search } = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const { lang, t } = useLanguage();
+  const previewId = new URLSearchParams(search).get('preview');
   const [article, setArticle] = useState<NewsArticle | null | undefined>(undefined);
   const [related, setRelated] = useState<NewsArticle[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -32,13 +48,14 @@ export default function NewsDetails() {
 
     async function load() {
       try {
+        const preview = previewId ? readPreviewArticle(previewId, articleSlug) : undefined;
         const [found, allPublished] = await Promise.all([
-          newsService.getNewsBySlug(articleSlug),
+          preview ?? newsService.getNewsBySlug(articleSlug),
           newsService.getPublishedNews(),
         ]);
         if (!active) return;
 
-        if (found && found.published) {
+        if (found && (found.published || preview)) {
           setArticle(found);
           setRelated(allPublished.filter((a) => a.id !== found.id).slice(0, 2));
         } else {
@@ -55,7 +72,7 @@ export default function NewsDetails() {
     return () => {
       active = false;
     };
-  }, [slug]);
+  }, [previewId, slug]);
 
   useEffect(() => {
     const updateProgress = () => {

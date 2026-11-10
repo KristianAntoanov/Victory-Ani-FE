@@ -21,6 +21,8 @@ const PROGRAMMES: Array<{ value: ProgrammeKey; labelBg: string; labelEn: string 
   { value: 'cerv', labelBg: 'CERV', labelEn: 'CERV' },
 ];
 
+const PROJECT_PREVIEW_STORAGE_PREFIX = 'va_project_preview_';
+
 const schema = z.object({
   titleBg: z.string().min(1, 'Bulgarian title is required'),
   titleEn: z.string().min(1, 'English title is required'),
@@ -48,6 +50,7 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   const {
     register,
     handleSubmit,
+    getValues,
     setValue,
     watch,
     formState: { errors, isSubmitting },
@@ -90,6 +93,43 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   const removeImage = () => {
     setValue('image', initial?.image ?? '', { shouldValidate: true });
     setImageError(null);
+  };
+
+  const handlePreview = () => {
+    if (!initial) return;
+
+    const values = getValues();
+    const selectedProgramme = PROGRAMMES.find((item) => item.value === values.programme) ?? PROGRAMMES[0];
+    const previewProject: Project = {
+      ...initial,
+      titleBg: values.titleBg,
+      titleEn: values.titleEn,
+      title: values.titleEn || values.titleBg,
+      programme: values.programme,
+      programmeBg: selectedProgramme.labelBg,
+      programmeEn: selectedProgramme.labelEn,
+      programmeLabel: selectedProgramme.labelEn,
+      themeBg: values.themeBg,
+      themeEn: values.themeEn,
+      theme: values.themeEn || values.themeBg,
+      image: values.image,
+      durationBg: values.durationBg,
+      durationEn: values.durationEn,
+      duration: values.durationEn || values.durationBg,
+      countriesBg: values.countriesBg,
+      countriesEn: values.countriesEn,
+      countries: values.countriesEn || values.countriesBg,
+      mainActivitiesBg: values.mainActivitiesBg,
+      mainActivitiesEn: values.mainActivitiesEn,
+      mainActivities: values.mainActivitiesEn || values.mainActivitiesBg,
+      isActive: values.isActive,
+      updatedOn: new Date().toISOString(),
+    };
+
+    window.localStorage.setItem(
+      `${PROJECT_PREVIEW_STORAGE_PREFIX}${initial.id}`,
+      JSON.stringify(previewProject),
+    );
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -267,7 +307,13 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
           Cancel
         </button>
         {initial ? (
-          <a href={ROUTES.projectDetails(initial.slug)} target="_blank" rel="noreferrer" className="btn btn--secondary">
+          <a
+            href={`${ROUTES.projectDetails(initial.slug)}?preview=${encodeURIComponent(initial.id)}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={handlePreview}
+            className="btn btn--secondary"
+          >
             <Eye size={16} /> <span>Preview</span>
           </a>
         ) : null}
