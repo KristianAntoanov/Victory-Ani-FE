@@ -21,6 +21,8 @@ const PROGRAMMES: Array<{ value: ProgrammeKey; labelBg: string; labelEn: string 
   { value: 'cerv', labelBg: 'CERV', labelEn: 'CERV' },
 ];
 
+const PROJECT_PREVIEW_STORAGE_PREFIX = 'va_project_preview_';
+
 const schema = z.object({
   titleBg: z.string().min(1, 'Bulgarian title is required'),
   titleEn: z.string().min(1, 'English title is required'),
@@ -43,11 +45,13 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   const navigate = useNavigate();
   const toast = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
+  const previewIdRef = useRef(initial?.id ?? `draft-${Date.now()}`);
   const [imageError, setImageError] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
+    getValues,
     setValue,
     watch,
     formState: { errors, isSubmitting },
@@ -90,6 +94,48 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
   const removeImage = () => {
     setValue('image', initial?.image ?? '', { shouldValidate: true });
     setImageError(null);
+  };
+
+  const handlePreview = () => {
+    const values = getValues();
+    const selectedProgramme = PROGRAMMES.find((item) => item.value === values.programme) ?? PROGRAMMES[0];
+    const previewId = previewIdRef.current;
+    const previewSlug = initial?.slug ?? `preview-${previewId}`;
+    const now = new Date().toISOString();
+    const previewProject: Project = {
+      ...initial,
+      id: previewId,
+      slug: previewSlug,
+      titleBg: values.titleBg,
+      titleEn: values.titleEn,
+      title: values.titleEn || values.titleBg,
+      programme: values.programme,
+      programmeBg: selectedProgramme.labelBg,
+      programmeEn: selectedProgramme.labelEn,
+      programmeLabel: selectedProgramme.labelEn,
+      themeBg: values.themeBg,
+      themeEn: values.themeEn,
+      theme: values.themeEn || values.themeBg,
+      image: values.image,
+      durationBg: values.durationBg,
+      durationEn: values.durationEn,
+      duration: values.durationEn || values.durationBg,
+      countriesBg: values.countriesBg,
+      countriesEn: values.countriesEn,
+      countries: values.countriesEn || values.countriesBg,
+      mainActivitiesBg: values.mainActivitiesBg,
+      mainActivitiesEn: values.mainActivitiesEn,
+      mainActivities: values.mainActivitiesEn || values.mainActivitiesBg,
+      isFeatured: initial?.isFeatured ?? false,
+      isActive: values.isActive,
+      createdOn: initial?.createdOn ?? now,
+      updatedOn: now,
+    };
+
+    window.localStorage.setItem(
+      `${PROJECT_PREVIEW_STORAGE_PREFIX}${previewId}`,
+      JSON.stringify(previewProject),
+    );
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -266,11 +312,15 @@ export default function ProjectForm({ initial }: ProjectFormProps) {
         <button type="button" className="btn btn--ghost" onClick={() => navigate(ROUTES.admin.projects)}>
           Cancel
         </button>
-        {initial ? (
-          <a href={ROUTES.projectDetails(initial.slug)} target="_blank" rel="noreferrer" className="btn btn--secondary">
-            <Eye size={16} /> <span>Preview</span>
-          </a>
-        ) : null}
+        <a
+          href={`${ROUTES.projectDetails(initial?.slug ?? `preview-${previewIdRef.current}`)}?preview=${encodeURIComponent(previewIdRef.current)}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={handlePreview}
+          className="btn btn--secondary"
+        >
+          <Eye size={16} /> <span>Preview</span>
+        </a>
       </div>
     </form>
   );
