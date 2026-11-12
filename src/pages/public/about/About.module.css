@@ -42,7 +42,7 @@
 .heroTitle {
   margin: 0;
   color: var(--color-green);
-  font-size: clamp(3.15rem, 6vw, 5.9rem);
+  font-size: calc(clamp(3.15rem, 6vw, 5.9rem) * var(--font-scale));
   line-height: 1;
 }
 
@@ -77,7 +77,7 @@
   max-width: 54rem;
   margin-top: clamp(1rem, 2vw, 1.5rem);
   color: var(--color-text);
-  font-size: clamp(1.12rem, 1rem + 0.38vw, 1.34rem);
+  font-size: calc(clamp(1.12rem, 1rem + 0.38vw, 1.34rem) * var(--font-scale));
   font-weight: 650;
   line-height: 1.62;
 }
@@ -97,7 +97,7 @@
 .introCopy h2,
 .sectionHeading h2 {
   color: var(--color-bordo);
-  font-size: clamp(2.25rem, 3.5vw, 3.9rem);
+  font-size: calc(clamp(2.25rem, 3.5vw, 3.9rem) * var(--font-scale));
 }
 
 .introCopy :global(.dash),
@@ -108,7 +108,7 @@
 .mobileCopy > p {
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: clamp(1.08rem, 1rem + 0.24vw, 1.24rem);
+  font-size: calc(clamp(1.08rem, 1rem + 0.24vw, 1.24rem) * var(--font-scale));
   font-weight: 620;
   line-height: 1.68;
   text-align: justify;
@@ -158,7 +158,7 @@
 .programmeTitle {
   color: var(--color-green);
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 1.35vw, 1.7rem);
+  font-size: calc(clamp(1.35rem, 1.35vw, 1.7rem) * var(--font-scale));
   font-weight: 700;
   line-height: 1.02;
 }
@@ -182,7 +182,7 @@
   max-width: 1040px;
   margin: 0 auto clamp(1rem, 2vw, 1.6rem);
   color: var(--color-green);
-  font-size: clamp(2.25rem, 3.5vw, 3.9rem);
+  font-size: calc(clamp(2.25rem, 3.5vw, 3.9rem) * var(--font-scale));
 }
 
 .foundersGrid {
@@ -232,13 +232,13 @@
 
 .founderContent h3 {
   color: var(--color-bordo);
-  font-size: clamp(1.45rem, 1.7vw, 1.9rem);
+  font-size: calc(clamp(1.45rem, 1.7vw, 1.9rem) * var(--font-scale));
 }
 
 .founderContent header p {
   margin-top: 0.2rem;
   color: var(--color-text-soft);
-  font-size: 0.82rem;
+  font-size: calc(0.82rem * var(--font-scale));
   font-weight: 800;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -267,7 +267,7 @@
 
 .founderDetails > p {
   color: var(--color-text);
-  font-size: clamp(0.98rem, 0.94rem + 0.14vw, 1.08rem);
+  font-size: calc(clamp(0.98rem, 0.94rem + 0.14vw, 1.08rem) * var(--font-scale));
   font-weight: 600;
   line-height: 1.62;
   text-align: justify;
@@ -280,7 +280,7 @@
   border-left: 3px solid var(--color-bordo);
   color: var(--color-bordo);
   font-family: var(--font-serif);
-  font-size: clamp(1rem, 0.98rem + 0.16vw, 1.16rem);
+  font-size: calc(clamp(1rem, 0.98rem + 0.16vw, 1.16rem) * var(--font-scale));
   font-style: italic;
   line-height: 1.45;
 }
@@ -398,7 +398,7 @@
   background: var(--color-bordo);
   color: #fff;
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: calc(1rem * var(--font-scale));
   font-weight: 700;
   transition:
     background var(--t-base),
@@ -414,7 +414,7 @@
 .processTabs button strong {
   color: inherit;
   font-family: var(--font-serif);
-  font-size: clamp(1.08rem, 1.2vw, 1.28rem);
+  font-size: calc(clamp(1.08rem, 1.2vw, 1.28rem) * var(--font-scale));
   line-height: 1.15;
   overflow-wrap: anywhere;
 }
@@ -427,7 +427,7 @@
 .processTextPanel p {
   margin: 0;
   color: var(--color-text);
-  font-size: clamp(1.08rem, 1rem + 0.24vw, 1.24rem);
+  font-size: calc(clamp(1.08rem, 1rem + 0.24vw, 1.24rem) * var(--font-scale));
   font-weight: 620;
   line-height: 1.55;
   text-align: justify;
@@ -525,7 +525,7 @@
   }
 
   .founderContent h3 {
-    font-size: 1.45rem;
+    font-size: calc(1.45rem * var(--font-scale));
   }
 
   .processTabs {
@@ -541,11 +541,11 @@
   .processTabs button > span {
     width: 36px;
     height: 36px;
-    font-size: 0.9rem;
+    font-size: calc(0.9rem * var(--font-scale));
   }
 
   .processTabs button strong {
-    font-size: 1.04rem;
+    font-size: calc(1.04rem * var(--font-scale));
   }
 
   .processTextPanel {
@@ -553,7 +553,7 @@
   }
 
   .processTextPanel p {
-    font-size: 1.06rem;
+    font-size: calc(1.06rem * var(--font-scale));
   }
 }
 
@@ -571,13 +571,13 @@
 
   .heroTitle {
     max-width: 100%;
-    font-size: clamp(2.35rem, 11vw, 3.5rem);
+    font-size: calc(clamp(2.35rem, 11vw, 3.5rem) * var(--font-scale));
     overflow-wrap: anywhere;
   }
 
   .heroLead,
   .mobileCopy > p {
-    font-size: 1.04rem;
+    font-size: calc(1.04rem * var(--font-scale));
   }
 
   .introCopy {

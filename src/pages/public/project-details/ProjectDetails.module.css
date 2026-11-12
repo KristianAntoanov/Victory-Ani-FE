@@ -14,7 +14,7 @@
   align-items: center;
   gap: var(--space-2);
   color: var(--color-bordo);
-  font-size: 0.92rem;
+  font-size: calc(0.92rem * var(--font-scale));
   font-weight: 800;
   transition: gap var(--t-base), color var(--t-base);
 }
@@ -33,7 +33,7 @@
   max-width: 62rem;
   margin-top: var(--space-3);
   color: var(--color-bordo);
-  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  font-size: calc(clamp(2.5rem, 5.5vw, 5rem) * var(--font-scale));
   line-height: 0.98;
   overflow-wrap: anywhere;
 }
@@ -42,7 +42,7 @@
   max-width: 54rem;
   margin-top: clamp(1rem, 2vw, 1.5rem);
   color: var(--color-text);
-  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.22rem);
+  font-size: calc(clamp(1.05rem, 1rem + 0.22vw, 1.22rem) * var(--font-scale));
   font-weight: 600;
   line-height: 1.65;
 }
@@ -76,7 +76,7 @@
 
 .metadata dt {
   color: var(--color-text-soft);
-  font-size: 0.78rem;
+  font-size: calc(0.78rem * var(--font-scale));
   font-weight: 850;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -97,13 +97,13 @@
 
 .contentSection h2 {
   color: var(--color-bordo);
-  font-size: clamp(1.75rem, 2.8vw, 2.7rem);
+  font-size: calc(clamp(1.75rem, 2.8vw, 2.7rem) * var(--font-scale));
 }
 
 .contentSection p,
 .contentSection li {
   color: var(--color-text);
-  font-size: clamp(1rem, 0.97rem + 0.14vw, 1.1rem);
+  font-size: calc(clamp(1rem, 0.97rem + 0.14vw, 1.1rem) * var(--font-scale));
   font-weight: 590;
   line-height: 1.72;
 }
@@ -148,11 +148,11 @@
   }
 
   .header h1 {
-    font-size: clamp(2.15rem, 11vw, 3.1rem);
+    font-size: calc(clamp(2.15rem, 11vw, 3.1rem) * var(--font-scale));
   }
 
   .header > p {
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
   }
 
   .image {
@@ -165,7 +165,7 @@
   }
 
   .contentSection h2 {
-    font-size: 1.75rem;
+    font-size: calc(1.75rem * var(--font-scale));
   }
 
   .contentSection p,

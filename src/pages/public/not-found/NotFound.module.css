@@ -7,7 +7,7 @@
 
 .code {
   color: var(--color-bordo);
-  font-size: clamp(5rem, 14vw, 11rem);
+  font-size: calc(clamp(5rem, 14vw, 11rem) * var(--font-scale));
   line-height: 0.9;
 }
 

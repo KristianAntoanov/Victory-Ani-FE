@@ -40,7 +40,7 @@
   max-width: 46rem;
   margin-top: 0;
   color: var(--color-green);
-  font-size: clamp(2.8rem, 5vw, 4.85rem);
+  font-size: calc(clamp(2.8rem, 5vw, 4.85rem) * var(--font-scale));
   line-height: 0.96;
 }
 
@@ -62,7 +62,7 @@
   max-width: 38rem;
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.2rem);
+  font-size: calc(clamp(1.05rem, 1rem + 0.22vw, 1.2rem) * var(--font-scale));
   font-weight: 650;
   line-height: 1.58;
 }
@@ -98,13 +98,13 @@
 .heroSummary strong {
   color: var(--color-bordo);
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  font-size: calc(clamp(2.4rem, 3.4vw, 3.6rem) * var(--font-scale));
   line-height: 0.86;
 }
 
 .heroSummary span {
   color: var(--color-text);
-  font-size: 0.86rem;
+  font-size: calc(0.86rem * var(--font-scale));
   font-weight: 850;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -163,13 +163,13 @@
 .featureContent h2 {
   max-width: 48rem;
   color: var(--color-bordo);
-  font-size: clamp(2rem, 3vw, 3.35rem);
+  font-size: calc(clamp(2rem, 3vw, 3.35rem) * var(--font-scale));
   line-height: 1.02;
 }
 
 .featureContent p {
   color: var(--color-text);
-  font-size: clamp(1.04rem, 1rem + 0.16vw, 1.16rem);
+  font-size: calc(clamp(1.04rem, 1rem + 0.16vw, 1.16rem) * var(--font-scale));
   font-weight: 620;
   line-height: 1.6;
   text-align: justify;
@@ -191,7 +191,7 @@
   border-radius: var(--radius-sm);
   background: rgba(255, 253, 252, 0.76);
   color: var(--color-text);
-  font-size: 0.92rem;
+  font-size: calc(0.92rem * var(--font-scale));
   font-weight: 750;
   line-height: 1.3;
 }
@@ -209,7 +209,7 @@
 
 .featureActions :global(.btn) {
   padding: 0.78rem 1.08rem;
-  font-size: 0.86rem;
+  font-size: calc(0.86rem * var(--font-scale));
 }
 
 .projectsHeader {
@@ -224,14 +224,14 @@
   max-width: 34rem;
   margin-top: var(--space-3);
   color: var(--color-bordo);
-  font-size: clamp(1.8rem, 2.45vw, 2.7rem);
+  font-size: calc(clamp(1.8rem, 2.45vw, 2.7rem) * var(--font-scale));
   line-height: 1.04;
 }
 
 .projectsHeader p {
   max-width: 52rem;
   color: var(--color-text);
-  font-size: clamp(1.02rem, 0.98rem + 0.14vw, 1.12rem);
+  font-size: calc(clamp(1.02rem, 0.98rem + 0.14vw, 1.12rem) * var(--font-scale));
   font-weight: 650;
   line-height: 1.54;
 }
@@ -271,13 +271,13 @@
 
 .projectsGrid :global(.project-mini__title) {
   color: var(--color-bordo);
-  font-size: clamp(1.22rem, 1.38vw, 1.55rem);
+  font-size: calc(clamp(1.22rem, 1.38vw, 1.55rem) * var(--font-scale));
   line-height: 1.08;
 }
 
 .projectsGrid :global(.service-card__desc) {
   color: var(--color-text);
-  font-size: 0.95rem;
+  font-size: calc(0.95rem * var(--font-scale));
   font-weight: 620;
   line-height: 1.54;
 }
@@ -305,7 +305,7 @@
   max-width: 38rem;
   margin: 0;
   color: var(--color-bordo);
-  font-size: clamp(1.9rem, 2.65vw, 3rem);
+  font-size: calc(clamp(1.9rem, 2.65vw, 3rem) * var(--font-scale));
   line-height: 1.04;
 }
 
@@ -370,7 +370,7 @@
 
 .testimonialCard p {
   color: #fff;
-  font-size: clamp(0.98rem, 0.95rem + 0.14vw, 1.08rem);
+  font-size: calc(clamp(0.98rem, 0.95rem + 0.14vw, 1.08rem) * var(--font-scale));
   font-weight: 620;
   line-height: 1.62;
 }
@@ -383,14 +383,14 @@
 
 .testimonialCard strong {
   color: #fff;
-  font-size: 1.08rem;
+  font-size: calc(1.08rem * var(--font-scale));
   line-height: 1.2;
 }
 
 .testimonialCard span,
 .testimonialCard small {
   color: rgba(255, 255, 255, 0.68);
-  font-size: 0.9rem;
+  font-size: calc(0.9rem * var(--font-scale));
   font-weight: 700;
   line-height: 1.35;
 }
@@ -421,14 +421,14 @@
   max-width: 38rem;
   margin-top: var(--space-2);
   color: var(--color-bordo);
-  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  font-size: calc(clamp(1.5rem, 2vw, 2.2rem) * var(--font-scale));
   line-height: 1.08;
 }
 
 .addPanel p {
   margin-top: var(--space-2);
   color: var(--color-text);
-  font-size: 1rem;
+  font-size: calc(1rem * var(--font-scale));
   font-weight: 620;
   line-height: 1.5;
 }
@@ -549,7 +549,7 @@
 
   .heroTitle {
     max-width: 21rem;
-    font-size: clamp(2rem, 10.5vw, 2.55rem);
+    font-size: calc(clamp(2rem, 10.5vw, 2.55rem) * var(--font-scale));
     line-height: 1;
     overflow-wrap: anywhere;
   }
@@ -557,7 +557,7 @@
   .heroLead {
     width: 100%;
     max-width: 21rem;
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     line-height: 1.5;
     overflow-wrap: break-word;
   }
@@ -578,11 +578,11 @@
   }
 
   .heroSummary strong {
-    font-size: clamp(1.65rem, 9vw, 2.1rem);
+    font-size: calc(clamp(1.65rem, 9vw, 2.1rem) * var(--font-scale));
   }
 
   .heroSummary span {
-    font-size: clamp(0.62rem, 2.8vw, 0.76rem);
+    font-size: calc(clamp(0.62rem, 2.8vw, 0.76rem) * var(--font-scale));
     letter-spacing: 0.02em;
     overflow-wrap: anywhere;
   }
@@ -634,7 +634,7 @@
   }
 
   .featureContent h2 {
-    font-size: clamp(1.65rem, 8vw, 2.05rem);
+    font-size: calc(clamp(1.65rem, 8vw, 2.05rem) * var(--font-scale));
     line-height: 1.06;
   }
 
@@ -681,7 +681,7 @@
 
   .projectsHeader h2,
   .testimonialsHeader h2 {
-    font-size: 1.62rem;
+    font-size: calc(1.62rem * var(--font-scale));
     line-height: 1.08;
   }
 
@@ -718,7 +718,7 @@
   }
 
   .projectsGrid :global(.project-mini__title) {
-    font-size: 1.28rem;
+    font-size: calc(1.28rem * var(--font-scale));
     line-height: 1.12;
   }
 

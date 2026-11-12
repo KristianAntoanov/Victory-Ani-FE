@@ -12,7 +12,7 @@
 
 .section h2 {
   color: var(--color-bordo);
-  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  font-size: calc(clamp(2rem, 3.2vw, 3.4rem) * var(--font-scale));
 }
 
 .section :global(.dash) {

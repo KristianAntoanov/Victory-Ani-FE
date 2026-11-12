@@ -20,7 +20,7 @@ export default function AdminSidebar({ open, onNavigate }: AdminSidebarProps) {
   return (
     <aside className={`admin-sidebar${open ? ' is-open' : ''}`} data-testid="admin-sidebar">
       <div className="admin-sidebar__logo">
-        <span style={{ border: '2px solid #fff', borderRadius: 4, padding: '2px 6px', fontSize: '1rem' }}>
+        <span style={{ border: '2px solid #fff', borderRadius: 4, padding: '2px 6px', fontSize: 'calc(1rem * var(--font-scale))' }}>
           V&amp;A
         </span>
         <span>Admin</span>

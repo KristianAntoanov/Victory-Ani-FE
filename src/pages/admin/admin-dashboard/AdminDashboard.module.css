@@ -28,7 +28,7 @@
 
 .panelSwitch {
   padding: 0.72rem 1rem;
-  font-size: 0.72rem;
+  font-size: calc(0.72rem * var(--font-scale));
 }
 
 .panelFooter {
