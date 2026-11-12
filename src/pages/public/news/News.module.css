@@ -37,7 +37,7 @@
   max-width: 30rem;
   margin-top: 0;
   color: var(--color-green);
-  font-size: clamp(3.2rem, 5.4vw, 5rem);
+  font-size: calc(clamp(3.2rem, 5.4vw, 5rem) * var(--font-scale));
   line-height: 0.95;
 }
 
@@ -54,7 +54,7 @@
   max-width: 30rem;
   margin-top: var(--space-4);
   color: var(--color-text);
-  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.2rem);
+  font-size: calc(clamp(1.05rem, 1rem + 0.22vw, 1.2rem) * var(--font-scale));
   font-weight: 600;
   line-height: 1.55;
 }
@@ -112,31 +112,31 @@
 .articlesGrid :global(.featured-news__meta) {
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.86rem;
+  font-size: calc(0.86rem * var(--font-scale));
   line-height: 1.25;
 }
 
 .articlesGrid :global(.news-tag) {
   color: var(--color-bordo);
-  font-size: 0.82rem;
+  font-size: calc(0.82rem * var(--font-scale));
   letter-spacing: 0.08em;
 }
 
 .articlesGrid :global(.news-date) {
   color: var(--color-text-soft);
-  font-size: 0.86rem;
+  font-size: calc(0.86rem * var(--font-scale));
   font-weight: 600;
 }
 
 .articlesGrid :global(.news-card__title) {
   color: var(--color-bordo);
-  font-size: clamp(1rem, 1.05vw, 1.2rem);
+  font-size: calc(clamp(1rem, 1.05vw, 1.2rem) * var(--font-scale));
   line-height: 1.08;
 }
 
 .articlesGrid :global(.service-card__desc) {
   color: var(--color-text);
-  font-size: 0.92rem;
+  font-size: calc(0.92rem * var(--font-scale));
   font-weight: 600;
   line-height: 1.48;
 }
@@ -164,7 +164,7 @@
 
 .articlesActions :global(.btn) {
   padding: 0.9rem 1.65rem;
-  font-size: 0.86rem;
+  font-size: calc(0.86rem * var(--font-scale));
 }
 
 .newsletterSection {
@@ -255,14 +255,14 @@
 
   .heroTitle {
     max-width: 21rem;
-    font-size: clamp(2.25rem, 12vw, 2.85rem);
+    font-size: calc(clamp(2.25rem, 12vw, 2.85rem) * var(--font-scale));
     line-height: 1;
     overflow-wrap: anywhere;
   }
 
   .heroLead {
     max-width: 21rem;
-    font-size: 1rem;
+    font-size: calc(1rem * var(--font-scale));
     line-height: 1.5;
     overflow-wrap: anywhere;
   }
@@ -330,7 +330,7 @@
   }
 
   .articlesGrid :global(.news-card__title) {
-    font-size: 1.24rem;
+    font-size: calc(1.24rem * var(--font-scale));
     line-height: 1.12;
   }
 

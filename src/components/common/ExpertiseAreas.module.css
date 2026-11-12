@@ -24,7 +24,7 @@
   max-width: 34rem;
   margin-top: var(--space-3);
   color: var(--color-bordo);
-  font-size: clamp(2rem, 3vw, 3.25rem);
+  font-size: calc(clamp(2rem, 3vw, 3.25rem) * var(--font-scale));
   line-height: 1.02;
 }
 
@@ -38,7 +38,7 @@
   padding-left: clamp(1rem, 2vw, 1.6rem);
   border-left: 3px solid rgba(38, 112, 92, 0.38);
   color: var(--color-text);
-  font-size: clamp(1rem, 0.97rem + 0.16vw, 1.12rem);
+  font-size: calc(clamp(1rem, 0.97rem + 0.16vw, 1.12rem) * var(--font-scale));
   font-weight: 620;
   line-height: 1.6;
 }
@@ -103,7 +103,7 @@
 
 .card h3 {
   color: var(--color-bordo);
-  font-size: clamp(1.5rem, 1.38rem + 0.32vw, 1.8rem);
+  font-size: calc(clamp(1.5rem, 1.38rem + 0.32vw, 1.8rem) * var(--font-scale));
   font-weight: 700;
   line-height: 1.1;
 }
@@ -111,7 +111,7 @@
 .card p {
   margin-top: var(--space-3);
   color: var(--color-text);
-  font-size: 0.96rem;
+  font-size: calc(0.96rem * var(--font-scale));
   font-weight: 600;
   line-height: 1.5;
 }
@@ -156,7 +156,7 @@
   }
 
   .header h2 {
-    font-size: 1.9rem;
+    font-size: calc(1.9rem * var(--font-scale));
   }
 
   .grid {
